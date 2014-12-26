@@ -17,6 +17,19 @@ Amazon DynamoDB for Smalltalk supports the following data types:
 * Scalar types – Number, String.
 * Multi-valued types – String Set, Number Set.
 
+# How to install
+
+```smalltalk
+| pathToPackageDirectory  |
+"edit to match the path to your chosen package directory"
+pathToPackageDirectory := '/Users/sho/repository/aws-sdk-smalltalk/pharo-repository/'.
+Metacello new
+  baseline: 'AWS';
+  repository: 'filetree://', pathToPackageDirectory;
+  load.
+```
+
+
 #Next Support
 * DynamoDB 
 * EC2
@@ -40,12 +53,25 @@ http://qiita.com/newapplesho/items/3a4847386686e6f2f18d
 * DynamoDBの接続クライアント（低レベル API、エラー処理は未実装）
 * DynamoDBのマッパー（未完成）
 
-
 Amazon DynamoDB for Smalltalkでサポートするデータ型(supports data types)
 対応するデーター型は以下です。
 
 * スカラーデータ型 - 文字列、数値
 * 多値型 - 文字列セット、数値セット
+
+# インストール方法
+
+gitをcloneして以下のコードをWorkspaceで実行する。
+
+```smalltalk
+| pathToPackageDirectory |
+"edit to match the path to your chosen package directory"
+pathToPackageDirectory := '/Users/sho/repository/aws-sdk-smalltalk/pharo-repository/'.
+Metacello new
+  baseline: 'AWS';
+  repository: 'filetree://', pathToPackageDirectory;
+  load.
+```
 
 #今後について
 DynamoDBの改良版、S3, EC2, Elastic Transcoderを公開予定。またEC2を操作するための証明書Signature V2も公開予定。ただし、AWSを色々いじるための時間と私のポケットマネーとの相談しながら作成していきます。

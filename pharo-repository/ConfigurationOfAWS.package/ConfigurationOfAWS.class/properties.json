@@ -1,0 +1,14 @@
+{
+	"category" : "ConfigurationOfAWS",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		"LastVersionLoad" ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"project" ],
+	"name" : "ConfigurationOfAWS",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

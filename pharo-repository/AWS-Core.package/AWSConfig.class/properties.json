@@ -1,0 +1,21 @@
+{
+	"category" : "AWS-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"serviceName",
+		"regionName",
+		"api_version",
+		"accessKeyId",
+		"secretKey",
+		"useSSL",
+		"hostUrl",
+		"endpoint" ],
+	"name" : "AWSConfig",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

@@ -1,0 +1,3 @@
+private
+defaultRawClient
+	^ DynamoDBRawClient new.

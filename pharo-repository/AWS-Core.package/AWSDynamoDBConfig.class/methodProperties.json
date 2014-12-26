@@ -1,0 +1,9 @@
+{
+	"class" : {
+		"default" : "ShoYoshida 12/22/2014 11:09",
+		"defaultDynamoDBSetting" : "ShoYoshida 12/22/2014 12:02",
+		"developmentDynamoDBSetting" : "ShoYoshida 12/22/2014 11:59",
+		"initialize" : "ShoYoshida 12/22/2014 11:16",
+		"productionDynamoDBSetting" : "ShoYoshida 12/22/2014 11:19" },
+	"instance" : {
+		 } }

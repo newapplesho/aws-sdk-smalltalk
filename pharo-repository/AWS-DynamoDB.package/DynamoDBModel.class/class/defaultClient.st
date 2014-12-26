@@ -1,0 +1,3 @@
+private
+defaultClient
+	^ DynamoDBClient new.

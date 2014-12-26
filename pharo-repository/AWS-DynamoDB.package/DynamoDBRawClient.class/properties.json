@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-DynamoDB",
+	"classinstvars" : [
+		"default" ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "DynamoDBRawClient",
+	"pools" : [
+		 ],
+	"super" : "AWSClient",
+	"type" : "normal" }

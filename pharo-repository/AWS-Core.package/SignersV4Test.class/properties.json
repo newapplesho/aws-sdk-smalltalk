@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-Core-Test",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "SignersV4Test",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }

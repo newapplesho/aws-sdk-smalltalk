@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-Core",
+	"classinstvars" : [
+		"default" ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "AWSDynamoDBConfig",
+	"pools" : [
+		 ],
+	"super" : "AWSConfig",
+	"type" : "normal" }

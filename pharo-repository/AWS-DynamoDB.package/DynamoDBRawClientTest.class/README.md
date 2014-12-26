@@ -1,0 +1,1 @@
+A DynamoDBRawClientTest is a test class for testing the behavior of DynamoDBRawClient

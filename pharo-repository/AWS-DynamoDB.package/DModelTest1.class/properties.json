@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-DynamoDB",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "DModelTest1",
+	"pools" : [
+		 ],
+	"super" : "DynamoDBModel",
+	"type" : "normal" }

@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "AWSS3Config",
+	"pools" : [
+		 ],
+	"super" : "AWSConfig",
+	"type" : "normal" }

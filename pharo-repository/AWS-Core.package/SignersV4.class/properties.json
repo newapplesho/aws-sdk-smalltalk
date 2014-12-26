@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "SignersV4",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

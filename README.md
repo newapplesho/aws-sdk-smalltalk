@@ -1,0 +1,59 @@
+aws-sdk-smalltalk
+=================
+
+The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with Amazon Web Services with Amazon DynamoDB. You can get started in minutes using Metacello and FileTree.
+
+#開発経緯
+Pharo Smalltalkでクラウドサービスを操作してみる - Smalltalk Advent Calendar 2014
+http://qiita.com/newapplesho/items/3a4847386686e6f2f18d
+
+# Features
+* Amazon Web Services Signature version 4
+* Amazon Web Services DynamoDB for Pharo Smalltalk Low API
+* DynamoDB Easy Access Library
+
+Amazon DynamoDB for Smalltalk supports the following data types:
+
+* Scalar types – Number, String.
+* Multi-valued types – String Set, Number Set.
+
+#Next Support
+* DynamoDB 
+* EC2
+* S3
+* Elastic Transcoder
+* Signature V2
+
+ただし、AWSを色々いじるための時間と私のポケットマネーとの相談しながら作成していきます。
+
+Copyright Sho Yoshida.
+
+aws-sdk-smalltalk
+=================
+AWS SDK for SmalltalkはSmalltalerが簡単にAmazon Web Servicesを利用できるライブラリです。現在はAmazon DynamoDBのみ利用できます。MetacelloとFileTree環境を使ってインストールが可能です。
+
+#開発経緯
+Pharo Smalltalkでクラウドサービスを操作してみる - Smalltalk Advent Calendar 2014
+http://qiita.com/newapplesho/items/3a4847386686e6f2f18d
+
+* AWSのほとんどのサービスにアクセスするためのSignature V4
+* DynamoDBの接続クライアント（低レベル API、エラー処理は未実装）
+* DynamoDBのマッパー（未完成）
+
+
+Amazon DynamoDB for Smalltalkでサポートするデータ型(supports data types)
+対応するデーター型は以下です。
+
+* スカラーデータ型 - 文字列、数値
+* 多値型 - 文字列セット、数値セット
+
+#今後について
+DynamoDBの改良版、S3, EC2, Elastic Transcoderを公開予定。またEC2を操作するための証明書Signature V2も公開予定。ただし、AWSを色々いじるための時間と私のポケットマネーとの相談しながら作成していきます。
+
+Copyright Sho Yoshida.
+
+#References
+* Pharo Smalltalkでクラウドサービスを操作してみる http://qiita.com/newapplesho/items/3a4847386686e6f2f18d
+* How Smalltalker Works http://www.slideshare.net/newapplesho/how-smalltalker-works
+* 愛せよ、さもなくば捨てよ http://www.slideshare.net/newapplesho/ss-42024412
+

@@ -45,10 +45,20 @@ AWS SDK for Smalltalk
 =================
 AWS SDK for SmalltalkはSmalltalerが簡単にAmazon Web Servicesを利用できるライブラリです。現在はAmazon DynamoDBのみ利用できます。MetacelloとFileTree環境を使ってインストールが可能です。
 
+
 #開発経緯
 Pharo Smalltalkでクラウドサービスを操作してみる - Smalltalk Advent Calendar 2014
 http://qiita.com/newapplesho/items/3a4847386686e6f2f18d
 
+Smalltalkに何か還元すべきだと考え、公開することにしました。仕事を作成したものはサービスに特化させて作ってしまっため、業務外の時間を使って切り出して一般公開できるものを準備しました（いずれはSDK全てを公開します）。
+
+# 公開して期待したいこと
+**Smalltalkerが増えること。特に日本のSmalltalker。** あと私が英語が苦手（というかできないため）。心優しい方が翻訳していただけることを期待。*私の来年の最大の課題です。*
+
+# 公開したものについて
+公開したものは業務で使っているものもありますが、今回のために作成したものがあり、十分試験ができておりません。利用される場合は、自己責任でお願いします。
+
+# 公開するもの
 * AWSのほとんどのサービスにアクセスするためのSignature V4
 * DynamoDBの接続クライアント（低レベル API、エラー処理は未実装）
 * DynamoDBのマッパー（未完成）

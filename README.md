@@ -1,7 +1,7 @@
-aws-sdk-smalltalk
+AWS SDK for Smalltalk
 =================
 
-The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with Amazon Web Services with Amazon DynamoDB. You can get started in minutes using Metacello and FileTree.
+The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with [Amazon Web Services](http://aws.amazon.com/) with Amazon DynamoDB. You can get started in minutes using Metacello and FileTree.
 
 #開発経緯
 Pharo Smalltalkでクラウドサービスを操作してみる - Smalltalk Advent Calendar 2014
@@ -41,7 +41,7 @@ Metacello new
 
 Copyright Sho Yoshida.
 
-aws-sdk-smalltalk
+AWS SDK for Smalltalk
 =================
 AWS SDK for SmalltalkはSmalltalerが簡単にAmazon Web Servicesを利用できるライブラリです。現在はAmazon DynamoDBのみ利用できます。MetacelloとFileTree環境を使ってインストールが可能です。
 

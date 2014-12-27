@@ -18,8 +18,22 @@ Amazon DynamoDB for Smalltalk supports the following data types:
 * Multi-valued types – String Set, Number Set.
 
 # How to install
-slideshare
-http://www.slideshare.net/newapplesho/aws-sdk-for-smalltalk
+
+step 1
+```bash
+$ git clone https://github.com/newapplesho/aws-sdk-smalltalk
+```
+
+step 2
+```smalltalk
+| pathToPackageDirectory |
+"edit to match the path to your chosen package directory"
+pathToPackageDirectory := ‘/YOUR-GIT-DIRECTORY-PATH/aws-sdk-smalltalk/pharorepository/‘.
+Metacello new
+baseline: 'AWS';
+repository: 'filetree://', pathToPackageDirectory;
+load.
+```
 
 # How to use
 slideshare
@@ -66,8 +80,21 @@ Amazon DynamoDB for Smalltalkでサポートするデータ型(supports data typ
 * 多値型 - 文字列セット、数値セット
 
 # インストール方法
-slideshare
-http://www.slideshare.net/newapplesho/aws-sdk-for-smalltalk
+step 1
+```bash
+$ git clone https://github.com/newapplesho/aws-sdk-smalltalk
+```
+
+step 2
+```smalltalk
+| pathToPackageDirectory |
+"edit to match the path to your chosen package directory"
+pathToPackageDirectory := ‘/YOUR-GIT-DIRECTORY-PATH/aws-sdk-smalltalk/pharorepository/‘.
+Metacello new
+baseline: 'AWS';
+repository: 'filetree://', pathToPackageDirectory;
+load.
+```
 
 # 使い方
 slideshare
@@ -79,6 +106,7 @@ DynamoDBの改良版、S3, EC2, Elastic Transcoderを公開予定。またEC2を
 Copyright Sho Yoshida.
 
 #References
+* AWS SDK for Smalltalk - slideshare http://www.slideshare.net/newapplesho/aws-sdk-for-smalltalk
 * Pharo Smalltalkでクラウドサービスを操作してみる http://qiita.com/newapplesho/items/3a4847386686e6f2f18d
 * How Smalltalker Works http://www.slideshare.net/newapplesho/how-smalltalker-works
 * 愛せよ、さもなくば捨てよ http://www.slideshare.net/newapplesho/ss-42024412

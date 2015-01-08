@@ -21,6 +21,18 @@ Amazon DynamoDB for Smalltalk supports the following data types:
 
 # How to install
 
+easy install
+
+```smalltalk
+Gofer new
+url:'http://smalltalkhub.com/mc/newapplesho/aws-sdk-smalltalk/main';
+    package: 'ConfigurationOfAWS';
+    load.
+(Smalltalk at: #ConfigurationOfAWS) load.
+```
+
+or
+
 step 1
 ```bash
 $ git clone https://github.com/newapplesho/aws-sdk-smalltalk
@@ -82,6 +94,20 @@ Amazon DynamoDB for Smalltalkでサポートするデータ型(supports data typ
 * 多値型 - 文字列セット、数値セット
 
 # インストール方法
+
+簡単インストール
+
+```smalltalk
+Gofer new
+url:'http://smalltalkhub.com/mc/newapplesho/aws-sdk-smalltalk/main';
+    package: 'ConfigurationOfAWS';
+    load.
+(Smalltalk at: #ConfigurationOfAWS) load.
+```
+
+or
+
+
 step 1
 ```bash
 $ git clone https://github.com/newapplesho/aws-sdk-smalltalk

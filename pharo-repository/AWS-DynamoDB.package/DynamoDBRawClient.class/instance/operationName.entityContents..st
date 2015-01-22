@@ -15,6 +15,7 @@ operationName: operationName entityContents: requestBody
 	request method: #POST.
 	request url:'/'.
 	request entity:(ZnEntity text:requestBody).
+	request headers at:'Content-Length' put: requestBody byteSize asString.
 	request headers contentType:'application/x-amz-json-1.0'. 
 	request headers at:'host' put: awsConfig endpoint.
 	"request header at:'x-amz-sha256' put: (SHA256 new hashMessage: requestBody) hex."

@@ -4,6 +4,10 @@ AWS SDK for SmalltalkはSmalltalerが簡単にAmazon Web Servicesを利用でき
 
 <img src="http://2.bp.blogspot.com/-3caM96eyEOM/VJ6S70lf-YI/AAAAAAAAARM/IvmnJdN0yp0/s1600/20141225howsmalltalkerworks.jpg" width="400"/>
 
+#言語
+* [English](https://github.com/newapplesho/aws-sdk-smalltalk/blob/master/README.md)
+* [Japanese](https://github.com/newapplesho/aws-sdk-smalltalk/blob/master/README-ja.md)
+
 #開発経緯
 Pharo Smalltalkでクラウドサービスを操作してみる - Smalltalk Advent Calendar 2014
 http://qiita.com/newapplesho/items/3a4847386686e6f2f18d

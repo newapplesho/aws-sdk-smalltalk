@@ -23,6 +23,9 @@ Amazon DynamoDB for Smalltalk supports the following data types:
 * Scalar types – Number, String.
 * Multi-valued types – String Set, Number Set.
 
+# Requirement
+  - Pharo 3.0, or above.
+
 # How to install
 
 easy install

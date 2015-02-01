@@ -1,7 +1,7 @@
 AWS SDK for Smalltalk
 =================
 
-The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with [Amazon Web Services](http://aws.amazon.com/) with Amazon DynamoDB. You can get started in minutes using Metacello and FileTree.
+The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with [Amazon Web Services](http://aws.amazon.com/) and Amazon DynamoDB. You can get started in minutes using Metacello and FileTree.
 
 <img src="http://2.bp.blogspot.com/-3caM96eyEOM/VJ6S70lf-YI/AAAAAAAAARM/IvmnJdN0yp0/s1600/20141225howsmalltalkerworks.jpg" width="400"/>
 
@@ -9,16 +9,13 @@ The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with
 * [English](https://github.com/newapplesho/aws-sdk-smalltalk/blob/master/README.md)
 * [Japanese](https://github.com/newapplesho/aws-sdk-smalltalk/blob/master/README-ja.md)
 
-#開発経緯
-Pharo Smalltalkでクラウドサービスを操作してみる - Smalltalk Advent Calendar 2014
-http://qiita.com/newapplesho/items/3a4847386686e6f2f18d
-
 # Features
-* Amazon Web Services Signature version 4
-* Amazon Web Services DynamoDB for Pharo Smalltalk Low API
-* DynamoDB Easy Access Library
+* AWS Signature version 4
+* Amazon DynamoDB
+ * Low-level API
+ * Easy-access library, in a more Smalltalk manner
 
-Amazon DynamoDB for Smalltalk supports the following data types:
+The following data types are supported for use in DynamoDB:
 
 * Scalar types – Number, String.
 * Multi-valued types – String Set, Number Set.
@@ -28,7 +25,7 @@ Amazon DynamoDB for Smalltalk supports the following data types:
 
 # How to install
 
-easy install
+You can easily install from inside Smalltalk:
 
 ```smalltalk
 Gofer new
@@ -38,7 +35,7 @@ url:'http://smalltalkhub.com/mc/newapplesho/aws-sdk-smalltalk/main';
 (Smalltalk at: #ConfigurationOfAWS) load.
 ```
 
-or
+or you may use git (complicated, but reveals package depencencies):
 
 step 1
 ```bash
@@ -61,8 +58,8 @@ slideshare
 http://www.slideshare.net/newapplesho/aws-sdk-for-smalltalk
 
 
-#Next Support
-* DynamoDB 
+# TODO
+* Improve the support for DynamoDB 
 * EC2
 * S3
 * Elastic Transcoder

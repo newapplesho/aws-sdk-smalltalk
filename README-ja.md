@@ -31,6 +31,9 @@ Amazon DynamoDB for Smalltalkでサポートするデータ型(supports data typ
 * スカラーデータ型 - 文字列、数値
 * 多値型 - 文字列セット、数値セット
 
+# 必要要件
+  - Pharo 3.0 以上
+
 # インストール方法
 
 簡単インストール

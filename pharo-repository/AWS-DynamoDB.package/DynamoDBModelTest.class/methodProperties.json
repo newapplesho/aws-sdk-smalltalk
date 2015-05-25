@@ -7,6 +7,8 @@
 		"tearDown" : "ShoYoshida 12/22/2014 16:49",
 		"testDelete" : "ShoYoshida 12/22/2014 16:22",
 		"testGetItem" : "ShoYoshida 12/22/2014 15:34",
+		"testGetItem2" : "ShoYoshida 5/25/2015 20:31",
+		"testGetItem3" : "ShoYoshida 5/25/2015 20:36",
 		"testPutItem" : "ShoYoshida 12/22/2014 15:40",
 		"testSave" : "ShoYoshida 12/22/2014 16:21",
 		"testSaveExpected" : "ShoYoshida 12/22/2014 16:26",

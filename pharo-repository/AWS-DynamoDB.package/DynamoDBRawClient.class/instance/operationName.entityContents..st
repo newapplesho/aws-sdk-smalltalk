@@ -31,6 +31,7 @@ operationName: operationName entityContents: requestBody
 	awsConfig useSSL 
 		ifFalse:[ url scheme: #http ].
 	[ client post: url contents: requestBody ] 
-		on: NetworkError, ZnParseError, ZnCharacterEncodingError, ZnUnknownScheme, ZnPortNotANumber, Error do:[:ex |  self ng error: ex.  ex pass.  ].
+		on: NetworkError, ZnParseError, ZnCharacterEncodingError, ZnUnknownScheme, ZnPortNotANumber, Error 
+		do:[:ex |  "self ng error: ex."  ex pass.  ].
 	^ client response.
 	

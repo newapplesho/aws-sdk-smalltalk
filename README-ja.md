@@ -58,7 +58,7 @@ step 2
 ```smalltalk
 | pathToPackageDirectory |
 "edit to match the path to your chosen package directory"
-pathToPackageDirectory := '/YOUR-GIT-DIRECTORY-PATH/aws-sdk-smalltalk/pharorepository/'.
+pathToPackageDirectory := '/YOUR-GIT-DIRECTORY-PATH/aws-sdk-smalltalk/pharo-repository/'.
 Metacello new
 baseline: 'AWS';
 repository: 'filetree://', pathToPackageDirectory;

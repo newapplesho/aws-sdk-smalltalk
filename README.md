@@ -21,7 +21,7 @@ The following data types are supported for use in DynamoDB:
 * Multi-valued types – String Set, Number Set.
 
 # Requirement
-  - Pharo 3.0, or above.
+  - Pharo 3.0, Pharo 4.0.
 
 # How to install
 

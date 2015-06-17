@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-S3-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "AWSS3ConfigTest",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }

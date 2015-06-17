@@ -9,13 +9,16 @@ baseline: spec
 				file: 'ConfigurationOfJSON';
 				repository: 'http://smalltalkhub.com/mc/PharoExtras/JSON/main'. ].
 			
-		spec package: 'Cryptography' with: [
-			spec repository: 'http://smalltalkhub.com/mc/Cryptography/Cryptography/main'. ].
+		spec for: #'pharo3.x' do: [	
+			spec package: 'Cryptography' with: [
+				spec repository: 'http://smalltalkhub.com/mc/Cryptography/Cryptography/main'. ].].
 		
-		 spec 
+		spec 
 			package: 'AWS';
 			package: 'AWS-Core'
         	  		with: [ spec requires: #('AWS') ];
 			package: 'AWS-DynamoDB'
+        	  		with: [ spec requires: #('AWS-Core') ];
+			package: 'AWS-S3'
         	  		with: [ spec requires: #('AWS-Core') ].
 	].

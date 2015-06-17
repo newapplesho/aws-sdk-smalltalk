@@ -1,4 +1,4 @@
-private
+public
 getItem: anObject
 	| operationName json dy mapper  c requestBody resp result |
 

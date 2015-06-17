@@ -2,7 +2,7 @@ low-level-api
 operationName: operationName entityContents: requestBody
 	| client  dt t   url datetimeString request |
 	
-	client := ZnClient new systemPolicy beOneShot.
+	client := ZnClient new "systemPolicy beOneShot".
 
 	awsConfig useSSL 
 		ifTrue:[ client https].

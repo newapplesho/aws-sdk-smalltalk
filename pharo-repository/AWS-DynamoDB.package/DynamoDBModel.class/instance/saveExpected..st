@@ -1,4 +1,4 @@
-private
+public
 saveExpected: anObject
 	| dy mapper  c json requestBody operationName resp result |
 	

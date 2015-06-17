@@ -1,4 +1,4 @@
-private
+public
 saveExpectedwithJson: jsonString
 	| dy mapper  c json requestBody operationName resp result |
 	

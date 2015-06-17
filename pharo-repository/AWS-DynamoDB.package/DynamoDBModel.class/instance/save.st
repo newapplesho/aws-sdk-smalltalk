@@ -1,4 +1,4 @@
-private
+public
 save
 	| dy mapper  c json requestBody operationName resp result |
 	

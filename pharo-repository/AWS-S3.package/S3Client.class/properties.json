@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-S3",
+	"classinstvars" : [
+		"default" ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "S3Client",
+	"pools" : [
+		 ],
+	"super" : "AWSClient",
+	"type" : "normal" }

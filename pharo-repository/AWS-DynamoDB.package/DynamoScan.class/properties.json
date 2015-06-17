@@ -1,14 +1,14 @@
 {
-	"category" : "AWS-Core",
+	"category" : "AWS-DynamoDB-Actions",
 	"classinstvars" : [
-		"default" ],
+		 ],
 	"classvars" : [
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
 		 ],
-	"name" : "AWSDynamoDBConfig",
+	"name" : "DynamoScan",
 	"pools" : [
 		 ],
-	"super" : "AWSConfig",
+	"super" : "DynamoOperations",
 	"type" : "normal" }

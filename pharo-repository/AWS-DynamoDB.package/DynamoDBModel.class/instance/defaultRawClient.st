@@ -1,3 +1,3 @@
-as yet unclassified
+private
 defaultRawClient
 	^ self class defaultRawClient.

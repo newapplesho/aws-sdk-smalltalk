@@ -7,8 +7,8 @@
 	"commentStamp" : "",
 	"instvars" : [
 		 ],
-	"name" : "AWSS3Config",
+	"name" : "AWSUtils",
 	"pools" : [
 		 ],
-	"super" : "AWSConfig",
+	"super" : "Object",
 	"type" : "normal" }

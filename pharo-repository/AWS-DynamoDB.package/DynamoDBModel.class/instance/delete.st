@@ -1,4 +1,4 @@
-private
+public
 delete
 	| dy mapper  c json requestBody operationName resp result key |
 	

@@ -1,13 +1,13 @@
 {
-	"category" : "AWS-Core",
+	"category" : "AWS-DynamoDB",
 	"classinstvars" : [
-		 ],
+		"default" ],
 	"classvars" : [
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
 		 ],
-	"name" : "AWSEC2Config",
+	"name" : "AWSDynamoDBConfig",
 	"pools" : [
 		 ],
 	"super" : "AWSConfig",

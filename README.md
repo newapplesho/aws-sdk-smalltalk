@@ -1,7 +1,7 @@
 AWS SDK for Smalltalk
 =================
 
-The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with [Amazon Web Services](http://aws.amazon.com/) and Amazon DynamoDB. You can get started in minutes using Metacello and FileTree.
+The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with [Amazon Web Services](http://aws.amazon.com/) and Amazon DynamoDB, S3. You can get started in minutes using Metacello and FileTree.
 
 <img src="http://2.bp.blogspot.com/-3caM96eyEOM/VJ6S70lf-YI/AAAAAAAAARM/IvmnJdN0yp0/s1600/20141225howsmalltalkerworks.jpg" width="400"/>
 
@@ -14,6 +14,8 @@ The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with
 * Amazon DynamoDB
  * Low-level API
  * Easy-access library, in a more Smalltalk manner
+* Amazon S3
+ * Create Bucket and Delete Bucket	
 
 The following data types are supported for use in DynamoDB:
 
@@ -38,11 +40,13 @@ url:'http://smalltalkhub.com/mc/newapplesho/aws-sdk-smalltalk/main';
 or you may use git (complicated, but reveals package depencencies):
 
 step 1
+
 ```bash
 $ git clone https://github.com/newapplesho/aws-sdk-smalltalk
 ```
 
 step 2
+
 ```smalltalk
 | pathToPackageDirectory |
 "edit to match the path to your chosen package directory"
@@ -63,8 +67,3 @@ http://www.slideshare.net/newapplesho/aws-sdk-for-smalltalk
 * EC2
 * S3
 * Elastic Transcoder
-* Signature V2
-
-ただし、AWSを色々いじるための時間と私のポケットマネーとの相談しながら作成していきます。
-
-Copyright Sho Yoshida.

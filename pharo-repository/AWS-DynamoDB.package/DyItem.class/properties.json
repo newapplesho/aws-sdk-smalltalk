@@ -1,14 +1,14 @@
 {
-	"category" : "AWS-DynamoDB-Tests",
+	"category" : "AWS-DynamoDB",
 	"classinstvars" : [
 		 ],
 	"classvars" : [
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		 ],
-	"name" : "DModelTest1",
+		"name" ],
+	"name" : "DyItem",
 	"pools" : [
 		 ],
-	"super" : "DynamoDBModel",
+	"super" : "Object",
 	"type" : "normal" }

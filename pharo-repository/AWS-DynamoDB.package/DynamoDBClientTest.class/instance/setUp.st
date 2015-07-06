@@ -8,7 +8,7 @@ setUp
 	AWSDynamoDBConfig developmentDynamoDBSetting.
 	
 	dy := DynamoDBRawClient new.
-	operationName := #CreateTable.
+	operationName := #DyCreateTable.
 	requestBody := '{
     "AttributeDefinitions": [
         {

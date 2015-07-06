@@ -1,3 +1,0 @@
-factory
-createHttpClient
-	^ZnClient new

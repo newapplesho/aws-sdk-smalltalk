@@ -7,8 +7,8 @@
 	"commentStamp" : "",
 	"instvars" : [
 		 ],
-	"name" : "DynamoScan",
+	"name" : "DyQuery",
 	"pools" : [
 		 ],
-	"super" : "DynamoOperations",
+	"super" : "DyOperations",
 	"type" : "normal" }

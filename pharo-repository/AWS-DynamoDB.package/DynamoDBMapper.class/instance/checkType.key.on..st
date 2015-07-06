@@ -1,9 +1,9 @@
 private
 checkType: anObject key: aSymbol on: jsonObject
-	anObject isNumber ifTrue:[ ^ jsonObject at: aSymbol asString put: (JsonObject new at:'N' put: anObject asString; yourself)  ].
-	
-	anObject isString ifTrue:[  ^ jsonObject at: aSymbol asString put: (JsonObject new at:'S' put: anObject convertUTF8; yourself)   ].
-	
+	anObject isNumber 
+		ifTrue:[ ^ jsonObject at: aSymbol asString put: (JsonObject new at:'N' put: anObject asString; yourself)  ].
+	anObject isString 
+		ifTrue:[  ^ jsonObject at: aSymbol asString put: (JsonObject new at:'S' put: anObject convertUTF8; yourself)   ].
 	anObject isCollection
 		 ifTrue:[ 
 			| result |

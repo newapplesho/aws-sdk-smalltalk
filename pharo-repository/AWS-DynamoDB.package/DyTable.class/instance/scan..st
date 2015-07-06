@@ -1,0 +1,2 @@
+public
+scan: anObject

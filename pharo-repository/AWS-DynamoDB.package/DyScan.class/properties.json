@@ -1,5 +1,5 @@
 {
-	"category" : "AWS-DynamoDB-Tests",
+	"category" : "AWS-DynamoDB-Actions",
 	"classinstvars" : [
 		 ],
 	"classvars" : [
@@ -7,8 +7,8 @@
 	"commentStamp" : "",
 	"instvars" : [
 		 ],
-	"name" : "DModelTest1",
+	"name" : "DyScan",
 	"pools" : [
 		 ],
-	"super" : "DynamoDBModel",
+	"super" : "DyOperations",
 	"type" : "normal" }

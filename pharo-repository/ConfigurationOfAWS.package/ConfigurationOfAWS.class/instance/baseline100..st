@@ -6,7 +6,7 @@ baseline100: spec
 		spec project: 'JSON' with: [
 			spec
 				className: 'ConfigurationOfJSON';
-				file: 'ConfigurationOfJSON';
+				versionString: #stable;
 				repository: 'http://smalltalkhub.com/mc/PharoExtras/JSON/main'. ].
 			
 		spec package: 'Cryptography' with: [

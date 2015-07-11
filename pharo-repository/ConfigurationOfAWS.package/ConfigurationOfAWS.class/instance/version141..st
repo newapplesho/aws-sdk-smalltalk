@@ -7,7 +7,7 @@ version141: spec
 		spec project: 'JSON' with: #stable.
 		spec package: 'MethodsDefiner' with: 'MethodsDefiner-Core-MasashiUmezawa.4'.
 		spec
-			baseline: 'AWS' with: [ spec repository:'github://newapplesho/aws-sdk-smalltalk:7978adb9ffba30c43dabd82eb6750b1234aa6e9f/pharo-repository' ];
+			baseline: 'AWS' with: [ spec repository:'github://newapplesho/aws-sdk-smalltalk:9b8a8559d29f08bfd0020bd022800d3fcbd61a17/pharo-repository' ];
 		import: 'AWS'
 	].
 

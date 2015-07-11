@@ -1,15 +1,14 @@
 {
-	"category" : "AWS-DynamoDB",
+	"category" : "AWS-DynamoDB-Actions",
 	"classinstvars" : [
 		 ],
 	"classvars" : [
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"name",
-		"client" ],
-	"name" : "DyTable",
+		 ],
+	"name" : "DyListTables",
 	"pools" : [
 		 ],
-	"super" : "Object",
+	"super" : "DyOperations",
 	"type" : "normal" }

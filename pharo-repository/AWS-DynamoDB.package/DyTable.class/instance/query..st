@@ -1,2 +1,2 @@
 public
-query: anObject
+query: aDyQuery

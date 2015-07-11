@@ -1,4 +1,4 @@
 accessing
 endpoint
-	
-	^ endpoint  ifNil:[ endpoint := self hostUrl ].
+
+	^self data at: #endpoint ifAbsent: [ self endpoint: self hostUrl ]

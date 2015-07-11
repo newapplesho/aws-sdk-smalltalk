@@ -1,4 +1,4 @@
 accessing
 accessKeyId
-	
-	^ accessKeyId
+
+	^self data at: #accessKeyId ifAbsent: []

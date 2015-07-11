@@ -1,4 +1,4 @@
 accessing
 secretKey
-	
-	^ secretKey
+
+	^self data at: #secretKey ifAbsent: []

@@ -2,7 +2,7 @@
 	"class" : {
 		 },
 	"instance" : {
-		"setUp" : "ShoYoshida 7/6/2015 14:15",
+		"setUp" : "ShoYoshida 7/10/2015 08:42",
 		"tableName" : "ShoYoshida 12/22/2014 17:02",
 		"tearDown" : "ShoYoshida 12/22/2014 17:02",
 		"testPutItem" : "ShoYoshida 12/22/2014 17:08" } }

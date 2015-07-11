@@ -1,0 +1,3 @@
+default
+defaultDynamoDBClient
+	^ DynamoDBRawClient new

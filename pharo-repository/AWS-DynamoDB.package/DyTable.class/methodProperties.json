@@ -2,7 +2,9 @@
 	"class" : {
 		"tableNamed:" : "ShoYoshida 7/6/2015 14:29" },
 	"instance" : {
+		"defaultDynamoDBClient" : "ShoYoshida 7/10/2015 09:34",
+		"initialize" : "ShoYoshida 7/10/2015 09:34",
 		"name" : "ShoYoshida 7/6/2015 14:25",
 		"name:" : "ShoYoshida 7/6/2015 14:25",
-		"query:" : "ShoYoshida 7/6/2015 14:54",
-		"scan:" : "ShoYoshida 7/6/2015 14:54" } }
+		"query:" : "ShoYoshida 7/10/2015 09:34",
+		"scan:" : "ShoYoshida 7/10/2015 09:37" } }

@@ -5,5 +5,5 @@ defaultDynamoDBSetting
 	aws serviceName:'DynamoDB'.
 	"AWS Regions Asia Pacific (Tokyo)"
 	aws regionName: 'ap-northeast-1'.
-	aws api_version: '20120810'.
+	aws apiVersion: '20120810'.
 	^ aws

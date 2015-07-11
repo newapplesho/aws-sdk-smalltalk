@@ -1,4 +1,4 @@
 accessing
 secretKey: anObject
-	
-	secretKey := anObject
+
+	^self data at: #secretKey put: anObject

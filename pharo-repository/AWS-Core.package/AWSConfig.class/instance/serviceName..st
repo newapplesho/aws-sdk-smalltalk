@@ -1,4 +1,4 @@
 accessing
 serviceName: anObject
-	
-	serviceName := anObject
+
+	^self data at: #serviceName put: anObject

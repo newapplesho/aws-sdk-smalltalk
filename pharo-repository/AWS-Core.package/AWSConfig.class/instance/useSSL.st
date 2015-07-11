@@ -1,4 +1,4 @@
 accessing
 useSSL
-	
-	^ useSSL ifNil:[ useSSL := true ].
+
+	^self data at: #useSSL ifAbsent: [ self useSSL: true ]

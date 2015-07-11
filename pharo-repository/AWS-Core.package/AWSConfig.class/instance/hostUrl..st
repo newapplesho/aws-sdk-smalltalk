@@ -1,4 +1,4 @@
 accessing
 hostUrl: anObject
-	
-	hostUrl := anObject
+
+	^self data at: #hostUrl put: anObject

@@ -6,14 +6,7 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"serviceName",
-		"regionName",
-		"api_version",
-		"accessKeyId",
-		"secretKey",
-		"useSSL",
-		"hostUrl",
-		"endpoint" ],
+		"data" ],
 	"name" : "AWSConfig",
 	"pools" : [
 		 ],

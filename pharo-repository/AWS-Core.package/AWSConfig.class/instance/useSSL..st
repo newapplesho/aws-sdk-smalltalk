@@ -1,4 +1,4 @@
 accessing
 useSSL: anObject
-	
-	useSSL := anObject
+
+	^self data at: #useSSL put: anObject

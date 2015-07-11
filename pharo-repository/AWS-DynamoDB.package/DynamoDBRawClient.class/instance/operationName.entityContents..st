@@ -20,7 +20,7 @@ operationName: operationName entityContents: requestBody
 	request headers at:'host' put: awsConfig endpoint.
 	"request header at:'x-amz-sha256' put: (SHA256 new hashMessage: requestBody) hex."
 	request headers at:'x-amz-date' put: datetimeString.
-	request headers at:'x-amz-target' put:  (awsConfig serviceName,'_', awsConfig api_version,'.', operationName).	
+	request headers at:'x-amz-target' put:  (awsConfig serviceName,'_', awsConfig apiVersion,'.', operationName).	
 	request setAuthorization: ( SignersV4 creatAuthorization: request andConfig: awsConfig andDateTime: datetimeString andOption: nil ) .
 	
 

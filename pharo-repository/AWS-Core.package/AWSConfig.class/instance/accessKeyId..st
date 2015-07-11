@@ -1,4 +1,4 @@
 accessing
 accessKeyId: anObject
-	
-	accessKeyId := anObject
+
+	^self data at: #accessKeyId put: anObject

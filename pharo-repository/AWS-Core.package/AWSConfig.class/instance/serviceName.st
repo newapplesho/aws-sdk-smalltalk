@@ -1,4 +1,4 @@
 accessing
 serviceName
-	
-	^ serviceName
+
+	^self data at: #serviceName ifAbsent: []

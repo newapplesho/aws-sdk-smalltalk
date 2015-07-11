@@ -1,4 +1,4 @@
 accessing
 hostUrl
-	
-	^ hostUrl ifNil:[ hostUrl := serviceName asLowercase,'.', regionName, '.amazonaws.com'. ]
+
+	^self data at: #hostUrl ifAbsent: [ self hostUrl: self serviceName asLowercase,'.', self regionName, '.amazonaws.com'. ]

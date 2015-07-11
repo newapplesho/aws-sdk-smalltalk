@@ -1,4 +1,4 @@
 accessing
 regionName
-	
-	^ regionName
+
+	^self data at: #regionName ifAbsent: []

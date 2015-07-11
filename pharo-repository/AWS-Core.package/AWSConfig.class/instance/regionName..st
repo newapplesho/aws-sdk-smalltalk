@@ -1,4 +1,4 @@
 accessing
 regionName: anObject
-	
-	regionName := anObject
+
+	^self data at: #regionName put: anObject

@@ -1,0 +1,3 @@
+default
+defaultHttpClient
+	^ZnClient new

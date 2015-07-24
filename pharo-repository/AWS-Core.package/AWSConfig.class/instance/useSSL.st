@@ -1,4 +1,4 @@
 accessing
 useSSL
 
-	^self data at: #useSSL ifAbsent: [ self useSSL: true ]
+	^self at: #useSSL ifAbsent: [ self useSSL: true ]

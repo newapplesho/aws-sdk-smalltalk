@@ -1,4 +1,3 @@
 accessing
 serviceName: anObject
-
-	^self data at: #serviceName put: anObject
+	^self  at: #serviceName put: anObject

@@ -1,4 +1,3 @@
 accessing
 accessKeyId: anObject
-
-	^self data at: #accessKeyId put: anObject
+	^self  at: #accessKeyId put: anObject

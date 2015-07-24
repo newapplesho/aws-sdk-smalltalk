@@ -1,4 +1,3 @@
 accessing
 regionName: anObject
-
-	^self data at: #regionName put: anObject
+	^self  at: #regionName put: anObject

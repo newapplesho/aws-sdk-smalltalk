@@ -1,4 +1,3 @@
 accessing
 endpoint: anObject
-
-	^self data at: #endpoint put: anObject
+	^self  at: #endpoint put: anObject

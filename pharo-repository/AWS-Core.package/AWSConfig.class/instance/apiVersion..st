@@ -1,4 +1,3 @@
 accessing
 apiVersion: anObject
-
-	^self data at: #apiVersion put: anObject
+	^self  at: #apiVersion put: anObject

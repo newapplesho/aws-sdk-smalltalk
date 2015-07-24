@@ -1,4 +1,3 @@
 accessing
 apiVersion
-
-	^self data at: #apiVersion ifAbsent: []
+	^self  at: #apiVersion ifAbsent: []

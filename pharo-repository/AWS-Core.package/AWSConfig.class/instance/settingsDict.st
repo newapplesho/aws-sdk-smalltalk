@@ -1,3 +1,3 @@
 accessing
 settingsDict
-	^ data
+	^ settingsDict ifNil: [settingsDict := IdentityDictionary new]

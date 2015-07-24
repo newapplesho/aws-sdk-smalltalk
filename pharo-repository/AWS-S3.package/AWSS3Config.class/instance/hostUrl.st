@@ -1,7 +1,7 @@
 accessing
 hostUrl
 	
-	^ self data at: #hostUrl ifAbsent: [
+	^ self at: #hostUrl ifAbsent: [
 		
 		(self regionName = 'us-east-1')
 			ifTrue:[ 

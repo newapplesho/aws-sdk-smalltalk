@@ -4,7 +4,7 @@ testOperationNameContents
 	| dy operationName  resp result requestJson |
 	dy := DynamoDBRawClient new.
 	operationName := #ListTables.
-	requestJson := DyListTables new asJsonString.
+	requestJson := DynamoDBListTables new asJsonString.
 	resp := dy operationName:  operationName contents: requestJson.
 	result := Json readFrom: (resp contents) readStream.
 	

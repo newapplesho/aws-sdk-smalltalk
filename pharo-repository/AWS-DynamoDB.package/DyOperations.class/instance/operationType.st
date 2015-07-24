@@ -1,3 +1,0 @@
-private
-operationType
-	self subclassResponsibility 

@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-DynamoDB-Actions",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "DynamoDBPutItem",
+	"pools" : [
+		 ],
+	"super" : "DynamoDBOperations",
+	"type" : "normal" }

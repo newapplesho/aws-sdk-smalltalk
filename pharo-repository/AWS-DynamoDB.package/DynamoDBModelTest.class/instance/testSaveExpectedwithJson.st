@@ -3,11 +3,11 @@ testSaveExpectedwithJson
 
 	| d  keyData result |
 	
-	d:= DModelTest1  new.
+	d:= DynamoDBDummyModel1  new.
 	d id: uuid.
 	d saveExpectedwithJson: '{"id":{"Exists":"false"}}'.
 	
-	keyData := DModelTest1 new.
+	keyData := DynamoDBDummyModel1 new.
 	keyData id: uuid.
 
 	result := d getItem: keyData.

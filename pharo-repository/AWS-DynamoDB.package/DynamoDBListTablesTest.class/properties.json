@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-DynamoDB-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "DynamoDBListTablesTest",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }

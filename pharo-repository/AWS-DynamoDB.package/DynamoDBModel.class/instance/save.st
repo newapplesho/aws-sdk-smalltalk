@@ -7,7 +7,7 @@ save
 	
 	dy := self defaultRawClient.
 	mapper := DynamoDBMapper new.
-	c := (mapper convertItem: self ).
+	c := (mapper convertDynamoDBJson: self ).
 	json at:'Item' put: c .
 	requestBody := json asJsonString .
 	

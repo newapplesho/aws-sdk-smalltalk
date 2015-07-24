@@ -8,11 +8,11 @@ getItem: anObject
 	dy := self defaultRawClient.
 	
 	mapper := DynamoDBMapper new.
-	c := mapper convertItem: anObject.
+	c := mapper convertDynamoDBJson: anObject.
 	json at:'Key' put: c .
 
 	requestBody := json asJsonString .
 	resp := dy operationName:  operationName entityContents: requestBody.
 	result := Json readFrom: (resp contents) readStream.
 	
-	^ mapper loadItem: (result at:'Item') .
+	^ mapper loadFrom:  (result at:'Item') .

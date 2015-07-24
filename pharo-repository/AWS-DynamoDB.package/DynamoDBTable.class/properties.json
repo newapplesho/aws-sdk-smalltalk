@@ -1,0 +1,20 @@
+{
+	"category" : "AWS-DynamoDB",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"tableName",
+		"client",
+		"indexKeys",
+		"mapper",
+		"response",
+		"lastEvaluatedKey",
+		"numberOfResultsToFetch" ],
+	"name" : "DynamoDBTable",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

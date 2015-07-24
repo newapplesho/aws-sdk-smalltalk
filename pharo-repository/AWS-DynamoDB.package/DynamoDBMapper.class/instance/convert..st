@@ -1,10 +1,12 @@
 private
 convert: aDictionary
-	| json |
-	json := JsonObject new.
-       aDictionary keys do:[:k | 
+	| jsonObject |
+	jsonObject := JsonObject new.
+       aDictionary keysDo: [:k | 
 		| value boolean |
 		value := aDictionary at: k .
-		value isString ifTrue:[ boolean:= value isEmptyOrNil  ] ifFalse:[ boolean := value isNil ].
-		boolean ifFalse:[ self  checkType: value  key: k on: json.] ].
-	^ json. 
+		boolean:= value isString 
+			ifTrue:[ value isEmptyOrNil  ] 
+			ifFalse:[ value isNil ].
+		boolean ifFalse:[ self  checkType: value  key: k on: jsonObject.] ].
+	^ jsonObject. 

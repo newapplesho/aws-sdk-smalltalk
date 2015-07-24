@@ -1,0 +1,15 @@
+{
+	"category" : "AWS-DynamoDB",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"resultStream",
+		"searcher" ],
+	"name" : "DynamoDBQueryOrScanResultEnumerator",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

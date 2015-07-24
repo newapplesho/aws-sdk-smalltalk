@@ -1,2 +1,0 @@
-private
-load: anObject

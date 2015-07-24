@@ -7,7 +7,7 @@ saveExpectedwithJson: jsonString
 	
 	dy := self defaultRawClient.
 	mapper := DynamoDBMapper new.
-	c := (mapper convertItem: self ).
+	c := (mapper convertDynamoDBJson: self ).
 	json at:'Item' put: c .
 	json at:'Expected' put: ( Json new readFrom: jsonString readStream ).
 	requestBody := json asJsonString .

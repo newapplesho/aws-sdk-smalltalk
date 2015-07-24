@@ -1,0 +1,3 @@
+private
+primaryKeys
+	^ self indexKeys

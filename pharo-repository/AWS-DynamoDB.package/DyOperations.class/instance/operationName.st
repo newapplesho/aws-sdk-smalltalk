@@ -1,3 +1,0 @@
-private
-operationName
-	^ self operationType

@@ -1,0 +1,3 @@
+testing
+isLastEvaluatedKey
+	^ lastEvaluatedKey isNotNil

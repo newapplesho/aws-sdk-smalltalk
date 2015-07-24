@@ -1,0 +1,3 @@
+accessing
+dynamoIndexKeys
+	^ self indexKeys

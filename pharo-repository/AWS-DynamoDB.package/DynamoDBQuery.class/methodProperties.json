@@ -1,0 +1,13 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"attributesToGet:" : "ShoYoshida 7/24/2015 12:00",
+		"exclusiveStartKey:" : "ShoYoshida 7/24/2015 12:00",
+		"expressionAttributeValues:" : "ShoYoshida 7/24/2015 12:01",
+		"keyConditionExpression:" : "ShoYoshida 7/24/2015 12:01",
+		"keyConditions:" : "ShoYoshida 7/24/2015 12:01",
+		"limit:" : "ShoYoshida 7/6/2015 11:34",
+		"operationType" : "ShoYoshida 7/6/2015 11:30",
+		"setSelect:" : "ShoYoshida 7/6/2015 11:34",
+		"setSelectAllAttributes" : "ShoYoshida 7/6/2015 11:34" } }

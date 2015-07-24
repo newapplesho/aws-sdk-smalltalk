@@ -15,6 +15,6 @@ operationName: operationName contents: requestBodyString
 	request headers at:'x-amz-date' put: datetimeString.
 	request headers at:'x-amz-target' put: ( awsConfig serviceName, '_', awsConfig apiVersion,'.', operationName ).	
 	request setAuthorization: ( SignersV4 creatAuthorization: request andConfig: awsConfig andDateTime: datetimeString andOption: nil ).
-	
+
 	^ self request: request andOption: nil.
 	

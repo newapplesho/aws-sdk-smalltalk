@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-DynamoDB-Actions",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "DynamoDBScan",
+	"pools" : [
+		 ],
+	"super" : "DynamoDBOperations",
+	"type" : "normal" }

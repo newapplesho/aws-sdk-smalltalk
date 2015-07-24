@@ -12,7 +12,7 @@ delete
 	
 	self primaryKeys do:[:v |  key data at: v put: (self data at: v ) ].
 	
-	c := (mapper convertItem: key ).
+	c := (mapper convertDynamoDBJson: key ).
 	json at:'Key' put: c .
 	requestBody := json asJsonString .
 	

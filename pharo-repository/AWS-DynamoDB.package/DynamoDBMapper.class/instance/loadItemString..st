@@ -4,7 +4,7 @@ loadItemString: anObject
 	jsonObject := Json readFrom: anObject readStream.
 
 	dict := Dictionary new.
-	jsonObject keys do:[:k | | value |
+	jsonObject keysDo: [:k | | value |
 		value := jsonObject at: k .
 		self  loadType: value  key: k on: dict.].
 	^ dict

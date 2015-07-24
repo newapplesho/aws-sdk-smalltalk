@@ -3,12 +3,12 @@ testGetItem3
 
 	| d  keyData result |
 	
-	d:= DModelTest1  new.
+	d:= DynamoDBDummyModel1  new.
 	d id: uuid.
 	d data at:#jpString put: #('あ' 'い' 'x').
 	d save.
 	
-	keyData := DModelTest1 new.
+	keyData := DynamoDBDummyModel1 new.
 	keyData id: uuid.
 
 	result := d getItem: keyData.

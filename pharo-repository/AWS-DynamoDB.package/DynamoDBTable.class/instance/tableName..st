@@ -1,3 +1,3 @@
 accessing
 tableName: anObject
-	tableName := anObject
+	tableName := anObject asString asLowercase

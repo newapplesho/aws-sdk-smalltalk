@@ -2,8 +2,8 @@ running
 setUp
 	| dy operationName requestBody resp |
 	
-	"AWSDynamoDBConfig initialize."
-	"AWSDynamoDBConfig developmentDynamoDBSetting."
+	AWSDynamoDBConfig initialize.
+	AWSDynamoDBConfig developmentDynamoDBSetting.
 	
 	dy := DynamoDBRawClient new.
 	operationName := #CreateTable.

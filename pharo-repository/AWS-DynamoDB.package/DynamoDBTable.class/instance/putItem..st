@@ -1,5 +1,5 @@
 api-putItem
-addItem: anObject
+putItem: anObject
 	| dict operation  dynamoJson |
 	dict := self checkRespondsToProperties: anObject.
 	operation := DynamoDBPutItem new.

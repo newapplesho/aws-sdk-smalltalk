@@ -1,5 +1,5 @@
 tests-api-addItem
-testAddItem3
+testPutItem3
 	| dynamoTable  result dummy uuid |
 	uuid := UUID new primMakeUUID hex.
 	dummy := DynamoDBDummyModel2 new.

@@ -1,5 +1,5 @@
 tests-api-putItem
-testAddItemConditionExpressionString
+testPutItemConditionExpressionString
 	| dynamoTable  result uuid dummy1 dummy2 dummy3 response enu |
 	uuid := UUID new primMakeUUID hex.
 	dummy1 := DynamoDBDummyModel2 new.

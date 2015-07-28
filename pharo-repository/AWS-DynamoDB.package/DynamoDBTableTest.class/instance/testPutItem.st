@@ -1,8 +1,8 @@
-tests-api-addItem
-testAddItem2
+tests-api-putItem
+testPutItem
 	| dynamoTable  result dict uuid |
 	uuid := UUID new primMakeUUID hex.
-	dict := DynamoDBDummyModel1 new at:'id' put: uuid; yourself.
+	dict := Dictionary newFrom: {'id'->uuid}.
 	dynamoTable := DynamoDBTable tableNamed: self tableName.
 	result := dynamoTable addItem: dict.
 	self assert: (result isEmpty).

@@ -6,7 +6,7 @@ version151: spec
 		"spec blessing: #development."
 		spec project: 'JSON' with: #stable.
 		spec
-			baseline: 'AWS' with: [ spec repository:'github://newapplesho/aws-sdk-smalltalk:12099b06a5a26174a52d2bca01173eccb4cb196e/pharo-repository' ];
+			baseline: 'AWS' with: [ spec repository:'github://newapplesho/aws-sdk-smalltalk:670be068cd8f5eda47469a1ddecdf7a8b1dadfbf/pharo-repository' ];
 		import: 'AWS'
 	].
 

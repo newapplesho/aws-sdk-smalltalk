@@ -1,5 +1,5 @@
 tests-api-getItem
-testGetItemKey
+testGetItemBy
 	| dynamoTable  result dummy uuid |
 	uuid := UUID new primMakeUUID hex.
 	dummy := DynamoDBDummyModel2 new.
@@ -7,8 +7,8 @@ testGetItemKey
 	dummy username: 'newapplesho'.
 	dummy description: 'hogehoge'.
 	dynamoTable := DynamoDBTable tableNamed: self tableName.
-	result := dynamoTable addItem: dummy.
+	result := dynamoTable putItem: dummy.
 	self assert: (result isEmpty).
 	
-	result := dynamoTable getItemKey: (Dictionary newFrom:{#id->uuid}).
+	result := dynamoTable getItemBy: {#id->uuid}.
 	self assert: ( (result at:#description) =  'hogehoge' ).

@@ -4,5 +4,5 @@ testPutItem
 	uuid := UUID new primMakeUUID hex.
 	dict := Dictionary newFrom: {'id'->uuid}.
 	dynamoTable := DynamoDBTable tableNamed: self tableName.
-	result := dynamoTable addItem: dict.
+	result := dynamoTable putItem: dict.
 	self assert: (result isEmpty).

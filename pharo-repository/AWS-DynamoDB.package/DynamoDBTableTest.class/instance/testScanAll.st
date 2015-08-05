@@ -10,7 +10,7 @@ testScanAll
 	20 timesRepeat: [ 
 		uuid := UUID new primMakeUUID hex.
 		dict := Dictionary newFrom: {'id'->uuid}.
-		dynamoTable addItem: dict. ].
+		dynamoTable putItem: dict. ].
 
 	dynamoTable numberOfResultsToFetch: 5.
 	enu := dynamoTable enumerator.

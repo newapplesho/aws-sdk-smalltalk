@@ -2,16 +2,16 @@
 	"class" : {
 		 },
 	"instance" : {
-		"setUp" : "ShoYoshida 7/28/2015 11:00",
+		"setUp" : "ShoYoshida 8/5/2015 19:15",
 		"tableName" : "ShoYoshida 7/24/2015 16:38",
 		"tearDown" : "ShoYoshida 7/24/2015 10:28",
-		"testDeleteItem" : "ShoYoshida 7/24/2015 15:55",
-		"testDeleteItemKey" : "ShoYoshida 7/24/2015 16:41",
-		"testGetItemKey" : "ShoYoshida 7/24/2015 16:45",
+		"testDeleteItem" : "ShoYoshida 8/5/2015 19:14",
+		"testDeleteItemKey" : "ShoYoshida 8/5/2015 19:14",
+		"testGetItemBy" : "ShoYoshida 8/5/2015 18:59",
 		"testListTables" : "ShoYoshida 7/24/2015 16:39",
-		"testPutItem" : "ShoYoshida 7/28/2015 13:02",
-		"testPutItem2" : "ShoYoshida 7/28/2015 13:01",
-		"testPutItem3" : "ShoYoshida 7/28/2015 13:01",
-		"testPutItemConditionExpressionString" : "ShoYoshida 7/28/2015 13:03",
-		"testQueryKeyConditionExpressionStringBinding" : "ShoYoshida 7/24/2015 19:29",
-		"testScanAll" : "ShoYoshida 7/24/2015 19:02" } }
+		"testPutItem" : "ShoYoshida 8/5/2015 19:12",
+		"testPutItem2" : "ShoYoshida 8/5/2015 19:12",
+		"testPutItem3" : "ShoYoshida 8/5/2015 19:12",
+		"testPutItemConditionExpressionString" : "ShoYoshida 8/5/2015 19:13",
+		"testQueryKeyConditionExpressionStringBinding" : "ShoYoshida 8/5/2015 19:12",
+		"testScanAll" : "ShoYoshida 8/5/2015 19:13" } }

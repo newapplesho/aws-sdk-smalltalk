@@ -5,6 +5,6 @@ testDeleteItemKey
 	dummy := DynamoDBDummyModel2 new.
 	dummy id: uuid.
 	dynamoTable := DynamoDBTable tableNamed: self tableName.
-	dynamoTable addItem: dummy.
+	dynamoTable putItem: dummy.
 	
 	result := dynamoTable deleteItemKey: (Dictionary newFrom:{#id->uuid}).

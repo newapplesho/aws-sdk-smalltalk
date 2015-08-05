@@ -7,7 +7,7 @@ testPutItemConditionExpressionString
 	dummy1 username: 'newapplesho'.
 	dummy1 description: 'hogehoge'.
 	dynamoTable := DynamoDBTable tableNamed: self tableName.
-	result := dynamoTable addItem: dummy1.
+	result := dynamoTable putItem: dummy1.
 	self assert: (result isEmpty).
 	
 	dummy2 := DynamoDBDummyModel2 new.
@@ -15,7 +15,7 @@ testPutItemConditionExpressionString
 	dummy2 username: 'newapplesho'.
 	dummy2 description: 'hogehoge'.
 	dynamoTable := DynamoDBTable tableNamed: self tableName.
-	dynamoTable addItem:  dummy2 conditionExpressionString: 'attribute_not_exists(id)'.
+	dynamoTable putItem:  dummy2 conditionExpressionString: 'attribute_not_exists(id)'.
 	
 	response := dynamoTable response.
 	self assert: (response status = 400).
@@ -25,7 +25,7 @@ testPutItemConditionExpressionString
 	dummy3 username: 'newapplesho'.
 	dummy3 description: 'hogehoge'.
 	dynamoTable := DynamoDBTable tableNamed: self tableName.
-	dynamoTable addItem:  dummy3 conditionExpressionString: 'attribute_not_exists(id)'.
+	dynamoTable putItem:  dummy3 conditionExpressionString: 'attribute_not_exists(id)'.
 	
 	response := dynamoTable response.
 	self assert: (response status = 200).

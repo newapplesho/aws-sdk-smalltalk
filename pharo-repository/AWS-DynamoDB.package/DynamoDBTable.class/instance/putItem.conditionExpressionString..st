@@ -1,3 +1,3 @@
 api-putItem
 putItem: anObject conditionExpressionString: aString 
-	^ self addItem: anObject conditionExpressionString: aString binding: nil.
+	^ self putItem: anObject conditionExpressionString: aString binding: nil.

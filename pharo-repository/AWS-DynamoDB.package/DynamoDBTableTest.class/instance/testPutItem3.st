@@ -7,7 +7,7 @@ testPutItem3
 	dummy username: 'newapplesho'.
 	dummy description: 'hogehoge'.
 	dynamoTable := DynamoDBTable tableNamed: self tableName.
-	result := dynamoTable addItem: dummy.
+	result := dynamoTable putItem: dummy.
 	self assert: (result isEmpty).
 	
 	result := dynamoTable queryKeyConditionExpressionString: 'id = :id' binding: (Dictionary newFrom: {':id'->uuid}).

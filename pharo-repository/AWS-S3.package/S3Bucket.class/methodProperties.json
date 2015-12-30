@@ -2,8 +2,10 @@
 	"class" : {
 		 },
 	"instance" : {
-		"atKey:putObject:" : "ShoYoshida 2/8/2015 23:47",
+		"atKey:putObject:" : "ShoYoshida 12/30/2015 18:01",
 		"bucketName" : "ShoYoshida 1/20/2015 00:27",
 		"bucketName:" : "ShoYoshida 1/20/2015 00:27",
-		"datetimeString" : "ShoYoshida 6/8/2015 18:33",
-		"deleteObject:" : "ShoYoshida 2/8/2015 21:33" } }
+		"client" : "ShoYoshida 12/30/2015 17:33",
+		"deleteObject:" : "ShoYoshida 12/30/2015 18:04",
+		"service" : "ShoYoshida 12/30/2015 17:33",
+		"service:" : "ShoYoshida 12/30/2015 17:33" } }

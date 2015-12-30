@@ -1,22 +1,6 @@
 public
 atKey: key putObject: anObject
-	| s3 request  requestBody datetimeString  hostUrl |
-	
+	| requestBody request |
 	requestBody := anObject.
-	
-	s3 := S3Client new.
-
-	datetimeString := self datetimeString.
-	
-	hostUrl := self bucketName, '.', s3 awsConfig endpoint.
-	
-	request := ZnRequest empty.
-	request method: #PUT.
-	request url: '/', key.
-	request entity:( ZnEntity readBinaryFrom: requestBody asByteArray readStream usingType: ZnMimeType textPlain andLength: requestBody size).
-	"request headers at:'Content-Length' put: requestBody byteSize asString."
-	request headers at:'host' put: hostUrl.
-	request headers at:'x-amz-content-sha256' put: (SHA256 new hashMessage: requestBody) hex.
-	request headers at:'x-amz-date' put: datetimeString.	
-	request setAuthorization: ( SignersV4 creatAuthorization: request andConfig: s3 awsConfig andDateTime: datetimeString andOption: nil ) .
-	^ s3 request: request andOption: nil.
+	request := self service createRequest: requestBody url: '/', key method: #PUT andBucketName: self bucketName.
+	^ self client request: request andOption: nil.

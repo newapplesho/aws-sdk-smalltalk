@@ -58,8 +58,7 @@ load.
 ```
 
 # How to use
-slideshare
-http://www.slideshare.net/newapplesho/aws-sdk-for-smalltalk
+[https://github.com/newapplesho/aws-sdk-smalltalk/wiki](Wiki)
 
 
 # TODO

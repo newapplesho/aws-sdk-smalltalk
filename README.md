@@ -34,25 +34,10 @@ url:'http://smalltalkhub.com/mc/newapplesho/aws-sdk-smalltalk/main';
 (Smalltalk at: #ConfigurationOfAWS) load.
 ```
 
-or you may use git (complicated, but reveals package depencencies):
-
-step 1
-
-```bash
-$ git clone https://github.com/newapplesho/aws-sdk-smalltalk
-```
-
-step 2
+or 
 
 ```smalltalk
-| pathToPackageDirectory |
-"edit to match the path to your chosen package directory"
-pathToPackageDirectory := '/YOUR-GIT-DIRECTORY-PATH/aws-sdk-smalltalk/pharo-repository/'.
-Metacello new
-baseline: 'AWS';
-repository: 'filetree://', pathToPackageDirectory;
-load.
-```
+Metacello new    baseline: 'AWS';    repository: 'github://newapplesho/aws-sdk-smalltalk:v1.6/pharo-repository';    load.```
 
 # How to use
 [Wiki](https://github.com/newapplesho/aws-sdk-smalltalk/wiki)
@@ -62,3 +47,4 @@ load.
 * Improve the support for DynamoDB 
 * EC2
 * S3
+* SQS

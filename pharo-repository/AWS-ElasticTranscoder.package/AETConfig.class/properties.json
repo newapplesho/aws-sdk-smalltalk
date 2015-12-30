@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-ElasticTranscoder",
+	"classinstvars" : [
+		"default" ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "AETConfig",
+	"pools" : [
+		 ],
+	"super" : "AWSConfig",
+	"type" : "normal" }

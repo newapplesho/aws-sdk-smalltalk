@@ -1,0 +1,19 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"awsKmsKeyArn:" : "ShoYoshida 12/29/2015 10:30",
+		"contentConfig" : "ShoYoshida 12/29/2015 10:40",
+		"contentConfig:" : "ShoYoshida 12/29/2015 10:40",
+		"inputBucket" : "ShoYoshida 12/29/2015 11:18",
+		"inputBucket:" : "ShoYoshida 12/29/2015 11:18",
+		"notifications" : "ShoYoshida 12/29/2015 10:38",
+		"notifications:" : "ShoYoshida 12/29/2015 10:38",
+		"outputBucket" : "ShoYoshida 12/29/2015 10:29",
+		"outputBucket:" : "ShoYoshida 12/29/2015 10:29",
+		"pipelineName" : "ShoYoshida 12/29/2015 11:20",
+		"pipelineName:" : "ShoYoshida 12/29/2015 11:20",
+		"role" : "ShoYoshida 12/29/2015 10:30",
+		"role:" : "ShoYoshida 12/29/2015 10:29",
+		"thumbnailConfig" : "ShoYoshida 12/29/2015 10:41",
+		"thumbnailConfig:" : "ShoYoshida 12/29/2015 10:40" } }

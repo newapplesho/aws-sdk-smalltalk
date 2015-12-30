@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-ElasticTranscoder-Model",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "AETContentConfig",
+	"pools" : [
+		 ],
+	"super" : "JsonObject",
+	"type" : "normal" }

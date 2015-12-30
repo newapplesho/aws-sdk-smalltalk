@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-ElasticTranscoder-Model",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "ShoYoshida 12/29/2015 10:39",
+	"instvars" : [
+		 ],
+	"name" : "AETCreatePipelineRequestBody",
+	"pools" : [
+		 ],
+	"super" : "JsonObject",
+	"type" : "normal" }

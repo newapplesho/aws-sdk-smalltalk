@@ -1,0 +1,10 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"createJob:" : "ShoYoshida 12/30/2015 15:41",
+		"createPipeline:" : "ShoYoshida 12/30/2015 15:41",
+		"createRequest:url:method:" : "ShoYoshida 12/30/2015 15:49",
+		"defaultConfigClass" : "ShoYoshida 12/29/2015 18:56",
+		"deletePipeline:" : "ShoYoshida 12/30/2015 15:50",
+		"readPipeline:" : "ShoYoshida 12/30/2015 16:12" } }

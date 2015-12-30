@@ -1,15 +1,13 @@
 low-level-api
 operationName: operationName entityContents: requestBody
-	| client  dt t   url datetimeString request |
+	| client url datetimeString request |
 	
 	client := ZnClient new "systemPolicy beOneShot".
 
 	awsConfig useSSL 
 		ifTrue:[ client https].
 		
-	dt :=DateAndTime now asUTC.
-	t :=  (dt asTimeUTC print24 findTokens: '.')first copyReplaceAll:':' with:''.
-	datetimeString := (dt asDate printFormat:#(3 2 1 0 1 1 2)),'T',t,'Z'.
+	datetimeString := DateAndTime amzDatePrintString.
 	
 	request := ZnRequest empty.
 	request method: #POST.
@@ -21,7 +19,7 @@ operationName: operationName entityContents: requestBody
 	"request header at:'x-amz-sha256' put: (SHA256 new hashMessage: requestBody) hex."
 	request headers at:'x-amz-date' put: datetimeString.
 	request headers at:'x-amz-target' put:  (awsConfig serviceName,'_', awsConfig apiVersion,'.', operationName).	
-	request setAuthorization: ( SignersV4 creatAuthorization: request andConfig: awsConfig andDateTime: datetimeString andOption: nil ) .
+	request setAuthorization: ( SignatureV4 creatAuthorization: request andConfig: awsConfig andDateTime: datetimeString andOption: nil ) .
 	
 
 	client request: request.	

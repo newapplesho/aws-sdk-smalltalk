@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-Core-Tests",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "SignatureV4Test",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }

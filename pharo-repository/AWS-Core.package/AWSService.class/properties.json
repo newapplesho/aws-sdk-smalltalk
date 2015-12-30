@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"client" ],
+	"name" : "AWSService",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

@@ -1,11 +1,12 @@
 {
 	"class" : {
-		 },
+		"awsConfig:" : "ShoYoshida 12/29/2015 19:01" },
 	"instance" : {
-		"awsConfig" : "ShoYoshida 4/29/2014 16:43",
+		"awsConfig" : "ShoYoshida 12/29/2015 18:54",
 		"awsConfig:" : "ShoYoshida 4/29/2014 16:43",
+		"dateTimeString" : "ShoYoshida 12/29/2015 10:00",
+		"defaultConfigClass" : "ShoYoshida 12/29/2015 15:21",
 		"defaultHttpClient" : "ShoYoshida 7/6/2015 12:08",
 		"httpClient" : "ShoYoshida 12/17/2014 21:07",
 		"httpClient:" : "ShoYoshida 12/17/2014 21:07",
-		"initialize" : "ShoYoshida 12/22/2014 11:04",
-		"request:andOption:" : "ShoYoshida 7/6/2015 12:08" } }
+		"request:andOption:" : "ShoYoshida 12/29/2015 10:02" } }

@@ -1,3 +1,3 @@
 accessing
 regionName
-	^self  at: #regionName ifAbsent: []
+	^self at: #regionName ifAbsentPut: [ self defaultRegionName ]

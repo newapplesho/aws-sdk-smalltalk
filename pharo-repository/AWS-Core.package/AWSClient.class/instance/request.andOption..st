@@ -6,9 +6,7 @@ request: request  andOption: anObject
 
 	awsConfig useSSL 
 		ifTrue:[ client https].
-
 	client request: request.
-	
 	hostUrl := request headers at:'host'  ifAbsent: [ '' ].
 	keyUrl := request url asString.
 	url := ZnUrl fromString: hostUrl,keyUrl defaultScheme: #https.  

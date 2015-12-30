@@ -1,0 +1,15 @@
+{
+	"class" : {
+		"creatAuthorization:andConfig:andDateTime:" : "ShoYoshida 12/29/2015 18:41",
+		"creatAuthorization:andConfig:andDateTime:andOption:" : "ShoYoshida 12/17/2014 20:48" },
+	"instance" : {
+		"creatAuthorization:andConfig:andDateTime:andOption:" : "ShoYoshida 12/17/2014 21:00",
+		"creatCanonicalHeaders:" : "ShoYoshida 12/17/2014 19:44",
+		"createCanonicalRequest:andOption:" : "ShoYoshida 12/17/2014 19:44",
+		"createCredentialScopeValue:andDateTime:" : "ShoYoshida 12/17/2014 20:02",
+		"createDerivedSigningKey:andDateTime:" : "ShoYoshida 12/17/2014 20:24",
+		"createSign:andConfig:andDateTime:andOption:" : "ShoYoshida 12/17/2014 19:44",
+		"createSignHeaders:" : "ShoYoshida 12/17/2014 19:44",
+		"createStringtoSign:andDateTime:andCanonicalRequest:" : "ShoYoshida 12/17/2014 20:03",
+		"getEncodedSortQueryString:" : "ShoYoshida 12/17/2014 19:44",
+		"signatureAlgorithm" : "ShoYoshida 12/17/2014 19:44" } }

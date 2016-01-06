@@ -27,17 +27,21 @@ The following data types are supported for use in DynamoDB:
 You can easily install from inside Smalltalk:
 
 ```smalltalk
+Metacello new
+    baseline: 'AWS';
+    repository: 'github://newapplesho/aws-sdk-smalltalk:v1.6/pharo-repository';
+    load.
+```
+
+or 
+
+```smalltalk
 Gofer new
 url:'http://smalltalkhub.com/mc/newapplesho/aws-sdk-smalltalk/main';
     package: 'ConfigurationOfAWS';
     load.
 (Smalltalk at: #ConfigurationOfAWS) load.
 ```
-
-or 
-
-```smalltalk
-Metacello new    baseline: 'AWS';    repository: 'github://newapplesho/aws-sdk-smalltalk:v1.6/pharo-repository';    load.```
 
 # How to use
 [Wiki](https://github.com/newapplesho/aws-sdk-smalltalk/wiki)

@@ -1,10 +1,10 @@
 api-query
 queryKeyConditionExpressionString: aString binding: aDictionary
-	| query dynamoDBJson |
+	| query dynamoDbJson |
 	query := DynamoDBQuery new.
 	query setSelectAllAttributes.
 	query keyConditionExpression:  aString.
-	dynamoDBJson := mapper convertDynamoDBJson: aDictionary.
-	query expressionAttributeValues: dynamoDBJson.
+	dynamoDbJson := self mapper convert: aDictionary.
+	query expressionAttributeValues: dynamoDbJson.
 	^ self query: query.
 	

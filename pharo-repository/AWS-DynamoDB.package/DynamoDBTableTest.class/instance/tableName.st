@@ -1,3 +1,3 @@
 constants
 tableName
-	^ 'dmodeltest'
+	^ 'dynamoDbTestTable'

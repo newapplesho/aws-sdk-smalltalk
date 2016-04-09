@@ -1,3 +1,3 @@
 convenience
 setSelectAllAttributes
-	self at:'Select' put: 'ALL_ATTRIBUTES'
+	self modifiers at:'Select' put: 'ALL_ATTRIBUTES'

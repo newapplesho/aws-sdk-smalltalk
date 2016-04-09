@@ -1,3 +1,3 @@
 default
-defaultDynamoDBClient
+defaultDynamoDbClient
 	^ DynamoDBRawClient new

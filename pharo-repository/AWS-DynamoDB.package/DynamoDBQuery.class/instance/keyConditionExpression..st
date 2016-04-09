@@ -1,3 +1,3 @@
 public
 keyConditionExpression: aString
-	self at:'KeyConditionExpression' put: aString
+	self modifiers at:'KeyConditionExpression' put: aString

@@ -2,12 +2,12 @@
 	"class" : {
 		 },
 	"instance" : {
-		"attributesToGet:" : "ShoYoshida 7/24/2015 12:00",
-		"exclusiveStartKey:" : "ShoYoshida 7/24/2015 12:00",
-		"expressionAttributeValues:" : "ShoYoshida 7/24/2015 12:01",
-		"keyConditionExpression:" : "ShoYoshida 7/24/2015 12:01",
-		"keyConditions:" : "ShoYoshida 7/24/2015 12:01",
-		"limit:" : "ShoYoshida 7/6/2015 11:34",
+		"attributesToGet:" : "ShoYoshida 4/9/2016 18:30",
+		"exclusiveStartKey:" : "ShoYoshida 4/9/2016 18:30",
+		"expressionAttributeValues:" : "ShoYoshida 4/9/2016 18:30",
+		"keyConditionExpression:" : "ShoYoshida 4/9/2016 18:30",
+		"keyConditions:" : "ShoYoshida 4/9/2016 18:30",
+		"limit:" : "ShoYoshida 4/9/2016 18:30",
 		"operationType" : "ShoYoshida 7/6/2015 11:30",
-		"setSelect:" : "ShoYoshida 7/6/2015 11:34",
-		"setSelectAllAttributes" : "ShoYoshida 7/6/2015 11:34" } }
+		"setSelect:" : "ShoYoshida 4/9/2016 18:31",
+		"setSelectAllAttributes" : "ShoYoshida 4/9/2016 18:31" } }

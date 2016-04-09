@@ -1,3 +1,3 @@
 private
 tableName
-	^ 'dmodeltest1'
+	^ 'dynamoDbTestTable'

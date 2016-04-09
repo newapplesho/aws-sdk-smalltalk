@@ -1,3 +1,3 @@
 public
 conditionExpression: asString
-	self at:'ConditionExpression' put: asString.
+	self modifiers at:'ConditionExpression' put: asString.

@@ -1,3 +1,3 @@
 public
 consistentRead: aBoolean
-	self at:'ConsistentRead' put: aBoolean
+	self modifiers at:'ConsistentRead' put: aBoolean

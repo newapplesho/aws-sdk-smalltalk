@@ -1,3 +1,3 @@
 public
 attributesToGet: aStringArray
-	self at:'AttributesToGet' put: aStringArray
+	self modifiers at:'AttributesToGet' put: aStringArray

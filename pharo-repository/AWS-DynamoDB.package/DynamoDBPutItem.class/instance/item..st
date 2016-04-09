@@ -1,3 +1,3 @@
 public
 item: anJsonObject
-	self at:'Item' put: anJsonObject.
+	self modifiers at:'Item' put: anJsonObject.

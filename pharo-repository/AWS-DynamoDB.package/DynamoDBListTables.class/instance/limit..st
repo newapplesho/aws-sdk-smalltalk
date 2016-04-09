@@ -5,4 +5,4 @@ limit: aNumberOrNumberString
 		ifTrue:[ aNumberOrNumberString asString ]
 		ifFalse:[ aNumberOrNumberString ].
 
-	self at: 'limit' put: limitNumber.
+	self modifiers at: 'limit' put: limitNumber.

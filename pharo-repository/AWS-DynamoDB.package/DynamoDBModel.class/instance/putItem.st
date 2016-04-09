@@ -1,3 +1,0 @@
-inserting
-putItem
-	self save.

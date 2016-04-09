@@ -1,8 +1,7 @@
 api-putItem
-putItem: anObject
-	| dict operation  dynamoJson |
-	dict := self checkRespondsToProperties: anObject.
+putItem: aDictionary
+	| operation dynamoDbJson |	
 	operation := DynamoDBPutItem new.
-	dynamoJson := (mapper convertDynamoDBJson: dict ).
-	operation item: dynamoJson.
+	dynamoDbJson := self mapper convert: aDictionary.
+	operation item: dynamoDbJson.
 	^ self action: operation.

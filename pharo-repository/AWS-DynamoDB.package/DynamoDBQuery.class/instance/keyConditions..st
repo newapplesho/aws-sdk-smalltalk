@@ -1,3 +1,3 @@
 public
 keyConditions: aJsonObject
-	self at:'KeyConditions' put: aJsonObject
+	self modifiers at:'KeyConditions' put: aJsonObject

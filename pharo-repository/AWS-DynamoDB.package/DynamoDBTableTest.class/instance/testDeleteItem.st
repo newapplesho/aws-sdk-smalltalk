@@ -1,11 +1,31 @@
 tests-api-deleteItem
 testDeleteItem
-	| dynamoTable dummy uuid result |
-	uuid := UUID new primMakeUUID hex.
-	dummy := DynamoDBDummyModel2 new.
-	dummy id: uuid.
-	dynamoTable := DynamoDBTable tableNamed: self tableName.
-	dynamoTable putItem: dummy.
+	| dynamoTable uuid result item1 item2 |
 	
-	result := dynamoTable deleteItem: dummy.
-	self assert: (result isEmpty).
+	uuid := UUID new primMakeUUID hex.
+	item1 := Dictionary newFrom: {'id' -> uuid }.
+	dynamoTable := DynamoDBTable tableNamed: self tableName.
+	
+	dynamoTable putItem: item1.
+	
+	result := dynamoTable getItemBy: {#id -> uuid} asDictionary.
+	self assert: result isNotEmpty.
+	
+	result := dynamoTable deleteItem: item1.
+	self assert: result isEmpty.
+	
+	uuid := UUID new primMakeUUID hex.
+	item2 := Dictionary
+		newFrom:
+			{('id' -> uuid).
+			('name' -> 'newapplesho')}.
+	dynamoTable putItem: item2.
+	
+	result := dynamoTable getItemBy: {#id -> uuid} asDictionary.
+	self assert: result isNotEmpty.
+	
+	result := dynamoTable deleteItem: {#id -> uuid} asDictionary.
+	self assert: result isEmpty.
+	
+	result := dynamoTable getItemBy: {#id -> uuid} asDictionary.
+	self assert: result isEmpty.

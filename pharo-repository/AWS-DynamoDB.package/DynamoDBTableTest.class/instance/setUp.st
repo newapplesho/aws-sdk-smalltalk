@@ -14,7 +14,7 @@ setUp
             "AttributeType": "S"
         }
     ],
-    "TableName": "dmodeltest",
+    "TableName": "dynamoDbTestTable",
     "KeySchema": [
         {
             "AttributeName": "id",
@@ -27,5 +27,5 @@ setUp
     }
 }'.
 
-	resp := dy operationName:  operationName entityContents: requestBody.
+	resp := dy operationName: operationName contents: requestBody.
 	Json readFrom: (resp contents) readStream.

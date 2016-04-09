@@ -1,8 +1,14 @@
 tests-api-putItem
 testPutItem
-	| dynamoTable  result dict uuid |
+	| dynamoDbTable  result  uuid item |
 	uuid := UUID new primMakeUUID hex.
-	dict := Dictionary newFrom: {'id'->uuid}.
-	dynamoTable := DynamoDBTable tableNamed: self tableName.
-	result := dynamoTable putItem: dict.
+	item := Dictionary newFrom: {'id'-> uuid.}.
+	dynamoDbTable := DynamoDBTable tableNamed: self tableName.
+	result := dynamoDbTable putItem: item.
+	self assert: (result isEmpty).
+	
+	uuid := UUID new primMakeUUID hex.
+	item := Dictionary newFrom: {'id'-> uuid. 'name'-> 'newapplesho' }.
+	dynamoDbTable := DynamoDBTable tableNamed: self tableName.
+	result := dynamoDbTable putItem: item.
 	self assert: (result isEmpty).

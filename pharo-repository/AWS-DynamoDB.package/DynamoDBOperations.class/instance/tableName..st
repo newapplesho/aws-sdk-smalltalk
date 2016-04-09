@@ -1,3 +1,3 @@
 accessing
 tableName: tableNamStringOrSymbol
-	self at:'TableName' put: tableNamStringOrSymbol
+	self modifiers at:'TableName' put: tableNamStringOrSymbol

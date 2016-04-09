@@ -1,24 +1,20 @@
 tests-api-scan
 testScanAll
 
-	| dynamoTable uuid dict enu counter |
+	| dynamoDbTable  enu counter |
 	
 	counter := 0.
-
-	dynamoTable := DynamoDBTable tableNamed: self tableName.	
+	dynamoDbTable := DynamoDBTable tableNamed: self tableName.	
 
 	20 timesRepeat: [ 
-		uuid := UUID new primMakeUUID hex.
-		dict := Dictionary newFrom: {'id'->uuid}.
-		dynamoTable putItem: dict. ].
+		dynamoDbTable putItem: {'id'->UUID new primMakeUUID hex} asDictionary. ].
 
-	dynamoTable numberOfResultsToFetch: 5.
-	enu := dynamoTable enumerator.
+	dynamoDbTable numberOfResultsToFetch: 5.
+	enu := dynamoDbTable enumerator.
 	[enu atEnd] whileFalse: [
 		| result |
 		result := enu fetchNextUnits.
 		counter := counter + 1.
 	].
-	self assert: ( enu resultStream contents  size = 20 ) .
+	self assert: ( enu resultStream contents size = 20 ) .
 	self assert: (counter = 4). 
-	"enu resultStream contents inspect."

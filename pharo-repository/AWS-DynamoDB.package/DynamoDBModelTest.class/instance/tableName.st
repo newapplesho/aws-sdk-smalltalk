@@ -1,3 +1,0 @@
-private
-tableName
-	^ 'dmodeltest1'

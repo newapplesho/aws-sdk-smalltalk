@@ -1,3 +1,3 @@
 public
 expressionAttributeValues: aJsonObject
-	self at:'ExpressionAttributeValues' put: aJsonObject.
+	self modifiers at:'ExpressionAttributeValues' put: aJsonObject.

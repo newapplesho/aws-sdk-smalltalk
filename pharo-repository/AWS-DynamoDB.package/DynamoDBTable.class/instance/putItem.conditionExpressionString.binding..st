@@ -1,12 +1,12 @@
 api-putItem
 putItem: anObject conditionExpressionString: aString binding: aDictionary
-	| dict operation  dynamoDBJson itemDynamoJson |
+	| dict operation  dynamoDbJson itemDynamoDbJson |
 	dict := self checkRespondsToProperties: anObject.
 	operation := DynamoDBPutItem new.
 	operation conditionExpression: aString.
 	aDictionary ifNotNil: [  
-		dynamoDBJson := mapper convertDynamoDBJson: aDictionary.
-		operation expressionAttributeValues: dynamoDBJson. ].
-	itemDynamoJson := mapper convertDynamoDBJson: dict .
-	operation item: itemDynamoJson.
+		dynamoDbJson := mapper convert: aDictionary.
+		operation expressionAttributeValues: dynamoDbJson. ].
+	itemDynamoDbJson := self mapper convert: dict .
+	operation item: itemDynamoDbJson.
 	^ self action: operation.

@@ -1,3 +1,3 @@
 public
 key: anJsonObject
-	self at:'Key' put: anJsonObject.
+	self modifiers at:'Key' put: anJsonObject.

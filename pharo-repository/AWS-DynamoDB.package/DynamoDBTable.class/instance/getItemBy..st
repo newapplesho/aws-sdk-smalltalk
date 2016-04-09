@@ -1,8 +1,7 @@
 api-getItem
 getItemBy: anObject
-	| operation keyDynamoJson dict |
-	dict := anObject asDictionary.
+	| operation keyDynamoJson |
 	operation := DynamoDBGetItem new.
-	keyDynamoJson := (mapper convertDynamoDBJson: dict ).
+	keyDynamoJson := mapper convert: anObject.
 	operation key: keyDynamoJson.
-	^ self getItem: operation.
+	^ self getItem: operation

@@ -1,14 +1,14 @@
 {
-	"category" : "AWS-DynamoDB-Actions",
+	"category" : "AWS-DynamoDB-Operations",
 	"classinstvars" : [
 		 ],
 	"classvars" : [
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		 ],
+		"modifiers" ],
 	"name" : "DynamoDBOperations",
 	"pools" : [
 		 ],
-	"super" : "JsonObject",
+	"super" : "Object",
 	"type" : "normal" }

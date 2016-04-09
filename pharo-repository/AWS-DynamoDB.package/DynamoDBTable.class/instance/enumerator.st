@@ -1,3 +1,3 @@
 enumerating
 enumerator
-	^DynamoDBQueryOrScanResultEnumerator with: self
+	^ DynamoDBQueryOrScanResultEnumerator with: self

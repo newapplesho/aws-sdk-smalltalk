@@ -1,3 +1,3 @@
 public
 limit: asInteger
-	self at:'Limit' put: asInteger
+	self modifiers at:'Limit' put: asInteger

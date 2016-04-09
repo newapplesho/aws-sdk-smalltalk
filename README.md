@@ -8,10 +8,7 @@ The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with
 # Features
 * AWS Signature version 4
 * Amazon DynamoDB
- * Low-level API
- * Easy-access library, in a more Smalltalk manner
 * Amazon S3
- * Create Bucket and Delete Bucket	
 * Elastic Transcoder
 
 The following data types are supported for use in DynamoDB:
@@ -45,10 +42,3 @@ url:'http://smalltalkhub.com/mc/newapplesho/aws-sdk-smalltalk/main';
 
 # How to use
 [Wiki](https://github.com/newapplesho/aws-sdk-smalltalk/wiki)
-
-
-# TODO
-* Improve the support for DynamoDB 
-* EC2
-* S3
-* SQS

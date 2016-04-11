@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-DynamoDB-Operations",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "DynamoDBDescribeTable",
+	"pools" : [
+		 ],
+	"super" : "DynamoDBOperations",
+	"type" : "normal" }

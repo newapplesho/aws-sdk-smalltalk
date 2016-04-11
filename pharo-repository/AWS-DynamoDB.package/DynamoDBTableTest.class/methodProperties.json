@@ -6,6 +6,7 @@
 		"tableName" : "ShoYoshida 4/9/2016 17:18",
 		"tearDown" : "ShoYoshida 4/9/2016 17:37",
 		"testDeleteItem" : "ShoYoshida 4/10/2016 01:01",
+		"testDescribeTable" : "ShoYoshida 4/11/2016 09:24",
 		"testGetItemBy" : "ShoYoshida 4/10/2016 01:30",
 		"testListTables" : "ShoYoshida 7/24/2015 16:39",
 		"testPutItem" : "ShoYoshida 4/9/2016 18:21",

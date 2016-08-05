@@ -26,7 +26,7 @@ You can easily install from inside Smalltalk:
 ```smalltalk
 Metacello new
     baseline: 'AWS';
-    repository: 'github://newapplesho/aws-sdk-smalltalk:v1.6.1/pharo-repository';
+    repository: 'github://newapplesho/aws-sdk-smalltalk:v1.7/pharo-repository';
     load.
 ```
 

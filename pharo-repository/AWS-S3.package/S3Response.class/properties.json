@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-S3",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "S3Response",
+	"pools" : [
+		 ],
+	"super" : "AWSResponse",
+	"type" : "normal" }

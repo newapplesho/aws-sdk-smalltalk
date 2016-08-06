@@ -7,14 +7,14 @@ baseline113: spec
 			spec
 				className: 'ConfigurationOfJSON';
 				versionString: #stable;
-				repository: 'http://smalltalkhub.com/mc/PharoExtras/JSON/main'. ].																	
+				repository: 'http://smalltalkhub.com/mc/PharoExtras/JSON/main'. ].	
+	
+		spec project: 'XMLParser' with: [
+			spec
+				className: 'ConfigurationOfXMLParser'; 
+				versionString: #stable;
+				repository: 'http://smalltalkhub.com/mc/PharoExtras/XMLParser/main'. ].																
 	].
-
-	spec project: 'XMLParser' with: [
-		spec
-			className: 'ConfigurationOfXMLParser'; 
-			file: 'ConfigurationOfXMLParser'; 
-			repository: 'http://smalltalkhub.com/mc/PharoExtras/XMLParser/main'. ].
 
 	spec for: #(#'pharo3.x') do:[			
 		spec package: 'Cryptography' with: [

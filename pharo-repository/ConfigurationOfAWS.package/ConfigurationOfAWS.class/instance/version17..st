@@ -1,6 +1,6 @@
 versions
 version17: spec
-	<version: '1.7.0' imports: #('1.1.3-baseline')>
+	<version: '1.7' imports: #('1.1.3-baseline')>
 	
 	spec for: #common do: [	
 		spec project: 'JSON' with: #stable.

@@ -1,4 +1,4 @@
-public
+public-listing
 listObjects
 	^ self getBucket
 	

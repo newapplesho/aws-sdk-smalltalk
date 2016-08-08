@@ -1,9 +1,10 @@
 accessing
 value
 	| result exception |
-	(self response hasEntity and:[ self response contentType sub = 'xml'])
-			ifTrue:[ result := XMLDOMParser parse: self response contents readStream. ]
-			ifFalse:[ result := self response contents. ].
+	
+	result := (self response hasEntity and:[ self response contentType sub = 'xml'])
+					ifTrue:[ XMLDOMParser parse: self response contents readStream ]
+				ifFalse:[ self response contents ].
 	self response isSuccess 
 		ifTrue:[ ^ result ].
 	

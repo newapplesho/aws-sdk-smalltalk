@@ -9,7 +9,7 @@ createRequest: aRequestBody url: url method: method andBucketName: bucketNameStr
 	request method: method.
 	request url: url.
 	
-	request entity:( ZnEntity readBinaryFrom: aRequestBody asByteArray readStream usingType: ZnMimeType textPlain andLength: aRequestBody byteSize). 
+	request entity:(ZnEntity readBinaryFrom: aRequestBody asByteArray readStream usingType: ZnMimeType textPlain andLength: aRequestBody byteSize). 
 	request headers at:'host' put: hostUrl.
 	request headers at:'x-amz-content-sha256' put: (SHA256 new hashMessage: aRequestBody) hex.
 	request headers at:'x-amz-date' put: datetimeString.

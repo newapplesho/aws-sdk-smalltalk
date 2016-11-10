@@ -9,11 +9,10 @@ baseline: spec
 				file: 'ConfigurationOfJSON';
 				repository: 'http://smalltalkhub.com/mc/PharoExtras/JSON/main'.
 		
-			spec project: 'XMLParser' with: [
-				spec
-					className: 'ConfigurationOfXMLParser'; 
-					versionString: #stable;
-					repository: 'http://smalltalkhub.com/mc/PharoExtras/XMLParser/main'. ].		
+			spec
+				className: 'ConfigurationOfXMLParser'; 
+				versionString: #stable;
+				repository: 'http://smalltalkhub.com/mc/PharoExtras/XMLParser/main'.	
 		].
 		
 		spec for: #'pharo3.x' do: [	

@@ -1,6 +1,6 @@
 low-level-api
 operationName: operationName contents: json
-	|   datetimeString request |
+	| datetimeString request |
 	datetimeString := DateAndTime amzDatePrintString.
 	
 	request := ZnRequest empty.

@@ -1,0 +1,4 @@
+accessing
+amzDatePrintString
+	^ DateAndTime amzDatePrintString
+	

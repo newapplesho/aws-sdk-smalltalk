@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-STS",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "STSResponse",
+	"pools" : [
+		 ],
+	"super" : "AWSResponse",
+	"type" : "normal" }

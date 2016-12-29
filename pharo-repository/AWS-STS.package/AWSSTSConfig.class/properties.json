@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-STS",
+	"classinstvars" : [
+		"default" ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "AWSSTSConfig",
+	"pools" : [
+		 ],
+	"super" : "AWSConfig",
+	"type" : "normal" }

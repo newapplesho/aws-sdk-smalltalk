@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-STS",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "STSClient",
+	"pools" : [
+		 ],
+	"super" : "AWSClient",
+	"type" : "normal" }

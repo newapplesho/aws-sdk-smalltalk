@@ -6,6 +6,7 @@
 		"tearDown" : "ShoYoshida 12/13/2014 17:16",
 		"testCreatAuthorizationAndConfigAndDateTimeAndOption" : "ShoYoshida 12/23/2015 12:31",
 		"testCreatCanonicalHeaders" : "ShoYoshida 12/23/2015 12:31",
+		"testCreatPreSignedUrlToRequestConfigDateTimeOption" : "ShoYoshida 12/29/2016 21:53",
 		"testCreateCanonicalRequestAndOption" : "ShoYoshida 12/23/2015 12:31",
 		"testCreateCredentialScopeValueAndDateTime" : "ShoYoshida 12/23/2015 12:31",
 		"testCreateDerivedSigningKeyAndDateTime" : "ShoYoshida 12/23/2015 12:31",

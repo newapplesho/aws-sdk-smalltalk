@@ -1,31 +1,28 @@
 baselines
-baseline: spec 
-	 <baseline>
-	
-	spec for: #common do: [
-		spec project: 'JSON' with: [
+baseline: spec
+	<baseline>
+	spec
+		for: #common
+		do: [ spec
+				project: 'JSON'
+				with: [ spec
+						className: 'ConfigurationOfJSON';
+						file: 'ConfigurationOfJSON';
+						repository: 'http://smalltalkhub.com/mc/PharoExtras/JSON/main' ].
 			spec
-				className: 'ConfigurationOfJSON';
-				file: 'ConfigurationOfJSON';
-				repository: 'http://smalltalkhub.com/mc/PharoExtras/JSON/main'.	
-		].
-		
-		spec project: 'XMLParser' with: [
+				project: 'XMLParser'
+				with: [ spec
+						className: 'ConfigurationOfXMLParser';
+						versionString: #stable;
+						repository: 'http://smalltalkhub.com/mc/PharoExtras/XMLParser/main' ].
 			spec
-				className: 'ConfigurationOfXMLParser'; 
-				versionString: #stable;
-				repository: 'http://smalltalkhub.com/mc/PharoExtras/XMLParser/main'. ].	
-		
-		spec for: #'pharo3.x' do: [	
-			spec package: 'Cryptography' with: [
-				spec repository: 'http://smalltalkhub.com/mc/Cryptography/Cryptography/main'. ].].
-		
-		spec 
-			package: 'AWS-Core';
-			package: 'AWS-DynamoDB'
-        	  		with: [ spec requires: #('AWS-Core') ];
-			package: 'AWS-S3'
-        	  		with: [ spec requires: #('AWS-Core') ];
-			package: 'AWS-ElasticTranscoder'
-        	  		with: [ spec requires: #('AWS-Core') ].
-	].
+				for: #'pharo3.x'
+				do: [ spec
+						package: 'Cryptography'
+						with: [ spec repository: 'http://smalltalkhub.com/mc/Cryptography/Cryptography/main' ] ].
+			spec
+				package: 'AWS-Core';
+				package: 'AWS-DynamoDB' with: [ spec requires: #('AWS-Core') ];
+				package: 'AWS-S3' with: [ spec requires: #('AWS-Core') ];
+				package: 'AWS-ElasticTranscoder' with: [ spec requires: #('AWS-Core') ];
+				package: 'AWS-STS' with: [ spec requires: #('AWS-Core') ] ].

@@ -10,6 +10,7 @@ The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with
 * Amazon DynamoDB
 * Amazon S3
 * Elastic Transcoder
+* STS
 
 The following data types are supported for use in DynamoDB:
 
@@ -17,7 +18,7 @@ The following data types are supported for use in DynamoDB:
 * Multi-valued types – String Set, Number Set.
 
 # Requirement
-  - Pharo 4.0, Pharo 5.0.
+  - Pharo 3.0, Pharo 4.0, Pharo 5.0.
 
 # How to install
 
@@ -26,7 +27,7 @@ You can easily install from inside Smalltalk:
 ```smalltalk
 Metacello new
     baseline: 'AWS';
-    repository: 'github://newapplesho/aws-sdk-smalltalk:v1.7/pharo-repository';
+    repository: 'github://newapplesho/aws-sdk-smalltalk:v1.9/pharo-repository';
     load.
 ```
 

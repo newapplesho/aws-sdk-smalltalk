@@ -4,7 +4,7 @@ getSessionToken
 	amzDatePrintString := DateAndTime amzDatePrintString.
 	request := ZnRequest empty.
 	request method: #POST.
-	request url: '/?Action=GetSessionToken&Version=2011-06-15'.
+	request url: '/?Action=GetSessionToken&Version=', self awsConfig apiVersion.
 	request entity: (ZnEntity text: '').
 	request headers at: 'host' put: self awsConfig endpoint.
 	request headers at: 'x-amz-date' put: amzDatePrintString.

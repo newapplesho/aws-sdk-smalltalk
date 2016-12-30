@@ -1,7 +1,7 @@
 AWS SDK for Smalltalk
 =================
 
-The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with [Amazon Web Services](http://aws.amazon.com/) and Amazon DynamoDB, S3, Elastic Transcoder. You can get started in minutes using Metacello and FileTree.
+The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with [Amazon Web Services](http://aws.amazon.com/). You can get started in minutes using Metacello and FileTree.
 
 <img src="http://2.bp.blogspot.com/-3caM96eyEOM/VJ6S70lf-YI/AAAAAAAAARM/IvmnJdN0yp0/s1600/20141225howsmalltalkerworks.jpg" width="400"/>
 

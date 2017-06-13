@@ -25,4 +25,5 @@ baseline: spec
 				package: 'AWS-DynamoDB' with: [ spec requires: #('AWS-Core') ];
 				package: 'AWS-S3' with: [ spec requires: #('AWS-Core') ];
 				package: 'AWS-ElasticTranscoder' with: [ spec requires: #('AWS-Core') ];
-				package: 'AWS-STS' with: [ spec requires: #('AWS-Core') ] ].
+				package: 'AWS-STS' with: [ spec requires: #('AWS-Core') ];
+				package: 'AWS-CloudFront' with: [ spec requires: #('AWS-Core') ] ].

@@ -1,0 +1,2 @@
+printing
+xmlWriteContentOn: aStream

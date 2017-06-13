@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-CloudFront",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CFModel",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

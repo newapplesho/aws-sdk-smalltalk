@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-CloudFront",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "CloudFrontClient",
+	"pools" : [
+		 ],
+	"super" : "AWSClient",
+	"type" : "normal" }

@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-CloudFront",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"pathCollections" ],
+	"name" : "CFPaths",
+	"pools" : [
+		 ],
+	"super" : "CFModel",
+	"type" : "normal" }

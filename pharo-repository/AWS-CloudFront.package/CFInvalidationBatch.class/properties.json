@@ -1,0 +1,14 @@
+{
+	"category" : "AWS-CloudFront",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"paths" ],
+	"name" : "CFInvalidationBatch",
+	"pools" : [
+		 ],
+	"super" : "CFModel",
+	"type" : "normal" }

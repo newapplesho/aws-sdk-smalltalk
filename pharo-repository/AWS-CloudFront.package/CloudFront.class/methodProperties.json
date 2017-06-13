@@ -1,0 +1,13 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"defaultClientClass" : "ShoYoshida 6/6/2017 18:21",
+		"defaultConfigClass" : "ShoYoshida 5/20/2017 23:58",
+		"defaultUri" : "ShoYoshida 6/13/2017 13:25",
+		"distributionId" : "ShoYoshida 5/20/2017 23:59",
+		"distributionId:" : "ShoYoshida 5/20/2017 23:59",
+		"getInvalidation:" : "ShoYoshida 6/13/2017 13:32",
+		"getInvalidationList" : "ShoYoshida 6/13/2017 13:28",
+		"invalidationUri" : "ShoYoshida 6/13/2017 13:28",
+		"postInvalidation:" : "ShoYoshida 6/13/2017 16:26" } }

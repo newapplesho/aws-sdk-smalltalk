@@ -1,3 +1,3 @@
 defaults
 defaultClient
-	^ AWSClient awsConfig: self awsConfig
+	^ self defaultClientClass awsConfig: self awsConfig

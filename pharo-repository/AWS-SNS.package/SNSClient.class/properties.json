@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "AWSClient",
+	"category" : "AWS-SNS",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "SNSClient",
+	"type" : "normal"
+}

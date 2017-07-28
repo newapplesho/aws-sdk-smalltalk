@@ -27,4 +27,4 @@ baseline: spec
 				package: 'AWS-ElasticTranscoder' with: [ spec requires: #('AWS-Core') ];
 				package: 'AWS-STS' with: [ spec requires: #('AWS-Core') ];
 				package: 'AWS-CloudFront' with: [ spec requires: #('AWS-Core') ];
-				package: 'AWS-SNS' with: [ spec requires: #('AWS-Core') ] ].
+				package: 'AWS-SNS' with: [ spec requires: #('AWS-Core' 'XMLParser') ] ].

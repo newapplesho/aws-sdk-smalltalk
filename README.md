@@ -3,8 +3,6 @@ AWS SDK for Smalltalk
 
 The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with [Amazon Web Services](http://aws.amazon.com/). You can get started in minutes using Metacello and FileTree.
 
-<img src="http://2.bp.blogspot.com/-3caM96eyEOM/VJ6S70lf-YI/AAAAAAAAARM/IvmnJdN0yp0/s1600/20141225howsmalltalkerworks.jpg" width="400"/>
-
 # Features
 * AWS Signature version 4
 * Amazon DynamoDB
@@ -30,16 +28,6 @@ Metacello new
     baseline: 'AWS';
     repository: 'github://newapplesho/aws-sdk-smalltalk:v1.10/pharo-repository';
     load.
-```
-
-or 
-
-```smalltalk
-Gofer new
-url:'http://smalltalkhub.com/mc/newapplesho/aws-sdk-smalltalk/main';
-    package: 'ConfigurationOfAWS';
-    load.
-(Smalltalk at: #ConfigurationOfAWS) load.
 ```
 
 # How to use

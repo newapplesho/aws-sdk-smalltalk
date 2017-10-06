@@ -1,0 +1,20 @@
+language: smalltalk
+sudo: false
+
+# Select operating system(s)
+os:
+  - linux
+#  - osx
+
+# Select compatible Smalltalk image(s)
+smalltalk:
+#  - Pharo-7.0
+  - Pharo-6.1
+  - Pharo-6.0
+  - Pharo-5.0
+  - Pharo-4.0
+  - Pharo-3.0
+
+#  - Pharo64-7.0
+  - Pharo64-6.1
+#  - Pharo64-6.0

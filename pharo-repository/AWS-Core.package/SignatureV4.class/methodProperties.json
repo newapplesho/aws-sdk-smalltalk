@@ -5,7 +5,7 @@
 	"instance" : {
 		"creatAuthorization:andConfig:andDateTime:andOption:" : "ShoYoshida 12/17/2014 21:00",
 		"creatCanonicalHeaders:" : "ShoYoshida 12/17/2014 19:44",
-		"creatPreSignedUrlToRequest:config:dateTime:option:" : "ShoYoshida 12/29/2016 21:54",
+		"creatPreSignedUrlToRequest:config:dateTime:option:" : "ShoYoshida 10/6/2017 22:39",
 		"createCanonicalRequest:andOption:" : "ShoYoshida 12/29/2016 21:42",
 		"createCredentialScopeValue:andDateTime:" : "ShoYoshida 12/17/2014 20:02",
 		"createDerivedSigningKey:andDateTime:" : "ShoYoshida 12/17/2014 20:24",

@@ -1,11 +1,6 @@
 private
 creatPreSignedUrlToRequest: request config: awsConfig dateTime: datetimeString option: aDictionary
 	| sign credential url |
-	sign := self
-		createSign: request
-		andConfig: awsConfig
-		andDateTime: datetimeString
-		andOption: nil.
 	credential := awsConfig accessKeyId , '/'
 		, (self createCredentialScopeValue: awsConfig andDateTime: datetimeString).
 	request uri queryAt: 'X-Amz-Algorithm' put: self signatureAlgorithm.
@@ -16,6 +11,11 @@ creatPreSignedUrlToRequest: request config: awsConfig dateTime: datetimeString o
 		ifNotNil: [ request uri queryAt: 'X-Amz-Expires' put: (aDictionary at: #expire) asString ].
 	url := 'https://' , awsConfig hostUrl.
 	
+	sign := self
+		createSign: request
+		andConfig: awsConfig
+		andDateTime: datetimeString
+		andOption: nil.
 	request uri query
 		ifNil: [ url := url ]
 		ifNotNil: [ url := url asString , '?' , (self getEncodedSortQueryString: request uri query) , '&' ].

@@ -23,9 +23,18 @@ testCreatCanonicalHeaders
 	request headers at:'x-amz-date' put: '20141215T104253Z'.
 	request headers at:'x-amz-target' put:'application/x-amz-json-1.0'.
 	
-	self assert:( (SignatureV4 new creatCanonicalHeaders: request) = ('content-length:2', String lf,
-'content-type:application/x-amz-json-1.0', String lf,
-'host:dynamodb.ap-northeast-1.amazonaws.com', String lf,
-'user-agent:Zinc HTTP Components 1.0', String lf,
-'x-amz-date:20141215T104253Z', String lf,
-'x-amz-target:application/x-amz-json-1.0', String lf )).
+	Smalltalk version = 'Pharo6.0'
+		ifTrue:[
+			self assert:( (SignatureV4 new creatCanonicalHeaders: request) = ('content-length:2', String lf,
+				'content-type:application/x-amz-json-1.0', String lf,
+				'host:dynamodb.ap-northeast-1.amazonaws.com', String lf,
+				'user-agent:Zinc HTTP Components 1.0 (Pharo/6.0)', String lf,
+				'x-amz-date:20141215T104253Z', String lf,
+				'x-amz-target:application/x-amz-json-1.0', String lf )).]
+		ifFalse:[
+			self assert:( (SignatureV4 new creatCanonicalHeaders: request) = ('content-length:2', String lf,
+				'content-type:application/x-amz-json-1.0', String lf,
+				'host:dynamodb.ap-northeast-1.amazonaws.com', String lf,
+				'user-agent:Zinc HTTP Components 1.0', String lf,
+				'x-amz-date:20141215T104253Z', String lf,
+				'x-amz-target:application/x-amz-json-1.0', String lf )). ].

@@ -1,0 +1,18 @@
+SmalltalkCISpec {
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'AWS',
+      #directory : 'pharo-repository',
+      #platforms : [ #pharo ]
+    }
+  ],
+  #testing : {
+    #include : {
+      #classes : [ #SignatureV4Test ]
+    },
+    #exclude : {
+      #packages : [ 'AWS.*' ]
+    },
+    #failOnZeroTests : false
+  }
+}

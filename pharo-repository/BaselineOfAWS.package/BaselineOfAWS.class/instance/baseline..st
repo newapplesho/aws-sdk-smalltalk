@@ -3,12 +3,20 @@ baseline: spec
 	<baseline>
 	spec
 		for: #common
-		do: [ spec
+		do: [ 
+			spec
 				project: 'JSON'
 				with: [ spec
 						className: 'ConfigurationOfJSON';
 						file: 'ConfigurationOfJSON';
 						repository: 'http://smalltalkhub.com/mc/PharoExtras/JSON/main' ].
+			
+			spec
+				project: 'NeoJSON'
+				with: [ spec
+						className: 'ConfigurationOfNeoJSON';
+						versionString: #stable;
+						repository: 'http://mc.stfx.eu/Neo' ].
 			spec
 				project: 'XMLParser'
 				with: [ spec
@@ -17,9 +25,10 @@ baseline: spec
 						repository: 'http://smalltalkhub.com/mc/PharoExtras/XMLParser/main' ].
 			spec
 				for: #'pharo3.x'
-				do: [ spec
+				do: [ 
+					spec
 						package: 'Cryptography'
-						with: [ spec repository: 'http://smalltalkhub.com/mc/Cryptography/Cryptography/main' ] ].
+						with: [ spec repository: 'http://smalltalkhub.com/mc/Cryptography/Cryptography/main' ]. ].
 			spec
 				package: 'AWS-Core';
 				package: 'AWS-DynamoDB' with: [ spec requires: #('AWS-Core') ];

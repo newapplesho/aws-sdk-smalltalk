@@ -10,6 +10,7 @@ The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with
 * Elastic Transcoder
 * STS
 * CloudFront
+* SNS
 
 The following data types are supported for use in DynamoDB:
 

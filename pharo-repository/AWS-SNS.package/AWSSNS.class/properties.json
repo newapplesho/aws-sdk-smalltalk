@@ -1,11 +1,11 @@
 {
 	"commentStamp" : "",
-	"super" : "BaselineOf",
-	"category" : "BaselineOfAWS",
+	"super" : "AWSService",
+	"category" : "AWS-SNS",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "BaselineOfAWS",
+	"name" : "AWSSNS",
 	"type" : "normal"
 }

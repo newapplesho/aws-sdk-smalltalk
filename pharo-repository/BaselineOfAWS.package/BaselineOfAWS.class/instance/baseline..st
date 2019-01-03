@@ -11,12 +11,10 @@ baseline: spec
 						file: 'ConfigurationOfJSON';
 						repository: 'http://smalltalkhub.com/mc/PharoExtras/JSON/main' ].
 			
-			spec
-				project: 'NeoJSON'
-				with: [ spec
-						className: 'ConfigurationOfNeoJSON';
-						versionString: #stable;
-						repository: 'http://mc.stfx.eu/Neo' ].
+			spec 
+				baseline: 'NeoJSON'
+				with: [ 
+					spec repository: 'github://svenvc/NeoJSON/repository' ].
 			spec
 				project: 'XMLParser'
 				with: [ spec

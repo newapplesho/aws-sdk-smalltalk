@@ -1,4 +1,0 @@
-accessing
-amzDatePrintString
-	^ DateAndTime amzDatePrintString
-	

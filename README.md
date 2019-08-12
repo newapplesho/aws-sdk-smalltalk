@@ -18,16 +18,35 @@ The following data types are supported for use in DynamoDB:
 * Multi-valued types – String Set, Number Set.
 
 # Requirement
-  - Pharo 5.0, Pharo 6.0, Pharo 6.1
+
+- Pharo 5.0, Pharo 6.0, Pharo 6.1, Pharo 7.0 
+
+## Version
+
+| Pharo Version | aws-sdk-smalltalk  |
+| --------------| ------------------ |
+| >= 7.0        | v1.11.0            |
+| <  7.0        | v1.10.4            |
 
 # How to install
 
 You can easily install from inside Pharo Smalltalk:
 
+## Pharo 7
+
 ```smalltalk
 Metacello new
     baseline: 'AWS';
     repository: 'github://newapplesho/aws-sdk-smalltalk/pharo-repository';
+    load.
+```
+
+## Pharo 6
+
+```smalltalk
+Metacello new
+    baseline: 'AWS';
+    repository: 'github://newapplesho/aws-sdk-smalltalk:v1.10.4/pharo-repository';
     load.
 ```
 

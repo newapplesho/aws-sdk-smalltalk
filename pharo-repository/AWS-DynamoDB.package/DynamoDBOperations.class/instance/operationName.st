@@ -1,3 +1,0 @@
-constants
-operationName
-	^ self operationType

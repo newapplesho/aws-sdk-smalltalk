@@ -1,1 +1,0 @@
-An AWSS3ConfigTest is a test class for testing the behavior of AWSS3Config

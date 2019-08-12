@@ -25,7 +25,7 @@ The following data types are supported for use in DynamoDB:
 
 | Pharo Version | aws-sdk-smalltalk  |
 | --------------| ------------------ |
-| >= 7.0        | v1.11.0            |
+| >= 7.0        | v1.11.1            |
 | <  7.0        | v1.10.4            |
 
 # How to install

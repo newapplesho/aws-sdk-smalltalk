@@ -23,6 +23,16 @@ AWSConfig >> accessKeyId: anObject [
 ]
 
 { #category : #accessing }
+AWSConfig >> sessionToken [
+	^self  at: #sessionToken ifAbsent: []
+]
+
+{ #category : #accessing }
+AWSConfig >> sessionToken: anObject [
+	^self  at: #sessionToken put: anObject
+]
+
+{ #category : #accessing }
 AWSConfig >> apiVersion [
 	^self  at: #apiVersion ifAbsent: []
 ]

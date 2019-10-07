@@ -24,7 +24,7 @@ AWSConfig >> accessKeyId: anObject [
 
 { #category : #accessing }
 AWSConfig >> sessionToken [
-	^self  at: #accessKeyId ifAbsent: []
+	^self  at: #sessionToken ifAbsent: []
 ]
 
 { #category : #accessing }

@@ -34,6 +34,7 @@ AWSS3 >> createRequest: aRequestBody url: url method: method andBucketName: buck
 	
 	request entity:(ZnEntity readBinaryFrom: aRequestBody asByteArray readStream usingType: ZnMimeType textPlain andLength: aRequestBody byteSize). 
 	request headers at:'host' put: hostUrl.
+	self awsConfig sessionToken ifNotNil: [ request headers at:'X-Amz-Security-Token' put: self awsConfig sessionToken ].	
 	request headers at:'x-amz-content-sha256' put: (SHA256 new hashMessage: aRequestBody) hex.
 	request headers at:'x-amz-date' put: datetimeString.
 	request setAuthorization: ( SignatureV4 creatAuthorization: request andConfig: self awsConfig andDateTime: datetimeString andOption: nil ) .

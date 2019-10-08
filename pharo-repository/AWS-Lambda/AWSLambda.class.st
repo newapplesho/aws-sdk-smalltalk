@@ -10,7 +10,6 @@ AWSLambda >> createInvokeRequest: functionName payload: payload [
 	url := '/2015-03-31/functions' asZnUrl.
 	url := url / functionName / 'invocations'.
 	request := self createRequest: payload url: url method: #POST.
-	request inspect.
 	^ self client request: request andOption: nil
 ]
 
@@ -39,4 +38,9 @@ AWSLambda >> createRequest: aRequestBody url: url method: method [
 { #category : #defaults }
 AWSLambda >> defaultConfigClass [
 	^ AWSLambdaConfig 
+]
+
+{ #category : #private }
+AWSLambda >> invokeRequest: functionName withPayload: payload [
+	^ self createInvokeRequest: functionName payload: payload 
 ]

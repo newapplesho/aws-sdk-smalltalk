@@ -36,6 +36,7 @@ BaselineOfAWS >> baseline: spec [
 			spec
 				package: 'AWS-Core';
 				package: 'AWS-DynamoDB' with: [ spec requires: #('AWS-Core') ];
+				package: 'AWS-Lambda' with: [ spec requires: #('AWS-Core') ];
 				package: 'AWS-S3' with: [ spec requires: #('AWS-Core' 'XMLParser') ];
 				package: 'AWS-ElasticTranscoder' with: [ spec requires: #('AWS-Core') ];
 				package: 'AWS-STS' with: [ spec requires: #('AWS-Core') ];

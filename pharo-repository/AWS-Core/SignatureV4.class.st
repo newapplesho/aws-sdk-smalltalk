@@ -83,7 +83,7 @@ SignatureV4 >> createCanonicalRequest: request andOption: aDictionary [
 	cs := request method , String lf.
 
 	"Add the canonical URI parameter, followed by a newline character. The canonical URI is the URI-encoded version of the absolute path component of the URI—everything in the URI from the HTTP host to the question mark character (?) that begins the query string parameters (if any). Then add a newline character."
-	cs := cs , request url pathPrintString , String lf.
+	cs := cs , request url awsEncodeCanonicalUri, String lf.
 
 	"Add the canonical query string, followed by a newline character. If the request does not include a query string, set this value in the canonical query to an empty string (essentially, a blank line). The example query does not contain a query string."
 	queryDict := request url query.

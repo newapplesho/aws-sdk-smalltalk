@@ -5,15 +5,6 @@ Class {
 }
 
 { #category : #private }
-AWSLambda >> createInvokeRequest: functionName payload: payload [
-	| url request |
-	url := '/2015-03-31/functions' asZnUrl.
-	url := url / functionName / 'invocations'.
-	request := self createRequest: payload url: url method: #POST.
-	^ self client request: request andOption: nil
-]
-
-{ #category : #private }
 AWSLambda >> createRequest: aRequestBody url: url method: method [ 
 		
 	| datetimeString hostUrl request |
@@ -41,6 +32,10 @@ AWSLambda >> defaultConfigClass [
 ]
 
 { #category : #private }
-AWSLambda >> invokeRequest: functionName withPayload: payload [
-	^ self createInvokeRequest: functionName payload: payload 
+AWSLambda >> invokeLambda: functionName withPayload: payload [
+	| url request |
+	url := '/2015-03-31/functions' asZnUrl.
+	url := url / functionName / 'invocations'.
+	request := self createRequest: payload url: url method: #POST.
+	^ self client request: request andOption: nil
 ]

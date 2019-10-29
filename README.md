@@ -11,11 +11,7 @@ The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with
 * STS
 * CloudFront
 * SNS
-
-The following data types are supported for use in DynamoDB:
-
-* Scalar types – Number, String.
-* Multi-valued types – String Set, Number Set.
+* AWS Lambda
 
 # Requirement
 

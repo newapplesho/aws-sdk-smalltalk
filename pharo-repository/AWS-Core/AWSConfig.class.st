@@ -80,17 +80,20 @@ AWSConfig >> hostUrl [
 
 { #category : #accessing }
 AWSConfig >> hostUrl: anObject [
-	^self  at: #hostUrl put: anObject
+	self settingsDict removeKey: #endpoint ifAbsent: [  ].
+	^ self at: #hostUrl put: anObject
 ]
 
 { #category : #accessing }
 AWSConfig >> regionName [
-	^self at: #regionName ifAbsentPut: [ self defaultRegionName ]
+	^ self at: #regionName ifAbsentPut: [ self defaultRegionName ]
 ]
 
 { #category : #accessing }
 AWSConfig >> regionName: anObject [
-	^self at: #regionName put: anObject
+	self settingsDict removeKey: #hostUrl ifAbsent: [  ].
+	self settingsDict removeKey: #endpoint ifAbsent: [  ].
+	^ self at: #regionName put: anObject
 ]
 
 { #category : #accessing }

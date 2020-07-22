@@ -28,6 +28,16 @@ The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with
 
 You can easily install from inside Pharo Smalltalk:
 
+## Pharo 8 and GlamorousToolkit
+
+```smalltalk
+Metacello new
+    baseline: 'AWS';
+    repository: 'github://newapplesho/aws-sdk-smalltalk/pharo-repository';
+    onConflictUseLoaded;
+    load.
+```
+
 ## Pharo 7
 
 ```smalltalk

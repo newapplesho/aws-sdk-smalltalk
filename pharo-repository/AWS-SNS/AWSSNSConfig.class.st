@@ -32,8 +32,4 @@ AWSSNSConfig >> defaultServiceName [
 	^ 'sns'
 ]
 
-{ #category : #accessing }
-AWSSNSConfig >> hostUrl [
-	
-	^ 'sns.eu-west-1.amazonaws.com'
-]
+

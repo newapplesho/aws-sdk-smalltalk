@@ -5,7 +5,7 @@ Class {
 		'bucketName',
 		'service'
 	],
-	#category : 'AWS-S3'
+	#category : #'AWS-S3'
 }
 
 { #category : #'instance creation' }
@@ -95,6 +95,12 @@ S3Bucket >> listObjects [
 S3Bucket >> listObjectsPrefix: aString [
 	^ self getBucketPrefix: aString
 	
+]
+
+{ #category : #printing }
+S3Bucket >> printOn: aStream [
+	super printOn: aStream.
+	aStream nextPut: $(; nextPutAll: self bucketName; nextPut: $)
 ]
 
 { #category : #accessing }

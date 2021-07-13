@@ -1,11 +1,20 @@
+"
+I represent an AWS service such as S3 or the ElasticTranscoder service.
+"
 Class {
 	#name : #AWSService,
 	#superclass : #Object,
 	#instVars : [
-		'client'
+		'client',
+		'profile'
 	],
-	#category : 'AWS-Core'
+	#category : #'AWS-Core'
 }
+
+{ #category : #'instance creation' }
+AWSService class >> profile: aProfileName [
+	^(self new) profile: aProfileName; yourself
+]
 
 { #category : #accessing }
 AWSService >> amzDatePrintString [
@@ -15,7 +24,10 @@ AWSService >> amzDatePrintString [
 
 { #category : #accessing }
 AWSService >> awsConfig [
-	^ self defaultConfigClass default
+	^ profile 
+		ifNil: [ self defaultConfigClass default ] 
+		ifNotNil: [ self defaultConfigClass profile: profile ]
+
 ]
 
 { #category : #accessing }
@@ -46,6 +58,11 @@ AWSService >> defaultConfigClass [
 { #category : #defaults }
 AWSService >> defaultResponseClass [
 	^ AWSResponse 
+]
+
+{ #category : #accessing }
+AWSService >> profile: aProfileName [
+	profile := aProfileName
 ]
 
 { #category : #private }

@@ -1,32 +1,38 @@
-AWS SDK for Smalltalk [![Build Status](https://travis-ci.org/newapplesho/aws-sdk-smalltalk.svg?branch=master)](https://travis-ci.org/newapplesho/aws-sdk-smalltalk)
-=================
+# AWS SDK for Smalltalk [![ci](https://github.com/newapplesho/aws-sdk-smalltalk/actions/workflows/ci.yml/badge.svg)](https://github.com/newapplesho/aws-sdk-smalltalk/actions/workflows/ci.yml)
 
 The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with [Amazon Web Services](http://aws.amazon.com/). You can get started in minutes using Metacello.
 
 # Features
-* AWS Signature version 4
-* Amazon DynamoDB
-* Amazon S3
-* Elastic Transcoder
-* STS
-* CloudFront
-* SNS
-* AWS Lambda
 
-# Requirement
+- AWS Signature version 4
+- Amazon DynamoDB
+- Amazon S3
+- Elastic Transcoder
+- STS
+- CloudFront
+- SNS
+- AWS Lambda
 
-- Pharo 5.0, Pharo 6.0, Pharo 6.1, Pharo 7.0 
+# Supported Pharo Versions
 
-## Version
-
-| Pharo Version | aws-sdk-smalltalk  |
-| --------------| ------------------ |
-| >= 7.0        | v1.11.1            |
-| <  7.0        | v1.10.4            |
+| Pharo Version | aws-sdk-smalltalk |
+| ------------- | ----------------- |
+| 12.0          | Latest Version    |
+| 11.0, 7.0     | v1.11.1           |
+| < 7.0         | v1.10.4           |
 
 # How to install
 
 You can easily install from inside Pharo Smalltalk:
+
+## Pharo 12
+
+```smalltalk
+Metacello new
+    baseline: 'AWS';
+    repository: 'github://newapplesho/aws-sdk-smalltalk:main/pharo-repository';
+    load.
+```
 
 ## Pharo 8 and GlamorousToolkit
 
@@ -57,4 +63,5 @@ Metacello new
 ```
 
 # How to use
+
 [Wiki](https://github.com/newapplesho/aws-sdk-smalltalk/wiki)

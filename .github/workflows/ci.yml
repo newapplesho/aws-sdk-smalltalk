@@ -1,0 +1,31 @@
+name: ci
+
+run-name: "[${{ github.event.repository.name }}] Check: ${{ github.event_name == 'schedule' && 'scheduled' || github.event.pull_request.title }}"
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  schedule:
+    - cron: "0 21 * * *"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+   build:
+    runs-on:  ubuntu-24.04
+    strategy:
+      matrix:
+        smalltalk: [ Pharo64-7.0, Pharo64-8.0, Pharo64-9.0, Pharo64-10, Pharo64-11, Pharo64-12 ]
+    name: ${{ matrix.smalltalk }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Smalltalk CI
+        uses: hpi-swa/setup-smalltalkCI@v1
+        with:
+          smalltalk-image: ${{ matrix.smalltalk }}
+      - name: Load Image and Run Tests
+        run: smalltalkci -s ${{ matrix.smalltalk }} .smalltalk.ston
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        timeout-minutes: 15

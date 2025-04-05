@@ -4,7 +4,7 @@ An AWSS3ConfigTest is a test class for testing the behavior of AWSS3Config
 Class {
 	#name : #AWSS3ConfigTest,
 	#superclass : #TestCase,
-	#category : 'AWS-S3-Tests'
+	#category : #'AWS-S3-Tests'
 }
 
 { #category : #'tests-accessing' }

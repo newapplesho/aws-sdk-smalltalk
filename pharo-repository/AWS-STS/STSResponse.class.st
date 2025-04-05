@@ -1,7 +1,7 @@
 Class {
 	#name : #STSResponse,
 	#superclass : #AWSResponse,
-	#category : 'AWS-STS'
+	#category : #'AWS-STS'
 }
 
 { #category : #accessing }

@@ -1,7 +1,7 @@
 Class {
 	#name : #SignatureV4Test,
 	#superclass : #TestCase,
-	#category : 'AWS-Core-Tests'
+	#category : #'AWS-Core-Tests'
 }
 
 { #category : #'tests-private' }

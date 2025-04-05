@@ -1,7 +1,7 @@
 Class {
 	#name : #CFModel,
 	#superclass : #Object,
-	#category : 'AWS-CloudFront'
+	#category : #'AWS-CloudFront'
 }
 
 { #category : #converting }

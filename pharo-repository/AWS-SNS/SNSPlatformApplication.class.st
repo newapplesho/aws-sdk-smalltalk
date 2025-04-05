@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'arn'
 	],
-	#category : 'AWS-SNS'
+	#category : #'AWS-SNS'
 }
 
 { #category : #accessing }

@@ -1,5 +1,5 @@
 Class {
 	#name : #AETThumbnailConfig,
 	#superclass : #JsonObject,
-	#category : 'AWS-ElasticTranscoder-Model'
+	#category : #'AWS-ElasticTranscoder-Model'
 }

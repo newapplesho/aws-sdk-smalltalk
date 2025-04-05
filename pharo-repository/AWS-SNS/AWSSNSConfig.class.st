@@ -4,7 +4,7 @@ Class {
 	#classInstVars : [
 		'default'
 	],
-	#category : 'AWS-SNS'
+	#category : #'AWS-SNS'
 }
 
 { #category : #'instance creation' }
@@ -31,5 +31,3 @@ AWSSNSConfig class >> initialize [
 AWSSNSConfig >> defaultServiceName [
 	^ 'sns'
 ]
-
-

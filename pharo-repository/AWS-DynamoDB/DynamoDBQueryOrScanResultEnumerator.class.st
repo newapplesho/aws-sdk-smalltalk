@@ -5,7 +5,7 @@ Class {
 		'resultStream',
 		'searcher'
 	],
-	#category : 'AWS-DynamoDB'
+	#category : #'AWS-DynamoDB'
 }
 
 { #category : #'instance creation' }

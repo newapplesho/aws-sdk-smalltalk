@@ -1,7 +1,7 @@
 Class {
 	#name : #SNSResponse,
 	#superclass : #AWSResponse,
-	#category : 'AWS-SNS'
+	#category : #'AWS-SNS'
 }
 
 { #category : #accessing }

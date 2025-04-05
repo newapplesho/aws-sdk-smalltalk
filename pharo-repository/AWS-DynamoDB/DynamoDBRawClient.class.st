@@ -4,7 +4,7 @@ Class {
 	#classInstVars : [
 		'default'
 	],
-	#category : 'AWS-DynamoDB'
+	#category : #'AWS-DynamoDB'
 }
 
 { #category : #defaults }

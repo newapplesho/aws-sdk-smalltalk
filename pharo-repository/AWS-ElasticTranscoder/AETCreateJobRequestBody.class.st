@@ -1,7 +1,7 @@
 Class {
 	#name : #AETCreateJobRequestBody,
 	#superclass : #JsonObject,
-	#category : 'AWS-ElasticTranscoder-Model'
+	#category : #'AWS-ElasticTranscoder-Model'
 }
 
 { #category : #accessing }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'properties'
 	],
-	#category : 'AWS-Core'
+	#category : #'AWS-Core'
 }
 
 { #category : #accessing }

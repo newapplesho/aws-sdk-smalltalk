@@ -1,7 +1,7 @@
 Class {
 	#name : #SignatureV4,
 	#superclass : #Object,
-	#category : 'AWS-Core'
+	#category : #'AWS-Core'
 }
 
 { #category : #creating }

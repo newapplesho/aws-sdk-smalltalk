@@ -1,7 +1,7 @@
 Class {
 	#name : #BaselineOfAWS,
 	#superclass : #BaselineOf,
-	#category : 'BaselineOfAWS'
+	#category : #BaselineOfAWS
 }
 
 { #category : #baselines }

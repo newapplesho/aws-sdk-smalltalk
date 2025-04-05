@@ -1,7 +1,7 @@
 Class {
 	#name : #DynamoDBCreateTable,
 	#superclass : #DynamoDBOperations,
-	#category : 'AWS-DynamoDB-Operations'
+	#category : #'AWS-DynamoDB-Operations'
 }
 
 { #category : #constants }

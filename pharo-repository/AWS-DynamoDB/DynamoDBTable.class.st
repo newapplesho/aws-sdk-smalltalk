@@ -10,7 +10,7 @@ Class {
 		'lastEvaluatedKey',
 		'numberOfResultsToFetch'
 	],
-	#category : 'AWS-DynamoDB'
+	#category : #'AWS-DynamoDB'
 }
 
 { #category : #public }

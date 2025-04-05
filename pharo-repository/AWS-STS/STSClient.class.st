@@ -1,7 +1,7 @@
 Class {
 	#name : #STSClient,
 	#superclass : #AWSClient,
-	#category : 'AWS-STS'
+	#category : #'AWS-STS'
 }
 
 { #category : #defaults }

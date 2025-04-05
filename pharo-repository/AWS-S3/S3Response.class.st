@@ -1,7 +1,7 @@
 Class {
 	#name : #S3Response,
 	#superclass : #AWSResponse,
-	#category : 'AWS-S3'
+	#category : #'AWS-S3'
 }
 
 { #category : #accessing }

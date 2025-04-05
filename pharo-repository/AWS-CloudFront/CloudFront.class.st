@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'distributionId'
 	],
-	#category : 'AWS-CloudFront'
+	#category : #'AWS-CloudFront'
 }
 
 { #category : #defaults }

@@ -1,7 +1,7 @@
 Class {
 	#name : #DynamoDBMapper,
 	#superclass : #Object,
-	#category : 'AWS-DynamoDB'
+	#category : #'AWS-DynamoDB'
 }
 
 { #category : #private }

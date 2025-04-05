@@ -4,7 +4,7 @@ Class {
 	#classInstVars : [
 		'default'
 	],
-	#category : 'AWS-ElasticTranscoder'
+	#category : #'AWS-ElasticTranscoder'
 }
 
 { #category : #defaults }

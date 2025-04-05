@@ -1,7 +1,7 @@
 Class {
 	#name : #SNSClient,
 	#superclass : #AWSClient,
-	#category : 'AWS-SNS'
+	#category : #'AWS-SNS'
 }
 
 { #category : #defaults }

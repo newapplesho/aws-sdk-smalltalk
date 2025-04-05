@@ -1,7 +1,7 @@
 Class {
 	#name : #ElasticTranscoder,
 	#superclass : #AWSService,
-	#category : 'AWS-ElasticTranscoder'
+	#category : #'AWS-ElasticTranscoder'
 }
 
 { #category : #'job-Operations' }

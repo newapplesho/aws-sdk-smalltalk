@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'pathCollections'
 	],
-	#category : 'AWS-CloudFront'
+	#category : #'AWS-CloudFront'
 }
 
 { #category : #accessing }

@@ -1,7 +1,7 @@
 Class {
 	#name : #DynamoDBPutItem,
 	#superclass : #DynamoDBOperations,
-	#category : 'AWS-DynamoDB-Operations'
+	#category : #'AWS-DynamoDB-Operations'
 }
 
 { #category : #public }

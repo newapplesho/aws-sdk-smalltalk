@@ -1,7 +1,7 @@
 Class {
 	#name : #STS,
 	#superclass : #AWSService,
-	#category : 'AWS-STS'
+	#category : #'AWS-STS'
 }
 
 { #category : #public }

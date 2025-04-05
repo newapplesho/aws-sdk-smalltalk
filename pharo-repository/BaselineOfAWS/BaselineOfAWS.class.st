@@ -1,7 +1,7 @@
 Class {
 	#name : #BaselineOfAWS,
 	#superclass : #BaselineOf,
-	#category : 'BaselineOfAWS'
+	#category : #BaselineOfAWS
 }
 
 { #category : #baselines }
@@ -42,4 +42,8 @@ BaselineOfAWS >> baseline: spec [
 				package: 'AWS-STS' with: [ spec requires: #('AWS-Core') ];
 				package: 'AWS-CloudFront' with: [ spec requires: #('AWS-Core') ];
 				package: 'AWS-SNS' with: [ spec requires: #('AWS-Core' 'XMLParser') ] ].
+
+			spec 
+				group: 'Tests' with: #( 'AWS-Core' );
+				group: 'CI' with: #( 'Tests' ).
 ]

@@ -4,7 +4,7 @@ A DynamoDBTableTest is a test class for testing the behavior of DynamoDBTable
 Class {
 	#name : #DynamoDBTableTest,
 	#superclass : #TestCase,
-	#category : 'AWS-DynamoDB-Tests'
+	#category : #'AWS-DynamoDB-Tests'
 }
 
 { #category : #running }

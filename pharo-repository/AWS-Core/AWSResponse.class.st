@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'response'
 	],
-	#category : 'AWS-Core'
+	#category : #'AWS-Core'
 }
 
 { #category : #'instance creation' }

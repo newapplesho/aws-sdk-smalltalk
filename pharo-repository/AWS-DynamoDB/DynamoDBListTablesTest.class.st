@@ -4,7 +4,7 @@ A DyListTablesTest is a test class for testing the behavior of DyListTables
 Class {
 	#name : #DynamoDBListTablesTest,
 	#superclass : #TestCase,
-	#category : 'AWS-DynamoDB-Tests'
+	#category : #'AWS-DynamoDB-Tests'
 }
 
 { #category : #'tests-public' }

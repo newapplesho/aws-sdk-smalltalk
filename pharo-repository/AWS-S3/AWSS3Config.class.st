@@ -4,7 +4,7 @@ Class {
 	#classInstVars : [
 		'default'
 	],
-	#category : 'AWS-S3'
+	#category : #'AWS-S3'
 }
 
 { #category : #'instance creation' }

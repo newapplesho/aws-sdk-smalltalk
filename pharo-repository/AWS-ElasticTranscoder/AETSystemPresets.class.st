@@ -5,7 +5,7 @@ http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/system-preset
 Class {
 	#name : #AETSystemPresets,
 	#superclass : #Object,
-	#category : 'AWS-ElasticTranscoder'
+	#category : #'AWS-ElasticTranscoder'
 }
 
 { #category : #constants }

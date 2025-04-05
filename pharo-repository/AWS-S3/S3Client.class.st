@@ -1,7 +1,7 @@
 Class {
 	#name : #S3Client,
 	#superclass : #AWSClient,
-	#category : 'AWS-S3'
+	#category : #'AWS-S3'
 }
 
 { #category : #defaults }

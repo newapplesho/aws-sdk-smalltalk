@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'modifiers'
 	],
-	#category : 'AWS-DynamoDB-Operations'
+	#category : #'AWS-DynamoDB-Operations'
 }
 
 { #category : #printing }

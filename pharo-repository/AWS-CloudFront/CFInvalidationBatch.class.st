@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'paths'
 	],
-	#category : 'AWS-CloudFront'
+	#category : #'AWS-CloudFront'
 }
 
 { #category : #convenience }

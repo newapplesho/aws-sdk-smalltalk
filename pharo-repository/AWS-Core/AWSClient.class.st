@@ -5,7 +5,7 @@ Class {
 		'awsConfig',
 		'httpClient'
 	],
-	#category : 'AWS-Core'
+	#category : #'AWS-Core'
 }
 
 { #category : #'instance creation' }

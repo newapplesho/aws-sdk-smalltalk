@@ -1,7 +1,7 @@
 Class {
 	#name : #AWSIAMConfig,
 	#superclass : #AWSConfig,
-	#category : 'AWS-Core'
+	#category : #'AWS-Core'
 }
 
 { #category : #defaults }

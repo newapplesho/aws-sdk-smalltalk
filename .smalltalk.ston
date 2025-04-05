@@ -2,7 +2,7 @@ SmalltalkCISpec {
   #loading : [
     SCIMetacelloLoadSpec {
       #baseline : 'AWS',
-      #directory : './pharo-repository',
+      #directory : 'src',
       #load : [ 'CI' ],
       #platforms : [ #pharo ]
     }

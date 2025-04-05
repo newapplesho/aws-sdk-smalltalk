@@ -44,6 +44,6 @@ BaselineOfAWS >> baseline: spec [
 				package: 'AWS-SNS' with: [ spec requires: #('AWS-Core' 'XMLParser') ] ].
 
 			spec 
-				group: 'Tests' with: #( 'AWS-Core-Tests' );
+				group: 'Tests' with: #( 'AWS-Core' );
 				group: 'CI' with: #( 'Tests' ).
 ]

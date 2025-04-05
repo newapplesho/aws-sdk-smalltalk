@@ -17,8 +17,8 @@ The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with
 
 | Pharo Version | aws-sdk-smalltalk |
 | ------------- | ----------------- |
-| 12.0          | Latest Version    |
-| 11.0, 7.0     | v1.11.1           |
+| 11.0, 12.0    | Latest Version    |
+| 8.0, 7.0      | v1.11.1           |
 | < 7.0         | v1.10.4           |
 
 # How to install

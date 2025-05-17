@@ -13,7 +13,5 @@ updates:
       interval: "weekly"
       time: "13:00"
       timezone: "Asia/Tokyo"
-    reviewers:
-      - "newapplesho"
     commit-message:
       prefix: "ci"

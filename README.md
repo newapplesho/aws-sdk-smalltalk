@@ -2,17 +2,6 @@
 
 The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with [Amazon Web Services](http://aws.amazon.com/). You can get started in minutes using Metacello.
 
-# Features
-
-- AWS Signature version 4
-- Amazon DynamoDB
-- Amazon S3
-- Elastic Transcoder
-- STS
-- CloudFront
-- SNS
-- AWS Lambda
-
 # Supported Pharo Versions
 
 | Pharo Version | aws-sdk-smalltalk |

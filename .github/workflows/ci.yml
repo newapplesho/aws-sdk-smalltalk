@@ -19,9 +19,9 @@ jobs:
         smalltalk: [ Pharo64-7.0, Pharo64-8.0, Pharo64-9.0, Pharo64-10, Pharo64-11, Pharo64-12, Pharo64-13  ]
     name: ${{ matrix.smalltalk }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Set up Smalltalk CI
-        uses: hpi-swa/setup-smalltalkCI@v1
+        uses: hpi-swa/setup-smalltalkCI@521a156968112c9c7ca094ef78c1287a26665f08 # v1
         with:
           smalltalk-image: ${{ matrix.smalltalk }}
       - name: Load Image and Run Tests

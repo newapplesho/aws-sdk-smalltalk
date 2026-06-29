@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Set up Smalltalk CI
-        uses: hpi-swa/setup-smalltalkCI@a104c9a0c7d4226f32474ba28b15bba774fb24ed # v1
+        uses: hpi-swa/setup-smalltalkCI@999b788246c9dca7ac8e4c606caade213eb3906e # v1
         with:
           smalltalk-image: ${{ matrix.smalltalk }}
       - name: Load Image and Run Tests

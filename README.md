@@ -81,6 +81,4 @@ make ui      # open the Pharo GUI
 ```
 
 See [docs/development.md](docs/development.md) for the full workflow and test
-scope, [docs/architecture.md](docs/architecture.md) for the class design, and
-[`.claude/rules/`](.claude/rules/) for coding conventions (auto-loaded by
-Claude Code when editing).
+scope, and [docs/architecture.md](docs/architecture.md) for the class design.

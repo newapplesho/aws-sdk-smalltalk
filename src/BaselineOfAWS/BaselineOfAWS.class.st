@@ -31,8 +31,6 @@ BaselineOfAWS >> baseline: spec [
 			package: 'AWS-Lambda' with: [ spec requires: #( 'AWS-Core' ) ];
 			package: 'AWS-S3'
 			with: [ spec requires: #( 'AWS-Core' 'XMLParser' ) ];
-			package: 'AWS-ElasticTranscoder'
-			with: [ spec requires: #( 'AWS-Core' ) ];
 			package: 'AWS-STS' with: [ spec requires: #( 'AWS-Core' ) ];
 			package: 'AWS-CloudFront' with: [ spec requires: #( 'AWS-Core' ) ];
 			package: 'AWS-SNS'

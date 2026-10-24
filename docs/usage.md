@@ -60,7 +60,9 @@ s3 awsConfig sessionToken: 'FQoGZ...'.
 
 `awsConfig` returns a stable config object (the default singleton, or the
 injected/profile-resolved config, which the service caches), so setting the
-token on it sticks for all three configuration styles.
+token on it sticks for all three configuration styles. Calling `awsConfig:` or
+`profile:` again on the same service replaces that cached config and the
+service's HTTP client, so the next request uses the new settings.
 
 Nothing wires an STS result into a config automatically — extract the token
 from the STS response and set it yourself (see [STS](usage/sts.md)).

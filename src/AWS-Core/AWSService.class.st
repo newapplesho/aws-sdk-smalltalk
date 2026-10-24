@@ -42,7 +42,10 @@ AWSService >> awsConfig [
 
 { #category : #accessing }
 AWSService >> awsConfig: aConfig [
-	awsConfig := aConfig
+	"Use aConfig from now on. The cached client captured the previous config,
+	 so drop it; the next request builds a fresh one."
+	awsConfig := aConfig.
+	client := nil
 ]
 
 { #category : #accessing }
@@ -77,7 +80,11 @@ AWSService >> defaultResponseClass [
 
 { #category : #accessing }
 AWSService >> profile: aProfileName [
-	profile := aProfileName
+	"Switch to aProfileName. Drop the config and client cached for the previous
+	 profile (or injected via awsConfig:) so the next request re-resolves them."
+	profile := aProfileName.
+	awsConfig := nil.
+	client := nil
 ]
 
 { #category : #signing }

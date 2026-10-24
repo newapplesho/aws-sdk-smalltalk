@@ -72,3 +72,18 @@ AWSS3RequestTest >> testSessionTokenAddsSignedSecurityTokenHeader [
 	self assert: ((request headers at: 'Authorization')
 		includesSubstring: 'x-amz-security-token').
 ]
+
+{ #category : #'tests-config' }
+AWSS3RequestTest >> testAwsConfigReplacesCachedClient [
+	| service newConfig |
+	service := self s3.
+	service client.
+	newConfig := AWSS3Config new
+		accessKeyId: 'AKIDOTHER';
+		secretKey: 'other';
+		regionName: 'us-east-1';
+		yourself.
+	service awsConfig: newConfig.
+	self assert: service awsConfig identicalTo: newConfig.
+	self assert: service client awsConfig identicalTo: newConfig
+]

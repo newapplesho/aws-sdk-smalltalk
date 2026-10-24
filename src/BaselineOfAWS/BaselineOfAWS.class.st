@@ -34,6 +34,6 @@ BaselineOfAWS >> baseline: spec [
 			with: [ spec requires: #( 'AWS-Core' 'XMLParser' ) ] ].
 
 	spec
-		group: 'Tests' with: #( 'AWS-Core' );
+		group: 'Tests' with: #( 'AWS-Core' 'AWS-S3' 'AWS-Lambda' 'AWS-DynamoDB' );
 		group: 'CI' with: #( 'Tests' )
 ]

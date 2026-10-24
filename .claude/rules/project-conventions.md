@@ -113,14 +113,15 @@ diverges from every other service and is a known inconsistency (see below).
 `AWS-DynamoDB` is the oldest package and does not follow all the conventions
 the rest of the SDK later settled on. `DynamoDBMapper` has been rewritten
 (NeoJSON-based `convert:`/`loadFrom:` with per-value `encodeValue:`/
-`decodeValue:`) and now maps `N`, `S`, `BOOL`, `NULL`, `B` (base64), `NS`,
-`SS`, `BS` correctly, with round-trip tests in `DynamoDBTableTest`. Still
+`decodeValue:`) and now maps `N`, `S`, `BOOL`, `NULL`, `B` (base64), `M`,
+`L`, `NS`, `SS`, `BS`, following the official AWS SDKs' list/set/map split
+(`Set` <-> NS/SS/BS, other collections <-> `L`, `Dictionary` <-> `M`). Offline
+encoding tests are in `DynamoDBMapperTest`, live round-trip tests in
+`DynamoDBTableTest`; the user-facing table is in `docs/usage/dynamodb.md`. Still
 outstanding (deliberately deferred to their own change):
 
 - `DynamoDBTable>>action:` does not raise `AWSException` on an error status
   (see above) — the biggest remaining inconsistency with the other services.
-- The mapper does not support `M` (map) or `L` (list), i.e. nested
-  attributes. Adding them needs a Pharo set-vs-list disambiguation decision.
 - `loadFrom:` returns a `Dictionary` keyed by **symbols** while `convert:`
   accepts string or symbol keys — intentional (symbol keys are idiomatic on
   the read side), but worth knowing.
@@ -158,8 +159,9 @@ automatically; the caller must do that manually via `sessionToken:`.
 ## CI Test Scope
 
 The CI workflow (`.github/workflows/ci.yml`) has two jobs. The **`build`** job
-runs `.smalltalk.ston`, which restricts testing to `SignatureV4Test` only
-(`BaselineOfAWS`'s `Tests` group is `#('AWS-Core')`, `CI` group is
+runs `.smalltalk.ston`, which restricts testing to the offline unit-test
+classes listed in its `#include` (`BaselineOfAWS`'s `Tests` group is
+`#('AWS-Core' 'AWS-S3' 'AWS-Lambda' 'AWS-DynamoDB')`, `CI` group is
 `#('Tests')`) — offline, on the Pharo 12/13 matrix. The **`integration`** job
 starts the emulators from `docker-compose.yml`, adds an `/etc/hosts` entry for
 the S3 bucket host, and runs `.smalltalk.ci-integration.ston` (loads all

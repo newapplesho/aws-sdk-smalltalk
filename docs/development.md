@@ -73,17 +73,22 @@ you are adding an entirely new service package (in which case update
 
 Two different things run tests, with two different scopes:
 
-- **CI** (`smalltalkci` + `.smalltalk.ston`) only runs `SignatureV4Test`.
-  `BaselineOfAWS`'s `Tests` group is scoped to `AWS-Core` only (`CI` group is
-  `Tests`), and `.smalltalk.ston`'s `#testing` block explicitly excludes every
-  other `AWS.*` package. This is because the DynamoDB tests are live
-  integration tests, not unit tests (see below), and CI has no DynamoDB Local
-  instance to talk to.
+- **CI `build` job** (`smalltalkci` + `.smalltalk.ston`, Pharo 12/13) runs
+  only the offline unit-test classes listed in `.smalltalk.ston`'s
+  `#include` (`SignatureV4Test`, `AWSClientTest`, `AWSS3ConfigTest`,
+  `AWSS3RequestTest`, `AWSLambdaConfigTest`, `AWSLambdaRequestTest`,
+  `DynamoDBListTablesTest`, `DynamoDBMapperTest`,
+  `DynamoDBRawClientRequestTest`). `BaselineOfAWS`'s
+  `Tests` group (`CI` group is `Tests`) loads `AWS-Core`, `AWS-S3`,
+  `AWS-Lambda` and `AWS-DynamoDB` so those classes are present.
+- **CI `integration` job** (`.smalltalk.ci-integration.ston`, Pharo 13)
+  starts the emulators and runs the full `AWS.*` suite, including the live
+  integration tests below.
 - **`make test`** (this project's new local target) runs the broader
   `AWS.*` pattern directly against the Pharo test runner, independent of
   `.smalltalk.ston`. This picks up all test classes, including:
-  - Pure unit tests (`SignatureV4Test` + its S3 extension, `AWSS3ConfigTest`,
-    `AWSLambdaConfigTest`, `DynamoDBListTablesTest`) — always safe to run,
+  - Pure unit tests (the `build` job's classes above, plus the S3 extension
+    of `SignatureV4Test`) — always safe to run,
     no network required.
   - `DynamoDBRawClientTest` / `DynamoDBTableTest` — **live integration tests**
     against a real DynamoDB Local instance on `localhost:8000`.

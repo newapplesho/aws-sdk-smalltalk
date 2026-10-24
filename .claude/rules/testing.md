@@ -21,7 +21,9 @@ package for new tests.
 
 1. **Pure unit tests, no network** — `SignatureV4Test` (+ its S3 extension in
    `src/AWS-S3/SignatureV4Test.extension.st`), `AWSS3ConfigTest`,
-   `AWSLambdaConfigTest`, `DynamoDBListTablesTest`. These assert against
+   `AWSLambdaConfigTest`, `DynamoDBListTablesTest`, `DynamoDBMapperTest`, and
+   the stub-based request tests `AWSClientTest`, `AWSS3RequestTest`,
+   `AWSLambdaRequestTest`, `DynamoDBRawClientRequestTest`. These assert against
    hard-coded fixtures (e.g. the official AWS SigV4 documentation examples) and
    have empty or absent `setUp`/`tearDown`.
 2. **Live integration tests against a local emulator** —
@@ -92,9 +94,10 @@ Prefer `assert:equals:` over `assert: (x = y)` — gives better failure messages
 
 CI has two jobs (`.github/workflows/ci.yml`):
 
-- **`build`** runs `.smalltalk.ston`, which includes only `SignatureV4Test` and
-  excludes every other `AWS.*` package (`BaselineOfAWS`'s `Tests` group is
-  scoped to `AWS-Core` only). Offline, fast, runs on the Pharo 12/13 matrix.
+- **`build`** runs `.smalltalk.ston`, which includes only the offline
+  unit-test classes listed in its `#include` and excludes the rest of
+  `AWS.*`. Offline, fast, runs on the Pharo 12/13 matrix. A new offline test
+  class must be added to that `#include` list to run here.
 - **`integration`** starts the emulators (`docker compose up -d`), adds one
   `/etc/hosts` line for the S3 bucket host (Linux does not resolve
   `*.localhost`, which floci's virtual-hosted addressing needs), and runs

@@ -42,11 +42,11 @@ After editing a `.class.st` file, reload it into the image (`make load`,
 re-run the Metacello load, or use Iceberg), otherwise the change is not
 reflected in tests.
 
-**CI test-scope constraint:** `.smalltalk.ston` only runs `SignatureV4Test`;
-every other test (DynamoDB, S3/Lambda config) is excluded from CI because the
-DynamoDB tests need a live DynamoDB Local instance. `make test` runs a
-broader local pattern (`AWS.*`) — expect the DynamoDB integration tests to
-fail unless DynamoDB Local is running (see
+**CI test scope:** the `build` job (`.smalltalk.ston`, Pharo 12/13) runs only
+the offline unit-test classes listed in its `#include`; the live emulator
+tests run only in the `integration` job (`.smalltalk.ci-integration.ston`).
+`make test` runs a broader local pattern (`AWS.*`) — expect the DynamoDB and
+S3 integration tests to fail unless the emulators are running (see
 [docs/development.md](docs/development.md)). Full detail in
 `.claude/rules/project-conventions.md`.
 

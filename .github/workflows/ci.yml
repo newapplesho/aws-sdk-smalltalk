@@ -29,3 +29,38 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         timeout-minutes: 15
+
+   integration:
+    runs-on: ubuntu-24.04
+    name: integration (Pharo64-13)
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - name: Start local emulators (DynamoDB Local + floci)
+        run: docker compose up -d
+      - name: Resolve the S3 test bucket host
+        # Linux runners do not resolve *.localhost, and floci only recognises a
+        # virtual-hosted bucket when the host ends in .localhost. Pin the bucket
+        # name and add just that host to /etc/hosts.
+        run: echo "127.0.0.1 aws-sdk-st-ci.localhost" | sudo tee -a /etc/hosts
+      - name: Wait for emulators
+        run: |
+          for i in $(seq 1 60); do
+            f=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:4566/ || true)
+            d=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8000/ || true)
+            [ "$f" != "000" ] && [ "$d" != "000" ] && { echo "floci=$f ddb=$d"; exit 0; }
+            sleep 2
+          done
+          echo "emulators did not become ready"; docker compose logs; exit 1
+      - name: Set up Smalltalk CI
+        uses: hpi-swa/setup-smalltalkCI@999b788246c9dca7ac8e4c606caade213eb3906e # v1
+        with:
+          smalltalk-image: Pharo64-13
+      - name: Load Image and Run Integration Tests
+        run: smalltalkci -s Pharo64-13 .smalltalk.ci-integration.ston
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          S3_TEST_BUCKET: aws-sdk-st-ci
+        timeout-minutes: 20
+      - name: Stop emulators
+        if: always()
+        run: docker compose down

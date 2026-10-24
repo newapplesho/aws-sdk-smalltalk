@@ -13,5 +13,18 @@ updates:
       interval: "weekly"
       time: "13:00"
       timezone: "Asia/Tokyo"
+    cooldown:
+      default-days: 14
+    commit-message:
+      prefix: "ci"
+
+  - package-ecosystem: "docker-compose"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      time: "13:00"
+      timezone: "Asia/Tokyo"
+    cooldown:
+      default-days: 14
     commit-message:
       prefix: "ci"

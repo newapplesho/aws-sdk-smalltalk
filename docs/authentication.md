@@ -42,7 +42,6 @@ to get a config:
 | `AWSCFConfig` | `us-east-1` | `cloudfront` | `hostUrl` hardcoded to `cloudfront.amazonaws.com` — CloudFront is a global service, not regional |
 | `AWSSTSConfig` | `ap-northeast-1` | `sts` | `apiVersion` is hardcoded to `'2011-06-15'` on the instance side regardless of what was set on `default` |
 | `AWSIAMConfig` | — | `iam` | `hostUrl` = `iam.amazonaws.com` (no region in host — IAM is global) |
-| `AETConfig` (ElasticTranscoder) | (unset) | `elastictranscoder` | standard pattern |
 
 `useSSL` defaults to `true` for all configs. `endpoint` defaults to `hostUrl`
 if not explicitly set; setting `regionName:` clears any cached `hostUrl`/

@@ -14,7 +14,7 @@ against the actual source.
 ## Layers
 
 ```
-AWSS3 / AWSLambda / STS / CloudFront / ElasticTranscoder / AWSSNS   ← facades (extend AWSService)
+AWSS3 / AWSLambda / STS / CloudFront / AWSSNS   ← facades (extend AWSService)
   └─ AWSClient (S3Client / SNSClient / STSClient / ... subclass it) ← Zn wrapper
        └─ ZnClient                                                  ← Pharo Zinc HTTP
 AWS<Service>Config (extends AWSConfig)                              ← credentials/region/endpoint
@@ -34,7 +34,7 @@ AWS<Service>Config (extends AWSConfig)                              ← credenti
   ```smalltalk
   AWSClient >> request: request andOption: anObject [
       | client url hostUrl keyUrl |
-      client := self defaultHttpClient.
+      client := self httpClient ifNil: [ self defaultHttpClient ].
       awsConfig useSSL
           ifTrue: [ client https ].
       client request: request.
@@ -62,35 +62,51 @@ AWS<Service>Config (extends AWSConfig)                              ← credenti
   `DynamoDBRawClient` and the base `AWSClient` do **not** do this — callers
   get the raw `ZnResponse`/parsed body back and read it directly.
 
-- **No shared request-builder class exists.** Each service's
-  `createRequest:url:method:` builds a `ZnRequest` directly. The recurring
-  shape (quoted from `AWSS3>>createRequest:url:method:`):
+- **The shared signing step lives in `AWSService>>signRequest:`.** Each
+  service's `createRequest:url:method:` sets only its service-specific headers
+  (host, content-type, `x-amz-content-sha256`, ...) and then delegates the
+  common tail — `x-amz-date`, session token, and `Authorization` — to
+  `signRequest:`. Quoted from the current `AWSS3` and `AWSService`:
 
   ```smalltalk
-  AWSS3 >> createRequest: aRequestBody url: url method: method [
-      | datetimeString hostUrl request |
-      datetimeString := DateAndTime amzDatePrintString.
-      hostUrl := self awsConfig endpoint.
+  AWSS3 >> createRequest: aRequestBody url: url method: method andBucketName: bucketNameString [
+      | hostUrl request |
+      hostUrl := bucketNameString
+          ifNil: [ self awsConfig endpoint ]
+          ifNotNil: [ bucketNameString, '.', self awsConfig endpoint ].
       request := ZnRequest empty.
       request method: method.
       request url: url.
       request entity: (ZnEntity readBinaryFrom: aRequestBody asByteArray readStream
           usingType: ZnMimeType textPlain andLength: aRequestBody byteSize).
       request headers at: 'host' put: hostUrl.
-      self awsConfig sessionToken ifNotNil: [
-          request headers at: 'X-Amz-Security-Token' put: self awsConfig sessionToken ].
       request headers at: 'x-amz-content-sha256' put: (SHA256 new hashMessage: aRequestBody) hex.
+      ^ self signRequest: request
+  ]
+
+  AWSService >> signRequest: request [
+      | datetimeString |
+      datetimeString := self amzDatePrintString.
       request headers at: 'x-amz-date' put: datetimeString.
-      request setAuthorization:
-          (SignatureV4 creatAuthorization: request andConfig: self awsConfig
-              andDateTime: datetimeString andOption: nil).
+      self awsConfig sessionToken ifNotNil: [ :token |
+          request headers at: 'X-Amz-Security-Token' put: token ].
+      request setAuthorization: (SignatureV4
+          creatAuthorization: request andConfig: self awsConfig
+          andDateTime: datetimeString andOption: nil).
       ^ request
   ]
   ```
 
-  New services should follow this same shape rather than inventing a new
-  request-building pattern. `X-Amz-Security-Token` is set by the *caller*
-  (each service), not by `SignatureV4` itself.
+  New services should set their headers and call `^ self signRequest: request`
+  rather than re-implementing the signing tail. `X-Amz-Security-Token` is added
+  centrally in `signRequest:` (for every `AWSService`) — not by `SignatureV4`
+  itself. `DynamoDBRawClient` is an `AWSClient`, not an `AWSService`, so it
+  applies the same three steps inline instead of calling `signRequest:`.
+
+  Two hooks support this: `AWSService>>awsConfig:` injects a config (so a
+  service can be pointed at a test endpoint without touching the global
+  singleton), and `AWSService>>amzDatePrintString:` pins the signing date-time
+  (so signatures are deterministic in offline unit tests).
 
 ## Authentication / signing (SigV4)
 
@@ -133,15 +149,20 @@ caller.
 ```smalltalk
 AWSResponse >> value [
     | responseJson exception |
-    responseJson := Json readFrom: self response contents readStream.
+    responseJson := NeoJSONReader fromString: self response contents.
     self response isSuccess
         ifTrue: [ ^ responseJson ].
     exception := self defaultExceptionClass new.
     exception properties: responseJson.
-    exception messageText: responseJson message.
+    exception messageText: (responseJson at: 'message' ifAbsent: [ nil ]).
     exception signal.
 ]
 ```
+
+JSON is read and written with **NeoJSON** (`NeoJSONReader fromString:` /
+`NeoJSONWriter toString:`) throughout — objects parse to a plain `Dictionary`
+with string keys, so use `at:ifAbsent:` for optional fields (a bare `at:` on a
+missing key raises, unlike the old `JsonObject`).
 
 Services whose API returns XML (S3, SNS, STS, CloudFront) override `value` to
 branch on content type instead, e.g. `S3Response`
@@ -183,9 +204,9 @@ migrated too.
 
 ## Session tokens (STS)
 
-`AWSConfig>>sessionToken`/`sessionToken:` exists, and each service's
-`createRequest:...` sets `X-Amz-Security-Token` when it is non-nil — but
-**nothing in this codebase automatically feeds an STS `assumeRole`/
-`getSessionToken` result back into an `AWSConfig`**. Callers must extract the
-token from the returned XML themselves and call `awsConfig sessionToken:`
-manually.
+`AWSConfig>>sessionToken`/`sessionToken:` exists, and `AWSService>>signRequest:`
+sets `X-Amz-Security-Token` for every service when it is non-nil
+(`DynamoDBRawClient` does the same inline) — but **nothing in this codebase
+automatically feeds an STS `assumeRole`/`getSessionToken` result back into an
+`AWSConfig`**. Callers must extract the token from the returned XML themselves
+and call `awsConfig sessionToken:` manually.

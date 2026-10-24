@@ -1,77 +1,45 @@
 # AWS SDK for Smalltalk [![ci](https://github.com/newapplesho/aws-sdk-smalltalk/actions/workflows/ci.yml/badge.svg)](https://github.com/newapplesho/aws-sdk-smalltalk/actions/workflows/ci.yml)
 
-The AWS SDK for Pharo Smalltalk enables Smalltalk developers to easily work with [Amazon Web Services](http://aws.amazon.com/). You can get started in minutes using Metacello.
+An unofficial AWS SDK for [Pharo](https://pharo.org) Smalltalk. It wraps the AWS
+REST APIs — S3, DynamoDB, SNS, Lambda, STS and CloudFront — over Zinc
+(`ZnClient`) HTTP with a hand-rolled Signature Version 4 implementation. No
+native libraries and no generated code.
 
-# Supported Pharo Versions
+## Requirements
 
-| Pharo Version | aws-sdk-smalltalk |
-| -------------- | ------------------ |
-| 12.0, 13.0     | Latest Version     |
-| 11.0           | v1.15.0             |
-| 8.0, 7.0       | v1.11.1             |
-| < 7.0          | v1.10.4             |
+The current version targets **Pharo 12 and 13** (the versions CI runs against).
+Older Pharo releases are served by earlier tags:
 
-CI ([ci.yml](.github/workflows/ci.yml)) runs against Pharo 12 and 13 only.
-v1.15.0 is the last version also tested against Pharo 11.
+| Pharo | Use |
+| ----- | --- |
+| 12.0, 13.0 | latest (`main`) |
+| 11.0 | tag `v1.15.0` |
+| 7.0, 8.0 | tag `v1.11.1` |
+| ≤ 6.0 | tag `v1.10.4` |
 
-# How to install
+## Install
 
-You can easily install from inside Pharo Smalltalk:
-
-## Pharo 12, 13
-
-```smalltalk
-Metacello new
-    baseline: 'AWS';
-    repository: 'github://newapplesho/aws-sdk-smalltalk:v1.15.0/src';
-    load.
-```
-
-## Pharo 11
+From inside Pharo 12 or 13, load with Metacello:
 
 ```smalltalk
 Metacello new
     baseline: 'AWS';
-    repository: 'github://newapplesho/aws-sdk-smalltalk:v1.15.0/src';
+    repository: 'github://newapplesho/aws-sdk-smalltalk:main/src';
     load.
 ```
 
-## Pharo 8 and GlamorousToolkit
+For an older Pharo, use the matching tag from the table above. The pre-`v1.15.0`
+tags keep their sources under `pharo-repository/` rather than `src/`, e.g.
+`github://newapplesho/aws-sdk-smalltalk:v1.11.1/pharo-repository`.
 
-```smalltalk
-Metacello new
-    baseline: 'AWS';
-    repository: 'github://newapplesho/aws-sdk-smalltalk:v1.11.1/pharo-repository';
-    onConflictUseLoaded;
-    load.
-```
+## Usage
 
-## Pharo 7
+See [docs/usage.md](docs/usage.md) for per-service examples (S3, DynamoDB, SNS,
+Lambda, STS, CloudFront) and credential configuration.
 
-```smalltalk
-Metacello new
-    baseline: 'AWS';
-    repository: 'github://newapplesho/aws-sdk-smalltalk:v1.11.1/pharo-repository';
-    load.
-```
+## Development
 
-## Pharo 6
-
-```smalltalk
-Metacello new
-    baseline: 'AWS';
-    repository: 'github://newapplesho/aws-sdk-smalltalk:v1.10.4/pharo-repository';
-    load.
-```
-
-# How to use
-
-[Wiki](https://github.com/newapplesho/aws-sdk-smalltalk/wiki)
-
-# Development
-
-Working on aws-sdk-smalltalk itself (not just using it) requires a local
-Pharo image:
+Working on aws-sdk-smalltalk itself (not just using it) uses a local Pharo image:
 
 ```bash
 make setup   # one-time: download a local Pharo image + VM into pharo-local/
@@ -80,5 +48,6 @@ make test    # run tests headless
 make ui      # open the Pharo GUI
 ```
 
-See [docs/development.md](docs/development.md) for the full workflow and test
-scope, and [docs/architecture.md](docs/architecture.md) for the class design.
+See [docs/development.md](docs/development.md) for the full workflow (including
+the local emulators the integration tests need), [docs/architecture.md](docs/architecture.md)
+for the class design, and [CONTRIBUTING.md](CONTRIBUTING.md) to contribute.

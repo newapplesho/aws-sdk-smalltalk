@@ -1,7 +1,7 @@
 # aws-sdk-smalltalk
 
 The AWS SDK for Pharo Smalltalk. Wraps AWS REST APIs (S3, DynamoDB, Lambda,
-SNS, STS, CloudFront, ElasticTranscoder) over Zinc (`ZnClient`), with a
+SNS, STS, CloudFront) over Zinc (`ZnClient`), with a
 hand-rolled Signature Version 4 implementation for request signing. Sources
 are in [Tonel](https://github.com/pharo-vcs/tonel) format (`src/`): one
 `.class.st` per class, one `package.st` per package.
@@ -12,11 +12,23 @@ A `Makefile` wraps a local Pharo image in `pharo-local/` (see
 [docs/development.md](docs/development.md)):
 
 ```bash
-make setup   # one-time: download Pharo 13 image + VM into pharo-local/
-make load    # load/reload the project into the image
-make test    # run tests headless (pattern AWS.*, broader than what CI runs — see below)
-make ui      # open the Pharo GUI
+make setup     # one-time: download Pharo 13 image + VM into pharo-local/
+make load      # load/reload the project into the image
+make test      # run tests headless (pattern AWS.*, broader than what CI runs — see below)
+make ui        # open the Pharo GUI
+make ddb-up    # start DynamoDB Local  (AWS-DynamoDB integration tests)
+make floci-up  # start floci emulator  (AWS-S3 integration tests)
+make emu-up    # start both emulators; make emu-down stops them
 ```
+
+The live integration tests need local emulators, defined in `docker-compose.yml`
+(DynamoDB Local + [floci](https://floci.io), pinned by digest). See
+[docs/development.md](docs/development.md).
+
+Reloading caveat: Metacello's incremental `make load` can miss newly added
+`.class.st` files or leave modified methods stale. When verifying a refactor,
+do a clean reload (delete `pharo-local/Pharo.image`, re-run `make setup` then
+`make load`).
 
 `scripts/load-project.st` is the single source of truth for the Metacello load
 expression (paste into a Playground with Ctrl+D to load manually). CI uses
@@ -49,18 +61,23 @@ fail unless DynamoDB Local is running (see
 | AWS-Lambda | Lambda function invocation (JSON only) |
 | AWS-STS | Temporary credentials — `assumeRole`, `getSessionToken` (XML responses) |
 | AWS-CloudFront | CDN invalidations (XML request/response) |
-| AWS-ElasticTranscoder | Transcoding jobs/pipelines (JSON only) |
 | BaselineOfAWS | Metacello baseline |
 
 ## Signing & error handling (overview)
 
-Every service builds a `ZnRequest` in its own `createRequest:url:method:` and
-signs it with `SignatureV4 creatAuthorization:andConfig:andDateTime:andOption:`
-(implements AWS SigV4's 3-task algorithm from scratch on the legacy
-`Cryptography` package's `SHA256`). Errors are signalled as a single, generic
-`AWSException` (subclass of `Error`) — there is no per-service exception
-hierarchy. See `.claude/rules/rest-api-patterns.md` for the full pattern with
-quoted source, and `docs/architecture.md` for the class-relationship picture.
+Every service builds a `ZnRequest` in its own `createRequest:url:method:`,
+setting only its service-specific headers (host, content-type,
+`x-amz-content-sha256`, `x-amz-target`, ...), then calls `AWSService>>signRequest:`.
+That shared helper sets `x-amz-date`, adds `X-Amz-Security-Token` when the
+config carries a session token, and computes the `Authorization` header via
+`SignatureV4 creatAuthorization:andConfig:andDateTime:andOption:` (AWS SigV4's
+3-task algorithm, implemented from scratch on the legacy `Cryptography`
+package's `SHA256`). `DynamoDBRawClient` is the exception — it is an `AWSClient`,
+not an `AWSService`, and applies the same steps inline. Errors are signalled as
+a single, generic `AWSException` (subclass of `Error`) — there is no per-service
+exception hierarchy. See `.claude/rules/rest-api-patterns.md` for the full
+pattern with quoted source, and `docs/architecture.md` for the
+class-relationship picture.
 
 ## Documentation style
 
@@ -81,6 +98,7 @@ organized.
 - Project-specific conventions: `.claude/rules/project-conventions.md` (class-prefix inconsistency, packages, protocols, config defaults, known baseline gaps)
 - Architecture: `docs/architecture.md`
 - Authentication / credentials: `docs/authentication.md`
+- Per-service usage examples: `docs/usage.md`
 
 ## Conventions for writing rules files
 

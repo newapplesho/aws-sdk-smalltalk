@@ -24,19 +24,28 @@ package for new tests.
    `AWSLambdaConfigTest`, `DynamoDBListTablesTest`. These assert against
    hard-coded fixtures (e.g. the official AWS SigV4 documentation examples) and
    have empty or absent `setUp`/`tearDown`.
-2. **Live integration tests against DynamoDB Local** —
-   `DynamoDBRawClientTest`, `DynamoDBTableTest`. `setUp` calls
-   `AWSDynamoDBConfig initialize` then `AWSDynamoDBConfig
-   developmentDynamoDBSetting` (points the config at `localhost:8000` with
-   sample credentials) and issues a real `CreateTable` call; `tearDown` issues
-   a real `DeleteTable` call. These require an actual DynamoDB Local process
-   listening on port 8000 (see `docs/development.md`) and use
-   `UUID new primMakeUUID hex` to avoid item-key collisions between runs.
+2. **Live integration tests against a local emulator** —
+   `DynamoDBRawClientTest`, `DynamoDBTableTest` (DynamoDB Local on
+   `localhost:8000`) and `AWSS3IntegrationTest` (the [floci](https://floci.io)
+   emulator on `localhost:4566`). Their `setUp` points a config at the emulator
+   and creates a resource (a table, a bucket); `tearDown` deletes it. The
+   DynamoDB tests use `AWSDynamoDBConfig developmentDynamoDBSetting`; the S3
+   test injects a config via `awsConfig:` and reads `S3_TEST_ENDPOINT` /
+   `S3_TEST_BUCKET` from the environment so CI can pin a bucket name. Unique
+   keys/names use `UUID new asString`. The emulators are defined in
+   `docker-compose.yml` (`make ddb-up` / `make floci-up`); see
+   `docs/development.md`.
 
-**There is no mocking/stubbing framework anywhere in this codebase.** When
-adding a test for signing or config logic, follow style 1 (hard-coded fixture,
-no network). When adding a test that necessarily exercises a live AWS-like
-endpoint (as DynamoDB does via DynamoDB Local), follow style 2's
+There is no mocking framework, but the HTTP layer has one hand-rolled stub:
+`AWSHttpClientStub` (`src/AWS-Core/`), a plain object implementing the slice of
+the `ZnClient` protocol that `AWSClient>>request:andOption:` uses. Inject it
+with `AWSClient>>httpClient:` to test request dispatch offline
+(`AWSClientTest`). For a genuinely new collaborator, prefer this same
+hand-rolled-stub approach over adding a framework.
+
+When adding a test for signing or config logic, follow style 1 (hard-coded
+fixture, no network). When adding a test that necessarily exercises a live
+AWS-like endpoint (as DynamoDB does via DynamoDB Local), follow style 2's
 setUp/tearDown create-then-delete resource pattern and document the external
 dependency in the test class comment.
 
@@ -81,11 +90,17 @@ Prefer `assert:equals:` over `assert: (x = y)` — gives better failure messages
 
 ## CI test scope (known constraint)
 
-`.smalltalk.ston` only includes `SignatureV4Test` and excludes every other
-`AWS.*` package from CI (`BaselineOfAWS`'s `Tests` group is scoped to
-`AWS-Core` only). This is a pre-existing, intentional-looking constraint — the
-DynamoDB integration tests need a live DynamoDB Local instance CI does not
-provide. Do not assume a new test class will run in CI just because it exists;
-see `docs/development.md` for how to run the fuller local suite via `make
-test`, and `project-conventions.md` for the exact `.smalltalk.ston` /
-baseline wiring.
+CI has two jobs (`.github/workflows/ci.yml`):
+
+- **`build`** runs `.smalltalk.ston`, which includes only `SignatureV4Test` and
+  excludes every other `AWS.*` package (`BaselineOfAWS`'s `Tests` group is
+  scoped to `AWS-Core` only). Offline, fast, runs on the Pharo 12/13 matrix.
+- **`integration`** starts the emulators (`docker compose up -d`), adds one
+  `/etc/hosts` line for the S3 bucket host (Linux does not resolve
+  `*.localhost`, which floci's virtual-hosted addressing needs), and runs
+  `.smalltalk.ci-integration.ston` — which loads all packages and runs the full
+  `AWS.*` suite, including the live integration tests.
+
+So a new integration test *does* run in CI via the `integration` job, but not
+in `build`. See `docs/development.md` for running the suite locally via `make
+test`, and `project-conventions.md` for the baseline/`.ston` wiring.

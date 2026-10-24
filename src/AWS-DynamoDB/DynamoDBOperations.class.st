@@ -7,14 +7,9 @@ Class {
 	#category : #'AWS-DynamoDB-Operations'
 }
 
-{ #category : #printing }
-DynamoDBOperations >> jsonWriteOn: aStream [
-	self modifiers jsonWriteOn: aStream.
-]
-
 { #category : #accessing }
 DynamoDBOperations >> modifiers [
-	^ modifiers ifNil: [modifiers := JsonObject new ]
+	^ modifiers ifNil: [modifiers := Dictionary new ]
 ]
 
 { #category : #accessing }

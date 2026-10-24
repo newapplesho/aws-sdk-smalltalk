@@ -9,7 +9,17 @@ SmalltalkCISpec {
   ],
   #testing : {
     #include : {
-      #classes : [ #SignatureV4Test ]
+      #classes : [
+        #SignatureV4Test,
+        #AWSClientTest,
+        #AWSS3ConfigTest,
+        #AWSS3RequestTest,
+        #AWSLambdaConfigTest,
+        #AWSLambdaRequestTest,
+        #DynamoDBListTablesTest,
+        #DynamoDBMapperTest,
+        #DynamoDBRawClientRequestTest
+      ]
     },
     #exclude : {
       #packages : [ 'AWS.*' ]

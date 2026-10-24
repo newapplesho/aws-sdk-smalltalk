@@ -21,12 +21,25 @@ AWSClient >> awsConfig [
 
 { #category : #accessing }
 AWSClient >> awsConfig: anObject [
-	
+
 	awsConfig := anObject
 ]
 
+{ #category : #accessing }
+AWSClient >> httpClient [
+	"An optional injected HTTP client, honoured by request:andOption:. When nil
+	 a fresh defaultHttpClient is used per request. Set it to reuse a connection
+	 or to substitute a stub in tests."
+	^ httpClient
+]
+
+{ #category : #accessing }
+AWSClient >> httpClient: anObject [
+	httpClient := anObject
+]
+
 { #category : #convencience }
-AWSClient >> dateTimeString [	
+AWSClient >> dateTimeString [
 	| dt t  |
 	dt :=DateAndTime now asUTC.
 	t :=  (dt asTimeUTC print24 findTokens: '.')first copyReplaceAll:':' with:''.
@@ -43,18 +56,6 @@ AWSClient >> defaultHttpClient [
 	^ZnClient new
 ]
 
-{ #category : #accessing }
-AWSClient >> httpClient [
-	
-	^ httpClient
-]
-
-{ #category : #accessing }
-AWSClient >> httpClient: anObject [
-	
-	httpClient := anObject
-]
-
 { #category : #private }
 AWSClient >> readFromResponse: response [
 
@@ -64,7 +65,7 @@ AWSClient >> readFromResponse: response [
 { #category : #'low-level-api' }
 AWSClient >> request: request andOption: anObject [
 	| client url hostUrl keyUrl |
-	client := self defaultHttpClient.
+	client := self httpClient ifNil: [ self defaultHttpClient ].
 	awsConfig useSSL
 		ifTrue: [ client https ].
 	client request: request.

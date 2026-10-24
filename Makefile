@@ -6,10 +6,10 @@ PHARO         = ./pharo --headless Pharo.image
 TEST_PATTERN  = AWS.*
 PHARO_VERSION = 130
 
-.PHONY: help setup load test ui
+.PHONY: help setup load test ui ddb-up floci-up emu-up emu-down
 
 help:   ## Show available targets
-	@grep -E '^[a-z]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-7s %s\n", $$1, $$2}'
+	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-9s %s\n", $$1, $$2}'
 
 setup:  ## Download a local Pharo image + VM into pharo-local/
 	mkdir -p $(PHARO_DIR)
@@ -23,3 +23,15 @@ test:   ## Run tests headless with JUnit XML output (see docs/development.md for
 
 ui:     ## Open the Pharo GUI
 	cd $(PHARO_DIR) && ./pharo-ui Pharo.image
+
+ddb-up:    ## Start DynamoDB Local (AWS-DynamoDB integration tests)
+	docker compose up -d dynamodb-local
+
+floci-up:  ## Start floci AWS emulator (AWS-S3 integration tests)
+	docker compose up -d floci
+
+emu-up:    ## Start all local emulators
+	docker compose up -d
+
+emu-down:  ## Stop and remove all local emulators
+	docker compose down

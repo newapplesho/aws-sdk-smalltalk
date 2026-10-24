@@ -6,7 +6,7 @@ Signature Version 4 implementation — no UFFI, no generated code.
 ## Design overview
 
 - **Facades wrap services; clients wrap HTTP.** Each service has a facade
-  (`AWSS3`, `AWSLambda`, `STS`, `CloudFront`, `ElasticTranscoder`, `AWSSNS`,
+  (`AWSS3`, `AWSLambda`, `STS`, `CloudFront`, `AWSSNS`,
   all subclassing `AWSService`) that builds and signs requests, and a client
   (`AWSClient` subclass, e.g. `S3Client`) that actually executes them over
   `ZnClient` and parses the response.
@@ -31,17 +31,16 @@ Signature Version 4 implementation — no UFFI, no generated code.
 | `AWS-Lambda` | Lambda invocation; JSON only |
 | `AWS-STS` | Temporary credentials; XML responses |
 | `AWS-CloudFront` | CDN invalidations; XML request and response bodies (`XMLWriter`) |
-| `AWS-ElasticTranscoder` | Transcoding jobs/pipelines; JSON only |
 | `BaselineOfAWS` | Metacello load definition |
 
 Dependency graph (from `BaselineOfAWS>>baseline:`): every service package
 requires `AWS-Core`; `AWS-S3` and `AWS-SNS` additionally require `XMLParser`
 in the baseline (though `AWS-STS` and `AWS-CloudFront` also use XML parsing at
 runtime without declaring that dependency — see "Known gaps" below). External
-baselines: `JSON` (`Json-BackwardCompatibility`, actually used pervasively),
-`NeoJSON` (declared, unused), `XMLParser`, and the legacy `Cryptography`
-package (declared only `for: #'pharo3.x'`, but its `SHA256` is used
-unconditionally by `SignatureV4` and every service).
+baselines: `NeoJSON` (JSON reading/writing, used by `AWS-Core` and
+`AWS-DynamoDB`), `XMLParser`, and the legacy `Cryptography` package (declared
+only `for: #'pharo3.x'`, but its `SHA256` is used unconditionally by
+`SignatureV4` and every service).
 
 ## Class relationships
 
@@ -53,7 +52,6 @@ flowchart TB
         STSF[STS] -->|creates & signs| REQ
         CFF[CloudFront] -->|creates & signs| REQ
         SNSF[AWSSNS] -->|creates & signs| REQ
-        ETF[ElasticTranscoder] -->|creates & signs| REQ
     end
     SIG[SignatureV4] -.->|signs| REQ
     REQ ==>|AWSClient subclass| CLIENT["AWSClient subclass<br/>(S3Client / SNSClient / STSClient / ...)"]
@@ -74,8 +72,8 @@ header, then hands the request to `self client request:andOption:`. See
 ## Response handling: JSON vs XML
 
 `AWSResponse>>value` (`src/AWS-Core/AWSResponse.class.st`) is the JSON-only
-base — it parses the body with `Json readFrom:` and signals `AWSException` on
-a non-success status. Services whose API returns XML (S3, SNS, STS,
+base — it parses the body with `NeoJSONReader fromString:` and signals
+`AWSException` on a non-success status. Services whose API returns XML (S3, SNS, STS,
 CloudFront) override `value` to branch on `self response contentType sub`
 instead, parsing with `XMLDOMParser` when it is `'xml'` and falling back to
 raw contents otherwise (see `S3Response` in `.claude/rules/rest-api-patterns.md`).
@@ -95,8 +93,9 @@ type.
 
 Documented here as facts, not fixed as part of adding this documentation:
 
-- `NeoJSON` is declared in `BaselineOfAWS` but never referenced by any class
-  in `src/` — only `Json`/`JsonObject` are actually used.
+- JSON is handled by `NeoJSON` throughout (`NeoJSONReader`/`NeoJSONWriter`),
+  required by `AWS-Core` and `AWS-DynamoDB`; the older `Json-BackwardCompatibility`
+  baseline has been removed.
 - `AWS-CloudFront` and `AWS-STS` use `XMLWriter`/`XMLDOMParser` at runtime but
   their package specs in `BaselineOfAWS` only `requires: #('AWS-Core')`,
   omitting `XMLParser` (unlike `AWS-S3`/`AWS-SNS`, which declare it

@@ -10,9 +10,6 @@ BaselineOfAWS >> baseline: spec [
 	<baseline>
 	spec for: #common do: [
 		
-		spec baseline: 'JSON' with: [
-			spec repository:
-				'github://Evref-BL/Json-BackwardCompatibility:main/src' ].
 		spec
 			baseline: 'NeoJSON'
 			with: [ spec repository: 'github://svenvc/NeoJSON/repository' ].
@@ -26,19 +23,17 @@ BaselineOfAWS >> baseline: spec [
 				spec repository:
 					'http://smalltalkhub.com/mc/Cryptography/Cryptography/main' ] ].
 		spec
-			package: 'AWS-Core';
-			package: 'AWS-DynamoDB' with: [ spec requires: #( 'AWS-Core' ) ];
+			package: 'AWS-Core' with: [ spec requires: #( 'NeoJSON' ) ];
+			package: 'AWS-DynamoDB' with: [ spec requires: #( 'AWS-Core' 'NeoJSON' ) ];
 			package: 'AWS-Lambda' with: [ spec requires: #( 'AWS-Core' ) ];
 			package: 'AWS-S3'
 			with: [ spec requires: #( 'AWS-Core' 'XMLParser' ) ];
-			package: 'AWS-ElasticTranscoder'
-			with: [ spec requires: #( 'AWS-Core' ) ];
 			package: 'AWS-STS' with: [ spec requires: #( 'AWS-Core' ) ];
 			package: 'AWS-CloudFront' with: [ spec requires: #( 'AWS-Core' ) ];
 			package: 'AWS-SNS'
 			with: [ spec requires: #( 'AWS-Core' 'XMLParser' ) ] ].
 
 	spec
-		group: 'Tests' with: #( 'AWS-Core' );
+		group: 'Tests' with: #( 'AWS-Core' 'AWS-S3' 'AWS-Lambda' 'AWS-DynamoDB' );
 		group: 'CI' with: #( 'Tests' )
 ]

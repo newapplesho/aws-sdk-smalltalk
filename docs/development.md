@@ -63,7 +63,6 @@ For a working copy, replace the repository with your local checkout:
 | AWS-Lambda | Lambda function invocation (JSON only) |
 | AWS-STS | Temporary credentials (XML responses) |
 | AWS-CloudFront | CDN invalidations (XML request/response) |
-| AWS-ElasticTranscoder | Transcoding jobs/pipelines (JSON only) |
 | BaselineOfAWS | Metacello baseline |
 
 New classes go into the existing packages — no baseline edit needed, unless
@@ -74,31 +73,48 @@ you are adding an entirely new service package (in which case update
 
 Two different things run tests, with two different scopes:
 
-- **CI** (`smalltalkci` + `.smalltalk.ston`) only runs `SignatureV4Test`.
-  `BaselineOfAWS`'s `Tests` group is scoped to `AWS-Core` only (`CI` group is
-  `Tests`), and `.smalltalk.ston`'s `#testing` block explicitly excludes every
-  other `AWS.*` package. This is because the DynamoDB tests are live
-  integration tests, not unit tests (see below), and CI has no DynamoDB Local
-  instance to talk to.
+- **CI `build` job** (`smalltalkci` + `.smalltalk.ston`, Pharo 12/13) runs
+  only the offline unit-test classes listed in `.smalltalk.ston`'s
+  `#include` (`SignatureV4Test`, `AWSClientTest`, `AWSS3ConfigTest`,
+  `AWSS3RequestTest`, `AWSLambdaConfigTest`, `AWSLambdaRequestTest`,
+  `DynamoDBListTablesTest`, `DynamoDBMapperTest`,
+  `DynamoDBRawClientRequestTest`). `BaselineOfAWS`'s
+  `Tests` group (`CI` group is `Tests`) loads `AWS-Core`, `AWS-S3`,
+  `AWS-Lambda` and `AWS-DynamoDB` so those classes are present.
+- **CI `integration` job** (`.smalltalk.ci-integration.ston`, Pharo 13)
+  starts the emulators and runs the full `AWS.*` suite, including the live
+  integration tests below.
 - **`make test`** (this project's new local target) runs the broader
   `AWS.*` pattern directly against the Pharo test runner, independent of
   `.smalltalk.ston`. This picks up all test classes, including:
-  - Pure unit tests (`SignatureV4Test` + its S3 extension, `AWSS3ConfigTest`,
-    `AWSLambdaConfigTest`, `DynamoDBListTablesTest`) — always safe to run,
+  - Pure unit tests (the `build` job's classes above, plus the S3 extension
+    of `SignatureV4Test`) — always safe to run,
     no network required.
-  - `DynamoDBRawClientTest` and `DynamoDBTableTest` — **live integration
-    tests** against a real DynamoDB Local instance on `localhost:8000`; they
-    will fail with connection errors unless one is running.
+  - `DynamoDBRawClientTest` / `DynamoDBTableTest` — **live integration tests**
+    against a real DynamoDB Local instance on `localhost:8000`.
+  - `AWSS3IntegrationTest` — **live integration test** against a local
+    [floci](https://floci.io) AWS emulator on `localhost:4566`.
 
-To run the DynamoDB integration tests locally, start DynamoDB Local first,
-for example via Docker:
+  Both fail with connection errors unless the emulator is running.
+
+The emulators are defined in `docker-compose.yml` at the repository root; the
+images are pinned by digest (Dependabot keeps them current — see
+`.github/dependabot.yml`). Bring them up with the Makefile targets:
 
 ```bash
-docker run -d -p 8000:8000 amazon/dynamodb-local
+make ddb-up                              # DynamoDB Local  (docker compose up -d dynamodb-local)
+make floci-up                            # floci emulator  (docker compose up -d floci)
+make emu-up                              # both
+make test TEST_PATTERN=AWS-DynamoDB.*    # run just the DynamoDB tests
+make test TEST_PATTERN=AWS-S3.*          # run just the S3 tests
+make emu-down                            # stop everything (docker compose down)
 ```
 
-then `make test`. To run only the tests that don't need DynamoDB Local,
-narrow the pattern, e.g. `make test TEST_PATTERN=AWS-Core.*`.
+floci is chosen over LocalStack because it is MIT-licensed and needs no auth
+token (recent LocalStack images require one). It listens on the same port
+(`4566`) and works with the SDK's virtual-hosted S3 addressing via plain
+`<bucket>.localhost` (RFC 6761 loopback) — no magic DNS. To run only the tests
+that need no emulator, narrow the pattern, e.g. `make test TEST_PATTERN=AWS-Core.*`.
 
 See `.claude/rules/testing.md` and `.claude/rules/project-conventions.md` for
 the full detail on this constraint and on the two existing test styles.

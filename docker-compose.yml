@@ -1,0 +1,33 @@
+# Local AWS emulators for the live integration tests. Images are pinned by
+# digest for reproducibility; the :latest anchor is only what Dependabot uses
+# to detect a new digest (see .github/dependabot.yml, docker-compose ecosystem).
+#
+#   make ddb-up     # DynamoDB Local  (AWS-DynamoDB tests)
+#   make floci-up   # floci emulator  (AWS-S3 tests; also covers SNS/STS/Lambda)
+#   make emu-up     # both
+#   make emu-down   # stop everything
+#
+# All data is in-memory and discarded when the containers stop.
+services:
+  dynamodb-local:
+    # Pinned by digest for reproducibility. The :latest tag is only the anchor
+    # Dependabot uses to detect a new digest and open a bump PR (see
+    # .github/dependabot.yml, docker-compose ecosystem).
+    image: amazon/dynamodb-local:latest@sha256:ff89bd48ff32cd8d9be5fee8873b65b8854dc408f1afe881be6eb00247bc0dab
+    container_name: aws-sdk-smalltalk-ddb
+    command: "-jar DynamoDBLocal.jar -inMemory -sharedDb"
+    ports:
+      - "8000:8000"
+
+  floci:
+    # Local AWS emulator (MIT-licensed, no auth token). The AWS-S3 tests reach
+    # it at localhost:4566; the SDK's virtual-hosted addressing sends requests
+    # to <bucket>.localhost, which resolves to 127.0.0.1 (RFC 6761) — no magic
+    # DNS needed. Pinned by digest; :latest is only the Dependabot anchor.
+    # Mounts the Docker socket so floci can run its service engines.
+    image: floci/floci:latest@sha256:bec9b9f749322444a57fb0f00d3e007ffd49015162361aab84ccecd9b4f5f8ed
+    container_name: aws-sdk-smalltalk-floci
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "4566:4566"

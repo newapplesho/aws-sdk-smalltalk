@@ -180,16 +180,42 @@ DynamoDBTableTest >> testNullRoundTrip [
 DynamoDBTableTest >> testNumberSetRoundTrip [
 	| uuid result |
 	uuid := UUID new asString.
-	result := self putItem: (Dictionary newFrom: { 'id' -> uuid. 'scores' -> #(3 1 2) }) thenGet: uuid.
-	self assert: (result at: #scores) asSortedCollection asArray equals: #(1 2 3).
+	result := self
+		putItem: (Dictionary newFrom: { 'id' -> uuid. 'scores' -> (Set withAll: #(3 1 2)) })
+		thenGet: uuid.
+	self assert: (result at: #scores) equals: (Set withAll: #(1 2 3)).
 ]
 
 { #category : #'tests-types' }
 DynamoDBTableTest >> testStringSetRoundTrip [
 	| uuid result |
 	uuid := UUID new asString.
-	result := self putItem: (Dictionary newFrom: { 'id' -> uuid. 'tags' -> #('b' 'a') }) thenGet: uuid.
-	self assert: (result at: #tags) asSortedCollection asArray equals: #('a' 'b').
+	result := self
+		putItem: (Dictionary newFrom: { 'id' -> uuid. 'tags' -> (Set withAll: #('b' 'a')) })
+		thenGet: uuid.
+	self assert: (result at: #tags) equals: (Set withAll: #('a' 'b')).
+]
+
+{ #category : #'tests-types' }
+DynamoDBTableTest >> testListRoundTrip [
+	| uuid result |
+	uuid := UUID new asString.
+	result := self
+		putItem: (Dictionary newFrom: { 'id' -> uuid. 'steps' -> #(3 'a' 3 true) })
+		thenGet: uuid.
+	self assert: (result at: #steps) equals: #(3 'a' 3 true).
+]
+
+{ #category : #'tests-types' }
+DynamoDBTableTest >> testMapRoundTrip [
+	| uuid address result |
+	uuid := UUID new asString.
+	address := Dictionary newFrom: { 'city' -> 'Tokyo'. 'zip' -> 1000001 }.
+	result := self
+		putItem: (Dictionary newFrom: { 'id' -> uuid. 'address' -> address })
+		thenGet: uuid.
+	self assert: ((result at: #address) at: #city) equals: 'Tokyo'.
+	self assert: ((result at: #address) at: #zip) equals: 1000001.
 ]
 
 { #category : #'tests-types' }

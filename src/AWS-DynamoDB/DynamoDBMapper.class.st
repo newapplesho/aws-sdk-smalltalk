@@ -3,18 +3,24 @@ I map between plain Pharo values and DynamoDB's typed attribute-value form.
 
 `convert:` encodes a Dictionary of attributeName -> Pharo value into the wire
 form `{ name -> { type -> value } }`; `loadFrom:` decodes that back into a
-Dictionary keyed by symbols. Supported types:
+Dictionary keyed by symbols. Supported types (the same split between lists,
+sets and maps as the official AWS SDKs):
 
   nil        <-> NULL          Boolean   <-> BOOL
   Number     <-> N             String    <-> S
-  ByteArray  <-> B (base64)
-  set of Numbers    <-> NS     set of Strings <-> SS
-  set of ByteArrays <-> BS (base64)
+  ByteArray  <-> B (base64)    Dictionary <-> M
+  Array / OrderedCollection (any non-Set collection) <-> L
+  Set of Numbers    <-> NS     Set of Strings <-> SS
+  Set of ByteArrays <-> BS (base64)
 
-A Pharo `ByteArray` (e.g. `#[1 2 3]`) is a single binary (B); an array of
-numbers (e.g. `#(1 2 3)`) is a number set (NS). Maps (M) and lists (L) are not
-supported yet. NeoJSON handles UTF-8 encoding on the wire, so no manual byte
-conversion happens here.
+Numbers are sent as plain decimal strings: Integers as-is, Floats in their
+shortest exact decimal form, ScaledDecimals with their scale. NaN, Infinity
+and Fractions are rejected, as are empty Sets and Sets of mixed or
+unsupported types (DynamoDB would reject them too). A whole-number Float
+(e.g. 2.0) is sent as '2' and so reads back as an Integer.
+
+NeoJSON handles UTF-8 encoding on the wire, so no manual byte conversion
+happens here.
 "
 Class {
 	#name : #DynamoDBMapper,
@@ -32,6 +38,16 @@ DynamoDBMapper >> convert: aDictionary [
 ]
 
 { #category : #decoding }
+DynamoDBMapper >> decodeType: aTypeString collection: aValue [
+	aTypeString = 'SS' ifTrue: [ ^ aValue asSet ].
+	aTypeString = 'NS' ifTrue: [ ^ (aValue collect: [ :each | each asNumber ]) asSet ].
+	aTypeString = 'BS' ifTrue: [ ^ (aValue collect: [ :each | each base64Decoded ]) asSet ].
+	aTypeString = 'L' ifTrue: [ ^ aValue collect: [ :each | self decodeValue: each ] ].
+	aTypeString = 'M' ifTrue: [ ^ self loadFrom: aValue ].
+	^ aValue
+]
+
+{ #category : #decoding }
 DynamoDBMapper >> decodeValue: aTypedValue [
 	| type value |
 	type := aTypedValue keys anyOne.
@@ -41,31 +57,55 @@ DynamoDBMapper >> decodeValue: aTypedValue [
 	type = 'BOOL' ifTrue: [ ^ value ].
 	type = 'NULL' ifTrue: [ ^ nil ].
 	type = 'B' ifTrue: [ ^ value base64Decoded ].
-	type = 'SS' ifTrue: [ ^ value ].
-	type = 'NS' ifTrue: [ ^ value collect: [ :each | each asNumber ] ].
-	type = 'BS' ifTrue: [ ^ value collect: [ :each | each base64Decoded ] ].
-	^ value
+	^ self decodeType: type collection: value
 ]
 
 { #category : #encoding }
-DynamoDBMapper >> encodeSet: aCollection [
-	aCollection isEmpty ifTrue: [ ^ self typed: 'SS' value: #() ].
-	(aCollection anyOne isKindOf: ByteArray) ifTrue: [
-		^ self typed: 'BS' value: (aCollection collect: [ :each | each base64Encoded ]) asArray ].
-	aCollection anyOne isNumber ifTrue: [
-		^ self typed: 'NS' value: (aCollection collect: [ :each | each asString ]) asArray ].
-	^ self typed: 'SS' value: (aCollection collect: [ :each | each asString ]) asArray
+DynamoDBMapper >> encodeList: aCollection [
+	^ self
+		typed: 'L'
+		value: (aCollection asArray collect: [ :each | self encodeValue: each ])
+]
+
+{ #category : #encoding }
+DynamoDBMapper >> encodeSet: aSet [
+	aSet isEmpty ifTrue: [ ^ AWSException signal: 'DynamoDB does not allow an empty set' ].
+	(aSet allSatisfy: [ :each | each isKindOf: ByteArray ]) ifTrue: [
+		^ self typed: 'BS' value: (aSet asArray collect: [ :each | each base64Encoded ]) ].
+	(aSet allSatisfy: [ :each | each isNumber ]) ifTrue: [
+		^ self
+			typed: 'NS'
+			value: (self uniqueStrings: aSet with: [ :each | self numberString: each ]) ].
+	(aSet allSatisfy: [ :each | each isString ]) ifTrue: [
+		^ self typed: 'SS' value: (self uniqueStrings: aSet with: [ :each | each asString ]) ].
+	^ AWSException signal:
+		'A DynamoDB set must contain only Numbers, only Strings or only ByteArrays'
 ]
 
 { #category : #encoding }
 DynamoDBMapper >> encodeValue: aValue [
-	aValue isNil ifTrue: [ ^ self typed: 'NULL' value: true ].
+	aValue ifNil: [ ^ self typed: 'NULL' value: true ].
 	(aValue isKindOf: Boolean) ifTrue: [ ^ self typed: 'BOOL' value: aValue ].
-	aValue isNumber ifTrue: [ ^ self typed: 'N' value: aValue asString ].
-	aValue isString ifTrue: [ ^ self typed: 'S' value: aValue ].
+	aValue isNumber ifTrue: [ ^ self typed: 'N' value: (self numberString: aValue) ].
+	aValue isString ifTrue: [ ^ self typed: 'S' value: aValue asString ].
 	(aValue isKindOf: ByteArray) ifTrue: [ ^ self typed: 'B' value: aValue base64Encoded ].
-	aValue isCollection ifTrue: [ ^ self encodeSet: aValue ].
+	aValue isDictionary ifTrue: [ ^ self typed: 'M' value: (self convert: aValue) ].
+	(aValue isKindOf: Set) ifTrue: [ ^ self encodeSet: aValue ].
+	aValue isCollection ifTrue: [ ^ self encodeList: aValue ].
 	^ self typed: 'S' value: aValue asString
+]
+
+{ #category : #encoding }
+DynamoDBMapper >> floatString: aFloat [
+	| fraction places |
+	(aFloat isNaN or: [ aFloat isInfinite ]) ifTrue: [
+		^ AWSException signal: 'NaN and Infinity cannot be stored as DynamoDB numbers' ].
+	fraction := aFloat asMinimalDecimalFraction.
+	fraction isInteger ifTrue: [ ^ fraction printString ].
+	places := 1.
+	[ (10 raisedTo: places) \\ fraction denominator = 0 ]
+		whileFalse: [ places := places + 1 ].
+	^ fraction printShowingDecimalPlaces: places
 ]
 
 { #category : #decoding }
@@ -77,9 +117,25 @@ DynamoDBMapper >> loadFrom: anItem [
 	^ result
 ]
 
+{ #category : #encoding }
+DynamoDBMapper >> numberString: aNumber [
+	aNumber isInteger ifTrue: [ ^ aNumber printString ].
+	aNumber isFloat ifTrue: [ ^ self floatString: aNumber ].
+	(aNumber isKindOf: ScaledDecimal) ifTrue: [
+		^ aNumber printShowingDecimalPlaces: aNumber scale ].
+	^ AWSException signal:
+		'A DynamoDB number must be an Integer, Float or ScaledDecimal, not '
+		, aNumber class name
+]
+
 { #category : #private }
 DynamoDBMapper >> typed: aTypeString value: aValue [
 	^ Dictionary new
 		at: aTypeString put: aValue;
 		yourself
+]
+
+{ #category : #private }
+DynamoDBMapper >> uniqueStrings: aSet with: aBlock [
+	^ (aSet collect: aBlock) asSet asArray
 ]

@@ -56,6 +56,9 @@ jobs:
         with:
           smalltalk-image: Pharo64-13
       - name: Load Image and Run Integration Tests
+        # .smalltalk.ci-integration.ston loads every AWS package and runs the
+        # full AWS.* suite, including the live DynamoDB Local / floci tests.
+        # (STON has no comment syntax, so the note lives here.)
         run: smalltalkci -s Pharo64-13 .smalltalk.ci-integration.ston
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

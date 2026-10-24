@@ -1,7 +1,3 @@
-"Integration CI config: loads every AWS package and runs the full AWS test
- suite, including the live integration tests (DynamoDB Local + floci). The CI
- 'integration' job starts those emulators first. Contrast with .smalltalk.ston,
- which runs only the offline SignatureV4Test."
 SmalltalkCISpec {
   #loading : [
     SCIMetacelloLoadSpec {

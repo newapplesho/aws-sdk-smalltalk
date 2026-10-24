@@ -52,7 +52,7 @@ jobs:
           done
           echo "emulators did not become ready"; docker compose logs; exit 1
       - name: Set up Smalltalk CI
-        uses: hpi-swa/setup-smalltalkCI@999b788246c9dca7ac8e4c606caade213eb3906e # v1
+        uses: hpi-swa/setup-smalltalkCI@c0a3a3b942ac515b6c3846ca2f65802d353757ef # v1
         with:
           smalltalk-image: Pharo64-13
       - name: Load Image and Run Integration Tests

@@ -1,111 +1,85 @@
+"
+I map between plain Pharo values and DynamoDB's typed attribute-value form.
+
+`convert:` encodes a Dictionary of attributeName -> Pharo value into the wire
+form `{ name -> { type -> value } }`; `loadFrom:` decodes that back into a
+Dictionary keyed by symbols. Supported types:
+
+  nil        <-> NULL          Boolean   <-> BOOL
+  Number     <-> N             String    <-> S
+  ByteArray  <-> B (base64)
+  set of Numbers    <-> NS     set of Strings <-> SS
+  set of ByteArrays <-> BS (base64)
+
+A Pharo `ByteArray` (e.g. `#[1 2 3]`) is a single binary (B); an array of
+numbers (e.g. `#(1 2 3)`) is a number set (NS). Maps (M) and lists (L) are not
+supported yet. NeoJSON handles UTF-8 encoding on the wire, so no manual byte
+conversion happens here.
+"
 Class {
 	#name : #DynamoDBMapper,
 	#superclass : #Object,
 	#category : #'AWS-DynamoDB'
 }
 
-{ #category : #private }
-DynamoDBMapper >> checkCollectionType: anObject [
-	anObject isEmpty ifTrue:[ ^ 'SS' ].
-	anObject first isNumber ifTrue:[ ^ 'NS' ].
-	anObject first isString ifTrue:[ ^ 'SS' ].
-	 ^ 'BS'.
-]
-
-{ #category : #private }
-DynamoDBMapper >> checkType: anObject key: aSymbol on: jsonObject [
-	anObject isNumber 
-		ifTrue:[ ^ jsonObject at: aSymbol asString put: (JsonObject new at:'N' put: anObject asString; yourself)  ].
-	anObject isString 
-		ifTrue:[  ^ jsonObject at: aSymbol asString put: (JsonObject new at:'S' put: anObject convertUTF8; yourself)   ].
-	anObject isCollection
-		 ifTrue:[ 
-			| result |
-			result := self checkCollectionType: anObject.
-			
-			(result ='NS') ifTrue:[ 
-				| c |
-				c := anObject collect:[:v | v asString ].
-				^ jsonObject at: aSymbol asString put: (JsonObject new  at:'NS' put: c; yourself)  ].
-			
-			(result ='SS') ifTrue:[ 
-				| c |
-				c := anObject collect:[:v | v convertUTF8 ].
-				^ jsonObject at: aSymbol asString put: (JsonObject new at:'SS' put: c; yourself)  ].
-			
-			(result ='BS') ifTrue:[ 
-				| c |
-				c := anObject collect:[:v | v asString ].
-				^ jsonObject at: aSymbol asString put: (JsonObject new at:'BS' put: c; yourself) . ].
-		 ].
-	^ jsonObject at: aSymbol asString put: (JsonObject new at:'B' put: anObject asString ; yourself) 
-		
-]
-
-{ #category : #private }
+{ #category : #encoding }
 DynamoDBMapper >> convert: aDictionary [
-	| jsonObject |
-	jsonObject := JsonObject new.
-       aDictionary keysDo: [:k | 
-		| value boolean |
-		value := aDictionary at: k .
-		boolean:= value isString 
-			ifTrue:[ value isEmptyOrNil  ] 
-			ifFalse:[ value isNil ].
-		boolean ifFalse:[ self  checkType: value  key: k on: jsonObject.] ].
-	^ jsonObject. 
+	| item |
+	item := Dictionary new.
+	aDictionary keysAndValuesDo: [ :name :value |
+		item at: name asString put: (self encodeValue: value) ].
+	^ item
+]
+
+{ #category : #decoding }
+DynamoDBMapper >> decodeValue: aTypedValue [
+	| type value |
+	type := aTypedValue keys anyOne.
+	value := aTypedValue at: type.
+	type = 'S' ifTrue: [ ^ value ].
+	type = 'N' ifTrue: [ ^ value asNumber ].
+	type = 'BOOL' ifTrue: [ ^ value ].
+	type = 'NULL' ifTrue: [ ^ nil ].
+	type = 'B' ifTrue: [ ^ value base64Decoded ].
+	type = 'SS' ifTrue: [ ^ value ].
+	type = 'NS' ifTrue: [ ^ value collect: [ :each | each asNumber ] ].
+	type = 'BS' ifTrue: [ ^ value collect: [ :each | each base64Decoded ] ].
+	^ value
+]
+
+{ #category : #encoding }
+DynamoDBMapper >> encodeSet: aCollection [
+	aCollection isEmpty ifTrue: [ ^ self typed: 'SS' value: #() ].
+	(aCollection anyOne isKindOf: ByteArray) ifTrue: [
+		^ self typed: 'BS' value: (aCollection collect: [ :each | each base64Encoded ]) asArray ].
+	aCollection anyOne isNumber ifTrue: [
+		^ self typed: 'NS' value: (aCollection collect: [ :each | each asString ]) asArray ].
+	^ self typed: 'SS' value: (aCollection collect: [ :each | each asString ]) asArray
+]
+
+{ #category : #encoding }
+DynamoDBMapper >> encodeValue: aValue [
+	aValue isNil ifTrue: [ ^ self typed: 'NULL' value: true ].
+	(aValue isKindOf: Boolean) ifTrue: [ ^ self typed: 'BOOL' value: aValue ].
+	aValue isNumber ifTrue: [ ^ self typed: 'N' value: aValue asString ].
+	aValue isString ifTrue: [ ^ self typed: 'S' value: aValue ].
+	(aValue isKindOf: ByteArray) ifTrue: [ ^ self typed: 'B' value: aValue base64Encoded ].
+	aValue isCollection ifTrue: [ ^ self encodeSet: aValue ].
+	^ self typed: 'S' value: aValue asString
+]
+
+{ #category : #decoding }
+DynamoDBMapper >> loadFrom: anItem [
+	| result |
+	result := Dictionary new.
+	anItem keysAndValuesDo: [ :name :typedValue |
+		result at: name asSymbol put: (self decodeValue: typedValue) ].
+	^ result
 ]
 
 { #category : #private }
-DynamoDBMapper >> loadFrom: jsonObject [
-	|  dict |
-
-	dict := Dictionary new.
-	jsonObject keysDo:[:k | | value |
-		value := jsonObject at: k .
-		self  loadType: value  key: k on: dict.].
-	^ dict
-	
-]
-
-{ #category : #private }
-DynamoDBMapper >> loadItemString: anObject [
-	| jsonObject dict |
-	jsonObject := Json readFrom: anObject readStream.
-
-	dict := Dictionary new.
-	jsonObject keysDo: [:k | | value |
-		value := jsonObject at: k .
-		self  loadType: value  key: k on: dict.].
-	^ dict
-	
-]
-
-{ #category : #private }
-DynamoDBMapper >> loadType: anObject key: aSymbol on: aDictionaryObject [
-
-	(anObject keys includes:'N') ifTrue:[ ^ aDictionaryObject at: aSymbol asSymbol put:  (anObject at:'N') asNumber ].
-	
-	(anObject keys includes:'S')  ifTrue:[  ^ aDictionaryObject at: aSymbol asSymbol put: (anObject at:'S') "utf8ToPharo" ].
-	
-	(#('NS' 'SS' 'BS') includesAll: anObject keys  )
-		 ifTrue:[ 
-			
-			(anObject keys includes:'NS')   ifTrue:[ 
-				| c |
-				c := (anObject at:'NS')  collect:[:v | v asNumber ].
-				^ aDictionaryObject at: aSymbol asSymbol put: c ].
-			
-			(anObject keys includes:'SS') ifTrue:[ 
-				| c |
-				c := (anObject at:'SS')  collect:[:v | v "utf8ToPharo" ].
-				^ aDictionaryObject at: aSymbol asSymbol put:  c ].
-			
-			(anObject keys includes:'BS')  ifTrue:[ 
-				| c |
-				c := anObject collect:[:v | v asString ].
-				^ aDictionaryObject at: aSymbol asSymbol put: c. ].
-		 ].
-	^ aDictionaryObject at: aSymbol asSymbol put: (anObject at:'B').
-		
+DynamoDBMapper >> typed: aTypeString value: aValue [
+	^ Dictionary new
+		at: aTypeString put: aValue;
+		yourself
 ]

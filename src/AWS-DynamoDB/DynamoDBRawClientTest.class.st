@@ -37,7 +37,7 @@ DynamoDBRawClientTest >> setUp [
 }'.
 
 	resp := dy operationName:  operationName contents: requestBody.
-	Json readFrom: (resp contents) readStream.
+	NeoJSONReader fromString: resp contents.
 
 ]
 
@@ -53,9 +53,9 @@ DynamoDBRawClientTest >> tearDown [
 	
 	dy := DynamoDBRawClient new.
 	operationName := #DeleteTable.
-	requestBody := JsonObject new at:'TableName' put: self tableName; asJsonString .
+	requestBody := NeoJSONWriter toString: (Dictionary new at:'TableName' put: self tableName; yourself).
 	resp := dy operationName:  operationName contents: requestBody.
-	Json readFrom: (resp contents) readStream.
+	NeoJSONReader fromString: resp contents.
 ]
 
 { #category : #'tests-low-level-api' }
@@ -64,9 +64,9 @@ DynamoDBRawClientTest >> testOperationNameContents [
 	| dy operationName  resp result requestJson |
 	dy := DynamoDBRawClient new.
 	operationName := #ListTables.
-	requestJson := DynamoDBListTables new asJsonString.
+	requestJson := NeoJSONWriter toString: DynamoDBListTables new modifiers.
 	resp := dy operationName:  operationName contents: requestJson.
-	result := Json readFrom: (resp contents) readStream.
+	result := NeoJSONReader fromString: resp contents.
 	
 	self assertCollection:( result at:'TableNames' ) equals: ( Array with: self tableName  ).
 ]

@@ -37,7 +37,7 @@ DynamoDBTableTest >> setUp [
 }'.
 
 	resp := dy operationName: operationName contents: requestBody.
-	Json readFrom: (resp contents) readStream.
+	NeoJSONReader fromString: resp contents.
 
 ]
 
@@ -53,16 +53,16 @@ DynamoDBTableTest >> tearDown [
 	
 	dy := DynamoDBRawClient new.
 	operationName := #DeleteTable.
-	requestBody := JsonObject new at:'TableName' put: self tableName; asJsonString .
+	requestBody := NeoJSONWriter toString: (Dictionary new at:'TableName' put: self tableName; yourself).
 	resp := dy operationName:  operationName contents: requestBody.
-	Json readFrom: (resp contents) readStream.
+	NeoJSONReader fromString: resp contents.
 ]
 
 { #category : #'tests-api-deleteItem' }
 DynamoDBTableTest >> testDeleteItem [
 	| dynamoTable uuid result item1 item2 |
 	
-	uuid := UUID new primMakeUUID hex.
+	uuid := UUID new asString.
 	item1 := Dictionary newFrom: {'id' -> uuid }.
 	dynamoTable := DynamoDBTable tableNamed: self tableName.
 	
@@ -74,7 +74,7 @@ DynamoDBTableTest >> testDeleteItem [
 	result := dynamoTable deleteItem: item1.
 	self assert: result isEmpty.
 	
-	uuid := UUID new primMakeUUID hex.
+	uuid := UUID new asString.
 	item2 := Dictionary
 		newFrom:
 			{('id' -> uuid).
@@ -102,7 +102,7 @@ DynamoDBTableTest >> testDescribeTable [
 { #category : #'tests-api-getItem' }
 DynamoDBTableTest >> testGetItemBy [
 	| dynamoDbTable  result dummy uuid |
-	uuid := UUID new primMakeUUID hex.
+	uuid := UUID new asString.
 	dummy := Dictionary new.
 	dummy at:'id' put: uuid.
 	dummy at:'username' put: 'newapplesho'.
@@ -113,6 +113,92 @@ DynamoDBTableTest >> testGetItemBy [
 	
 	result := dynamoDbTable getItemBy: {#id->uuid} asDictionary.
 	self assert: ( (result at:#description) =  'foobar' ).
+]
+
+{ #category : #'tests-api-getItem' }
+DynamoDBTableTest >> testGetItemByInitialisesMapperOnFreshTable [
+	"getItemBy: is the first mapper-using call on this fresh table; it must
+	 lazily create the mapper rather than fail on a nil ivar."
+	| dynamoTable result |
+	dynamoTable := DynamoDBTable tableNamed: self tableName.
+	result := dynamoTable getItemBy: { #id -> UUID new asString } asDictionary.
+	self assert: result isEmpty.
+]
+
+{ #category : #'tests-api-putItem' }
+DynamoDBTableTest >> testNonAsciiStringRoundTrip [
+	| dynamoTable uuid original result |
+	uuid := UUID new asString.
+	original := String withAll: {
+		$c. $a. $f. $e.
+		(Character value: 233).
+		(Character value: 26085).
+		(Character value: 26412) }.
+	dynamoTable := DynamoDBTable tableNamed: self tableName.
+	dynamoTable putItem: (Dictionary newFrom: { 'id' -> uuid. 'name' -> original }).
+	result := dynamoTable getItemBy: { #id -> uuid } asDictionary.
+	self assert: (result at: #name) equals: original.
+]
+
+{ #category : #'tests-types' }
+DynamoDBTableTest >> putItem: aDictionary thenGet: aUuid [
+	| table |
+	table := DynamoDBTable tableNamed: self tableName.
+	table putItem: aDictionary.
+	^ table getItemBy: { #id -> aUuid } asDictionary
+]
+
+{ #category : #'tests-types' }
+DynamoDBTableTest >> testNumberRoundTrip [
+	| uuid result |
+	uuid := UUID new asString.
+	result := self putItem: (Dictionary newFrom: { 'id' -> uuid. 'age' -> 42 }) thenGet: uuid.
+	self assert: (result at: #age) equals: 42.
+]
+
+{ #category : #'tests-types' }
+DynamoDBTableTest >> testBooleanRoundTrip [
+	| uuid result |
+	uuid := UUID new asString.
+	result := self
+		putItem: (Dictionary newFrom: { 'id' -> uuid. 'active' -> true. 'deleted' -> false })
+		thenGet: uuid.
+	self assert: (result at: #active).
+	self deny: (result at: #deleted).
+]
+
+{ #category : #'tests-types' }
+DynamoDBTableTest >> testNullRoundTrip [
+	| uuid result |
+	uuid := UUID new asString.
+	result := self putItem: (Dictionary newFrom: { 'id' -> uuid. 'note' -> nil }) thenGet: uuid.
+	self assert: (result includesKey: #note).
+	self assert: (result at: #note) isNil.
+]
+
+{ #category : #'tests-types' }
+DynamoDBTableTest >> testNumberSetRoundTrip [
+	| uuid result |
+	uuid := UUID new asString.
+	result := self putItem: (Dictionary newFrom: { 'id' -> uuid. 'scores' -> #(3 1 2) }) thenGet: uuid.
+	self assert: (result at: #scores) asSortedCollection asArray equals: #(1 2 3).
+]
+
+{ #category : #'tests-types' }
+DynamoDBTableTest >> testStringSetRoundTrip [
+	| uuid result |
+	uuid := UUID new asString.
+	result := self putItem: (Dictionary newFrom: { 'id' -> uuid. 'tags' -> #('b' 'a') }) thenGet: uuid.
+	self assert: (result at: #tags) asSortedCollection asArray equals: #('a' 'b').
+]
+
+{ #category : #'tests-types' }
+DynamoDBTableTest >> testBinaryRoundTrip [
+	| uuid original result |
+	uuid := UUID new asString.
+	original := #[1 2 3 255 0 128].
+	result := self putItem: (Dictionary newFrom: { 'id' -> uuid. 'blob' -> original }) thenGet: uuid.
+	self assert: (result at: #blob) equals: original.
 ]
 
 { #category : #'tests-api-listTables' }
@@ -126,13 +212,13 @@ DynamoDBTableTest >> testListTables [
 { #category : #'tests-api-putItem' }
 DynamoDBTableTest >> testPutItem [
 	| dynamoDbTable  result  uuid item |
-	uuid := UUID new primMakeUUID hex.
+	uuid := UUID new asString.
 	item := Dictionary newFrom: {'id'-> uuid.}.
 	dynamoDbTable := DynamoDBTable tableNamed: self tableName.
 	result := dynamoDbTable putItem: item.
 	self assert: (result isEmpty).
 	
-	uuid := UUID new primMakeUUID hex.
+	uuid := UUID new asString.
 	item := Dictionary newFrom: {'id'-> uuid. 'name'-> 'newapplesho' }.
 	dynamoDbTable := DynamoDBTable tableNamed: self tableName.
 	result := dynamoDbTable putItem: item.
@@ -142,7 +228,7 @@ DynamoDBTableTest >> testPutItem [
 { #category : #'tests-api-putItem' }
 DynamoDBTableTest >> testPutItemConditionExpressionString [
 	| dynamoDbTable  result uuid dummy1 dummy2 dummy3 dummy4 response enu |
-	uuid := UUID new primMakeUUID hex.
+	uuid := UUID new asString.
 	dummy1 := {'id'->uuid. 'username'->'newapplesho'. 'description'->'foobar' } asDictionary.
 	dynamoDbTable := DynamoDBTable tableNamed: self tableName.
 	result := dynamoDbTable putItem: dummy1.
@@ -162,7 +248,7 @@ DynamoDBTableTest >> testPutItemConditionExpressionString [
 	response := dynamoDbTable response.
 	self assert: (response status = 400).
 	
-	uuid := UUID new primMakeUUID hex.
+	uuid := UUID new asString.
 	dummy4 := {'id'->uuid. 'username'->'newapplesho'. 'description'->'foobar' } asDictionary.
 	dynamoDbTable := DynamoDBTable tableNamed: self tableName.
 	dynamoDbTable putItem: dummy4 conditionExpressionString: 'attribute_not_exists(id)'.
@@ -181,7 +267,7 @@ DynamoDBTableTest >> testPutItemConditionExpressionString [
 { #category : #'test-api-query' }
 DynamoDBTableTest >> testQueryKeyConditionExpressionStringBinding [
 	| dynamoTable  result uuid dummy |
-	uuid := UUID new primMakeUUID hex.
+	uuid := UUID new asString.
 	dummy := {'id'->uuid. 'username'->'newapplesho'. 'description'->'foobar' } asDictionary.
 	dynamoTable := DynamoDBTable tableNamed: self tableName.
 	result := dynamoTable putItem: dummy.
@@ -203,7 +289,7 @@ DynamoDBTableTest >> testScanAll [
 	dynamoDbTable := DynamoDBTable tableNamed: self tableName.	
 
 	20 timesRepeat: [ 
-		dynamoDbTable putItem: {'id'->UUID new primMakeUUID hex} asDictionary. ].
+		dynamoDbTable putItem: {'id'->UUID new asString} asDictionary. ].
 
 	dynamoDbTable numberOfResultsToFetch: 5.
 	enu := dynamoDbTable enumerator.

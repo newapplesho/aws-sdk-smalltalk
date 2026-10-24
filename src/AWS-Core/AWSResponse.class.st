@@ -31,12 +31,12 @@ AWSResponse >> response: anObject [
 { #category : #accessing }
 AWSResponse >> value [
 	| responseJson exception |
-	responseJson := Json readFrom: self response contents readStream.
-	self response isSuccess 
+	responseJson := NeoJSONReader fromString: self response contents.
+	self response isSuccess
 		ifTrue:[ ^ responseJson ].
-	
+
 	exception := self defaultExceptionClass new.
 	exception properties: responseJson.
-	exception messageText: responseJson message.
+	exception messageText: (responseJson at: 'message' ifAbsent: [ nil ]).
 	exception signal.
 ]

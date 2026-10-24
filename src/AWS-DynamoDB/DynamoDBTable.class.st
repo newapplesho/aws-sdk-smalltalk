@@ -14,10 +14,6 @@ Class {
 }
 
 { #category : #public }
-DynamoDBTable class >> listTables [
-]
-
-{ #category : #public }
 DynamoDBTable class >> tableNamed: aString [
 	^ self new
 		tableName: aString;
@@ -27,9 +23,10 @@ DynamoDBTable class >> tableNamed: aString [
 { #category : #action }
 DynamoDBTable >> action: aDynamoDbOperation [
 	aDynamoDbOperation tableName: self tableName.
-	response := self client 
-		operationName: aDynamoDbOperation operationType contents: aDynamoDbOperation asJsonString.
-	^ Json readFrom: response contents readStream
+	response := self client
+		operationName: aDynamoDbOperation operationType
+		contents: (NeoJSONWriter toString: aDynamoDbOperation modifiers).
+	^ NeoJSONReader fromString: response contents
 ]
 
 { #category : #private }
@@ -58,7 +55,7 @@ DynamoDBTable >> defaultDynamoDbClient [
 DynamoDBTable >> deleteItem: anObject [
 	| operation dynamoDbJson |
 	operation := DynamoDBDeleteItem new.
-	dynamoDbJson := mapper convert: anObject.
+	dynamoDbJson := self mapper convert: anObject.
 	operation key: dynamoDbJson.
 	^ self action: operation
 ]
@@ -80,14 +77,14 @@ DynamoDBTable >> getItem: aDynamoDBGetItem [
 	| jsonObject |
 	jsonObject := self action: aDynamoDBGetItem.
 	jsonObject ifEmpty:[ ^ jsonObject ].
-	^ mapper loadFrom: (jsonObject at:'Item') .
+	^ self mapper loadFrom: (jsonObject at:'Item') .
 ]
 
 { #category : #'api-getItem' }
 DynamoDBTable >> getItemBy: anObject [
 	| operation keyDynamoJson |
 	operation := DynamoDBGetItem new.
-	keyDynamoJson := mapper convert: anObject.
+	keyDynamoJson := self mapper convert: anObject.
 	operation key: keyDynamoJson.
 	^ self getItem: operation
 ]
@@ -159,8 +156,8 @@ DynamoDBTable >> putItem: anObject conditionExpressionString: aString binding: a
 	dict := self checkRespondsToProperties: anObject.
 	operation := DynamoDBPutItem new.
 	operation conditionExpression: aString.
-	aDictionary ifNotNil: [  
-		dynamoDbJson := mapper convert: aDictionary.
+	aDictionary ifNotNil: [
+		dynamoDbJson := self mapper convert: aDictionary.
 		operation expressionAttributeValues: dynamoDbJson. ].
 	itemDynamoDbJson := self mapper convert: dict .
 	operation item: itemDynamoDbJson.
@@ -171,8 +168,8 @@ DynamoDBTable >> putItem: anObject conditionExpressionString: aString binding: a
 DynamoDBTable >> query: aDynamoDbQuery [
 	| jsonObject |
 	jsonObject := self action: aDynamoDbQuery.
-	(jsonObject at:'Count') >  0 
-		ifTrue:[ ^ (jsonObject at:'Items') collect:[:v | mapper loadFrom:  v ].]  
+	(jsonObject at:'Count') >  0
+		ifTrue:[ ^ (jsonObject at:'Items') collect:[:v | self mapper loadFrom:  v ].]
 		ifFalse:[ ^#() ].
 ]
 
@@ -202,8 +199,8 @@ DynamoDBTable >> response: anObject [
 DynamoDBTable >> scan: aDynamoDbScan [
 	| jsonObject |
 	jsonObject := self action: aDynamoDbScan.
-	(jsonObject at:'Count') >  0 
-		ifTrue:[ ^ (jsonObject at:'Items') collect:[:v | mapper loadFrom:  v ].]  
+	(jsonObject at:'Count') >  0
+		ifTrue:[ ^ (jsonObject at:'Items') collect:[:v | self mapper loadFrom:  v ].]
 		ifFalse:[ ^#() ].
 ]
 
@@ -221,9 +218,9 @@ DynamoDBTable >> scanNumberOfResultsToFetch:  aNumber andLastEvaluatedKey: aLast
 	aLastEvaluatedKeyObject ifNotNil:[ dynamoDbScan exclusiveStartKey: aLastEvaluatedKeyObject. ].
 	dynamoDbScan limit: aNumber.
 	resultJson := self action: dynamoDbScan.
-	lastEvaluatedKey := resultJson at:'LastEvaluatedKey'.
-	(resultJson at:'Items') do:[:item | 
-		resultCollection add: (mapper loadFrom:  item) ].
+	lastEvaluatedKey := resultJson at:'LastEvaluatedKey' ifAbsent: [ nil ].
+	(resultJson at:'Items') do:[:item |
+		resultCollection add: (self mapper loadFrom:  item) ].
 	
 	^ resultCollection.
 ]

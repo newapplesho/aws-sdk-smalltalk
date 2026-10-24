@@ -25,7 +25,9 @@ DynamoDBRawClient >> operationName: operationName contents: json [
 	request headers contentType:'application/x-amz-json-1.0'. 
 	request headers at:'host' put: self awsConfig endpoint.
 	request headers at:'x-amz-date' put: datetimeString.
-	request headers at:'x-amz-target' put: ( self awsConfig serviceName, '_', self awsConfig apiVersion,'.', operationName ).	
+	request headers at:'x-amz-target' put: ( self awsConfig serviceName, '_', self awsConfig apiVersion,'.', operationName ).
+	self awsConfig sessionToken ifNotNil: [ :token |
+		request headers at:'X-Amz-Security-Token' put: token ].
 	request setAuthorization: ( SignatureV4 creatAuthorization: request andConfig: self awsConfig andDateTime: datetimeString andOption: nil ).
 	^ self request: request andOption: nil.
 	

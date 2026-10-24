@@ -34,30 +34,22 @@ CloudFront >> distributionId: anObject [
 
 { #category : #actions }
 CloudFront >> getInvalidation: invalidationId [
-	| amzDatePrintString request |
-	amzDatePrintString := self amzDatePrintString.
+	| request |
 	request := ZnRequest empty.
 	request method: #GET.
 	request url: self invalidationUri, '/', invalidationId.
 	request headers at: 'host' put: self awsConfig endpoint.
-	request headers at: 'x-amz-date' put: amzDatePrintString.
-	request
-		setAuthorization: (SignatureV4 creatAuthorization: request andConfig: self awsConfig andDateTime: amzDatePrintString).
-	^ self client request: request andOption: nil
+	^ self client request: (self signRequest: request) andOption: nil
 ]
 
 { #category : #actions }
 CloudFront >> getInvalidationList [
-	| amzDatePrintString request |
-	amzDatePrintString := self amzDatePrintString.
+	| request |
 	request := ZnRequest empty.
 	request method: #GET.
 	request url: self invalidationUri.
 	request headers at: 'host' put: self awsConfig endpoint.
-	request headers at: 'x-amz-date' put: amzDatePrintString.
-	request
-		setAuthorization: (SignatureV4 creatAuthorization: request andConfig: self awsConfig andDateTime: amzDatePrintString).
-	^ self client request: request andOption: nil
+	^ self client request: (self signRequest: request) andOption: nil
 ]
 
 { #category : #constants }
@@ -67,11 +59,10 @@ CloudFront >> invalidationUri [
 
 { #category : #actions }
 CloudFront >> postInvalidation: aXMLStringOrCFInvalidationBatch [
-	| amzDatePrintString request requestBody |
+	| request requestBody |
 	requestBody  := aXMLStringOrCFInvalidationBatch.
-	requestBody class = CFInvalidationBatch 
+	requestBody class = CFInvalidationBatch
 		ifTrue: [ requestBody := aXMLStringOrCFInvalidationBatch asXMLString ].
-	amzDatePrintString := self amzDatePrintString.
 	request := ZnRequest empty.
 	request method: #POST.
 	request url: self invalidationUri.
@@ -82,8 +73,5 @@ CloudFront >> postInvalidation: aXMLStringOrCFInvalidationBatch [
 				usingType: ZnMimeType textXML
 				andLength: requestBody byteSize).
 	request headers at: 'host' put: self awsConfig endpoint.
-	request headers at: 'x-amz-date' put: amzDatePrintString.
-	request
-		setAuthorization: (SignatureV4 creatAuthorization: request andConfig: self awsConfig andDateTime: amzDatePrintString).
-	^ self client request: request andOption: nil
+	^ self client request: (self signRequest: request) andOption: nil
 ]

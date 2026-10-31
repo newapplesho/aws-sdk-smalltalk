@@ -25,7 +25,7 @@ services:
     # to <bucket>.localhost, which resolves to 127.0.0.1 (RFC 6761) — no magic
     # DNS needed. Pinned by digest; :latest is only the Dependabot anchor.
     # Mounts the Docker socket so floci can run its service engines.
-    image: floci/floci:latest@sha256:bec9b9f749322444a57fb0f00d3e007ffd49015162361aab84ccecd9b4f5f8ed
+    image: floci/floci:latest@sha256:e0b292df4dc9559b7b1bf4f51bdda4bb8e269276236438cd03cae661260ea8a9
     container_name: aws-sdk-smalltalk-floci
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

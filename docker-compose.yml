@@ -13,7 +13,7 @@ services:
     # Pinned by digest for reproducibility. The :latest tag is only the anchor
     # Dependabot uses to detect a new digest and open a bump PR (see
     # .github/dependabot.yml, docker-compose ecosystem).
-    image: amazon/dynamodb-local:latest@sha256:ff89bd48ff32cd8d9be5fee8873b65b8854dc408f1afe881be6eb00247bc0dab
+    image: amazon/dynamodb-local:latest@sha256:6ada631ec7aa5fc83446855eb17233e3dad184fec47477e8140c6c569cfe0c86
     container_name: aws-sdk-smalltalk-ddb
     command: "-jar DynamoDBLocal.jar -inMemory -sharedDb"
     ports:

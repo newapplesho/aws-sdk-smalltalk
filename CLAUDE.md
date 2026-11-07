@@ -12,7 +12,7 @@ A `Makefile` wraps a local Pharo image in `pharo-local/` (see
 [docs/development.md](docs/development.md)):
 
 ```bash
-make setup     # one-time: download Pharo 13 image + VM into pharo-local/
+make setup     # one-time: download Pharo 14 image + VM into pharo-local/
 make load      # load/reload the project into the image
 make test      # run tests headless (pattern AWS.*, broader than what CI runs — see below)
 make ui        # open the Pharo GUI
@@ -35,14 +35,14 @@ expression (paste into a Playground with Ctrl+D to load manually). CI uses
 [smalltalkCI](https://github.com/hpi-swa/smalltalkCI):
 
 ```bash
-smalltalkci -s Pharo64-13 .smalltalk.ston   # matrix also covers Pharo64-12
+smalltalkci -s Pharo64-14 .smalltalk.ston   # matrix also covers Pharo64-12/13
 ```
 
 After editing a `.class.st` file, reload it into the image (`make load`,
 re-run the Metacello load, or use Iceberg), otherwise the change is not
 reflected in tests.
 
-**CI test scope:** the `build` job (`.smalltalk.ston`, Pharo 12/13) runs only
+**CI test scope:** the `build` job (`.smalltalk.ston`, Pharo 12/13/14) runs only
 the offline unit-test classes listed in its `#include`; the live emulator
 tests run only in the `integration` job (`.smalltalk.ci-integration.ston`).
 `make test` runs a broader local pattern (`AWS.*`) — expect the DynamoDB and

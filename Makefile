@@ -4,7 +4,7 @@
 PHARO_DIR     = pharo-local
 PHARO         = ./pharo --headless Pharo.image
 TEST_PATTERN  = AWS.*
-PHARO_VERSION = 130
+PHARO_VERSION = 140
 
 .PHONY: help setup load test ui ddb-up floci-up emu-up emu-down
 

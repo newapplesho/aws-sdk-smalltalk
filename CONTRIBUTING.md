@@ -29,7 +29,7 @@ This is a Pharo / [Tonel](https://github.com/pharo-vcs/tonel) project built
 against a local Pharo image:
 
 ```bash
-make setup   # one-time: download Pharo 13 image + VM into pharo-local/
+make setup   # one-time: download Pharo 14 image + VM into pharo-local/
 make load    # load (or reload) the project into the image
 make test    # run tests headless (pattern AWS.*)
 make ui      # open the Pharo GUI
@@ -103,5 +103,5 @@ Open pull requests against `main`.
   an integration-tested service.
 - Write commit messages that state what changed and why. The history uses a
   short type prefix for tooling-related commits (for example `ci:`).
-- CI must pass: the `build` job (smalltalkCI on Pharo 12 and 13) and the
+- CI must pass: the `build` job (smalltalkCI on Pharo 12, 13 and 14) and the
   `integration` job (the emulator-backed suite).

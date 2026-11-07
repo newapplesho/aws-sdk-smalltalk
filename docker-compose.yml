@@ -21,9 +21,11 @@ services:
 
   floci:
     # Local AWS emulator (MIT-licensed, no auth token). The AWS-S3 tests reach
-    # it at localhost:4566; the SDK's virtual-hosted addressing sends requests
-    # to <bucket>.localhost, which resolves to 127.0.0.1 (RFC 6761) — no magic
-    # DNS needed. Pinned by digest; :latest is only the Dependabot anchor.
+    # it at localhost:4566. The SDK addresses buckets in virtual-hosted style,
+    # so requests go to <bucket>.localhost. macOS resolves that name to
+    # 127.0.0.1 (RFC 6761); Linux does not, so the CI integration job adds the
+    # bucket host to /etc/hosts. Pinned by digest; :latest is only the
+    # Dependabot anchor.
     # Mounts the Docker socket so floci can run its service engines.
     image: floci/floci:latest@sha256:bec9b9f749322444a57fb0f00d3e007ffd49015162361aab84ccecd9b4f5f8ed
     container_name: aws-sdk-smalltalk-floci

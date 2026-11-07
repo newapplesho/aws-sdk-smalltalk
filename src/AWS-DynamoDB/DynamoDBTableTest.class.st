@@ -1,5 +1,18 @@
 "
-A DynamoDBTableTest is a test class for testing the behavior of DynamoDBTable
+I am a live integration test for DynamoDBTable. I send requests to
+DynamoDB Local instead of real AWS.
+
+I need DynamoDB Local listening on localhost:8000. Start it with
+`make ddb-up` (see docker-compose.yml). If DynamoDB Local is not running, my
+tests fail with connection errors. In CI, the `integration` job starts
+DynamoDB Local and runs me; the `build` job does not run me.
+
+My setUp calls `AWSDynamoDBConfig developmentDynamoDBSetting`, which points
+the shared default config at localhost:8000, and creates the table
+dynamoDbTestTable. My tearDown deletes that table. Every test that writes an
+item uses a new UUID as the item key. testListTables expects
+dynamoDbTestTable to be the only table, so DynamoDB Local must not hold any
+other table while I run.
 "
 Class {
 	#name : #DynamoDBTableTest,

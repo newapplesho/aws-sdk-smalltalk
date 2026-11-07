@@ -11,17 +11,25 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+permissions: {}
+
 jobs:
-   build:
-    runs-on:  ubuntu-24.04
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
     strategy:
       matrix:
-        smalltalk: [ Pharo64-12, Pharo64-13 ]
+        smalltalk: [ Pharo64-12, Pharo64-13, Pharo64-14 ]
     name: ${{ matrix.smalltalk }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Set up Smalltalk CI
-        uses: hpi-swa/setup-smalltalkCI@c0a3a3b942ac515b6c3846ca2f65802d353757ef # v1
+        uses: hpi-swa/setup-smalltalkCI@c0a3a3b942ac515b6c3846ca2f65802d353757ef # 1.6.3
         with:
           smalltalk-image: ${{ matrix.smalltalk }}
       - name: Load Image and Run Tests
@@ -30,17 +38,23 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         timeout-minutes: 15
 
-   integration:
+  integration:
     runs-on: ubuntu-24.04
-    name: integration (Pharo64-13)
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    name: integration (Pharo64-14)
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Start local emulators (DynamoDB Local + floci)
         run: docker compose up -d
       - name: Resolve the S3 test bucket host
         # Linux runners do not resolve *.localhost, and floci only recognises a
-        # virtual-hosted bucket when the host ends in .localhost. Pin the bucket
-        # name and add just that host to /etc/hosts.
+        # virtual-hosted bucket when the host ends in .localhost. This step
+        # maps the bucket host to 127.0.0.1. The bucket name must match
+        # S3_TEST_BUCKET in the integration test step below.
         run: echo "127.0.0.1 aws-sdk-st-ci.localhost" | sudo tee -a /etc/hosts
       - name: Wait for emulators
         run: |
@@ -52,14 +66,15 @@ jobs:
           done
           echo "emulators did not become ready"; docker compose logs; exit 1
       - name: Set up Smalltalk CI
-        uses: hpi-swa/setup-smalltalkCI@c0a3a3b942ac515b6c3846ca2f65802d353757ef # v1
+        uses: hpi-swa/setup-smalltalkCI@c0a3a3b942ac515b6c3846ca2f65802d353757ef # 1.6.3
         with:
-          smalltalk-image: Pharo64-13
+          smalltalk-image: Pharo64-14
       - name: Load Image and Run Integration Tests
         # .smalltalk.ci-integration.ston loads every AWS package and runs the
-        # full AWS.* suite, including the live DynamoDB Local / floci tests.
-        # (STON has no comment syntax, so the note lives here.)
-        run: smalltalkci -s Pharo64-13 .smalltalk.ci-integration.ston
+        # full AWS.* suite, including the tests that call DynamoDB Local and
+        # floci. STON has no comment syntax, so this note is kept here instead
+        # of in the .ston file.
+        run: smalltalkci -s Pharo64-14 .smalltalk.ci-integration.ston
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           S3_TEST_BUCKET: aws-sdk-st-ci

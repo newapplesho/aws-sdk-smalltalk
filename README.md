@@ -7,19 +7,19 @@ native libraries and no generated code.
 
 ## Requirements
 
-The current version targets **Pharo 12 and 13** (the versions CI runs against).
+The current version targets **Pharo 12, 13 and 14** (the versions CI runs against).
 Older Pharo releases are served by earlier tags:
 
 | Pharo | Use |
 | ----- | --- |
-| 12.0, 13.0 | latest (`main`) |
+| 12.0, 13.0, 14.0 | latest (`main`) |
 | 11.0 | tag `v1.15.0` |
 | 7.0, 8.0 | tag `v1.11.1` |
 | ≤ 6.0 | tag `v1.10.4` |
 
 ## Install
 
-From inside Pharo 12 or 13, load with Metacello:
+From inside Pharo 12, 13 or 14, load with Metacello:
 
 ```smalltalk
 Metacello new

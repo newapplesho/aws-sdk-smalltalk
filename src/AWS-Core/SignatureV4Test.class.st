@@ -4,24 +4,9 @@ Class {
 	#category : #'AWS-Core-Tests'
 }
 
-{ #category : #'tests-private' }
-SignatureV4Test >> canonicalHeadersString [
-	^ ('content-length:2', String lf,
-				'content-type:application/x-amz-json-1.0', String lf,
-				'host:dynamodb.ap-northeast-1.amazonaws.com', String lf,
-				'user-agent:Zinc HTTP Components 1.0 ({1})', String lf,
-				'x-amz-date:20141215T104253Z', String lf,
-				'x-amz-target:application/x-amz-json-1.0', String lf) format: { self systemVersion }.
-]
-
 { #category : #running }
 SignatureV4Test >> setUp [
 
-]
-
-{ #category : #'tests-private' }
-SignatureV4Test >> systemVersion [
-	^ SystemVersion current type , '/' , SystemVersion current dottedMajorMinor 
 ]
 
 { #category : #running }
@@ -85,20 +70,14 @@ SignatureV4Test >> testCreatCanonicalHeaders [
 	request headers at: 'x-amz-date' put: '20141215T104253Z'.
 	request headers at: 'x-amz-target' put: 'application/x-amz-json-1.0'.
 
-	Smalltalk version >= 'Pharo6.0'
-		ifTrue: [
-			self
-				assert: (SignatureV4 new creatCanonicalHeaders: request)
-				equals: self canonicalHeadersString ]
-		ifFalse: [
-			self
-				assert: (SignatureV4 new creatCanonicalHeaders: request)
-				equals: 'content-length:2' , String lf
-					, 'content-type:application/x-amz-json-1.0' , String lf
-					, 'host:dynamodb.ap-northeast-1.amazonaws.com' , String lf
-					, 'user-agent:', (ZnRequest empty headers at:'User-Agent') , String lf
-					, 'x-amz-date:20141215T104253Z' , String lf
-					, 'x-amz-target:application/x-amz-json-1.0' , String lf ]
+	self
+		assert: (SignatureV4 new creatCanonicalHeaders: request)
+		equals: 'content-length:2' , String lf
+			, 'content-type:application/x-amz-json-1.0' , String lf
+			, 'host:dynamodb.ap-northeast-1.amazonaws.com' , String lf
+			, 'user-agent:' , (ZnRequest empty headers at: 'User-Agent') , String lf
+			, 'x-amz-date:20141215T104253Z' , String lf
+			, 'x-amz-target:application/x-amz-json-1.0' , String lf
 ]
 
 { #category : #'tests-private' }
@@ -111,7 +90,6 @@ SignatureV4Test >> testCreatPreSignedUrlToRequestConfigDateTimeOption [
 	request uri queryAt: 'Version' put: '2010-05-08'.
 	request headers at: 'host' put: 'iam.amazonaws.com'.
 	request headers at: 'content-type' put: 'application/x-www-form-urlencoded; charset=utf-8'.
-	"request headers at: 'X-Amz-Date' put: '20150830T123600Z'."
 	request headers removeKey: 'User-Agent'.
 	request headers removeKey: 'Content-Length' ifAbsent: [ '' ].
 	awsConfig := AWSIAMConfig new.
@@ -261,18 +239,18 @@ SignatureV4Test >> testCreateStringtoSignandDateTimeandCanonicalRequest [
 SignatureV4Test >> testGetEncodedSortQueryString [
 	| dict |
 	
-	dict := '/' asUrl query.
+	dict := '/' asZnUrl query.
 	self assert:( (SignatureV4 new getEncodedSortQueryString: dict) = '' ).
 	
-	dict := '/?b=2&Z=1' asUrl query.
+	dict := '/?b=2&Z=1' asZnUrl query.
 	self assert:( (SignatureV4 new getEncodedSortQueryString: dict) = 'Z=1&b=2' ).
 	
-	dict := '/?a c=2' asUrl query.
+	dict := '/?a c=2' asZnUrl query.
 	self assert:( (SignatureV4 new getEncodedSortQueryString: dict) = 'a%20c=2' ).
 	
-	dict := '/?D=3&b=2&Z=1' asUrl query.
+	dict := '/?D=3&b=2&Z=1' asZnUrl query.
 	self assert:( (SignatureV4 new getEncodedSortQueryString: dict) = 'D=3&Z=1&b=2' ).
 	
-	dict := '/?foasdfasd  o=Zoo&foo=aha&D=aaaa&GS=xxxx' asUrl query.
+	dict := '/?foasdfasd  o=Zoo&foo=aha&D=aaaa&GS=xxxx' asZnUrl query.
 	self assert:( (SignatureV4 new getEncodedSortQueryString: dict) = 'D=aaaa&GS=xxxx&foasdfasd%20%20o=Zoo&foo=aha').
 ]

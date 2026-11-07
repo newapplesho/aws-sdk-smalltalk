@@ -102,7 +102,7 @@ Documented here as facts, not fixed as part of adding this documentation:
   correctly). Reason unknown.
 - The legacy `Cryptography` package (source of the `SHA256` class every
   signing operation depends on) is declared `for: #'pharo3.x'` only, yet the
-  CI matrix (`.github/workflows/ci.yml`) targets Pharo 7 through 13. Reason
+  CI matrix (`.github/workflows/ci.yml`) targets Pharo 12 through 14. Reason
   unknown — do not assume it is safe to remove or adjust without first
   confirming how `SHA256` is actually being loaded on the newer images.
 

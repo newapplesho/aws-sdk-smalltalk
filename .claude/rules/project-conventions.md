@@ -152,7 +152,7 @@ automatically; the caller must do that manually via `sessionToken:`.
 - The legacy `Cryptography` package (source of `SHA256`, used by
   `SignatureV4` and every service's `createRequest:...`) is declared in
   `BaselineOfAWS` only `for: #'pharo3.x'`, yet is used unconditionally by code
-  that also targets Pharo 7–13 per the CI matrix. Reason unknown — do not
+  that also targets Pharo 12–14 per the CI matrix. Reason unknown — do not
   assume this is safe to remove; do not silently "fix" the `for:` guard
   without confirming how `SHA256` actually gets loaded on modern Pharo images.
 
@@ -162,7 +162,7 @@ The CI workflow (`.github/workflows/ci.yml`) has two jobs. The **`build`** job
 runs `.smalltalk.ston`, which restricts testing to the offline unit-test
 classes listed in its `#include` (`BaselineOfAWS`'s `Tests` group is
 `#('AWS-Core' 'AWS-S3' 'AWS-Lambda' 'AWS-DynamoDB')`, `CI` group is
-`#('Tests')`) — offline, on the Pharo 12/13 matrix. The **`integration`** job
+`#('Tests')`) — offline, on the Pharo 12/13/14 matrix. The **`integration`** job
 starts the emulators from `docker-compose.yml`, adds an `/etc/hosts` entry for
 the S3 bucket host, and runs `.smalltalk.ci-integration.ston` (loads all
 packages, runs the full `AWS.*` suite including the live DynamoDB + floci S3

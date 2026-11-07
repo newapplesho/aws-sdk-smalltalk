@@ -15,7 +15,7 @@ Download a local Pharo image + VM into `pharo-local/` (git-ignored):
 make setup
 ```
 
-This fetches Pharo 13 via `get.pharo.org` (the README lists 12.0/13.0 as the
+This fetches Pharo 14 via `get.pharo.org` (the README lists 12.0/13.0/14.0 as the
 currently CI-tested versions). To use a different version, override
 `PHARO_VERSION` (e.g. `make setup PHARO_VERSION=120`).
 
@@ -73,7 +73,7 @@ you are adding an entirely new service package (in which case update
 
 Two different things run tests, with two different scopes:
 
-- **CI `build` job** (`smalltalkci` + `.smalltalk.ston`, Pharo 12/13) runs
+- **CI `build` job** (`smalltalkci` + `.smalltalk.ston`, Pharo 12/13/14) runs
   only the offline unit-test classes listed in `.smalltalk.ston`'s
   `#include` (`SignatureV4Test`, `AWSClientTest`, `AWSS3ConfigTest`,
   `AWSS3RequestTest`, `AWSLambdaConfigTest`, `AWSLambdaRequestTest`,
@@ -81,7 +81,7 @@ Two different things run tests, with two different scopes:
   `DynamoDBRawClientRequestTest`). `BaselineOfAWS`'s
   `Tests` group (`CI` group is `Tests`) loads `AWS-Core`, `AWS-S3`,
   `AWS-Lambda` and `AWS-DynamoDB` so those classes are present.
-- **CI `integration` job** (`.smalltalk.ci-integration.ston`, Pharo 13)
+- **CI `integration` job** (`.smalltalk.ci-integration.ston`, Pharo 14)
   starts the emulators and runs the full `AWS.*` suite, including the live
   integration tests below.
 - **`make test`** (this project's new local target) runs the broader
@@ -112,8 +112,10 @@ make emu-down                            # stop everything (docker compose down)
 
 floci is chosen over LocalStack because it is MIT-licensed and needs no auth
 token (recent LocalStack images require one). It listens on the same port
-(`4566`) and works with the SDK's virtual-hosted S3 addressing via plain
-`<bucket>.localhost` (RFC 6761 loopback) — no magic DNS. To run only the tests
+(`4566`). The SDK addresses S3 buckets in virtual-hosted style, so requests go
+to `<bucket>.localhost`. macOS resolves that name to `127.0.0.1` (RFC 6761
+loopback); Linux does not, so the CI `integration` job adds the bucket host to
+`/etc/hosts`. To run only the tests
 that need no emulator, narrow the pattern, e.g. `make test TEST_PATTERN=AWS-Core.*`.
 
 See `.claude/rules/testing.md` and `.claude/rules/project-conventions.md` for
@@ -122,10 +124,10 @@ the full detail on this constraint and on the two existing test styles.
 ## CI
 
 `.github/workflows/ci.yml` runs smalltalkCI across a Pharo matrix
-(`Pharo64-12` and `Pharo64-13`):
+(`Pharo64-12`, `Pharo64-13` and `Pharo64-14`):
 
 ```bash
-smalltalkci -s Pharo64-13 .smalltalk.ston
+smalltalkci -s Pharo64-14 .smalltalk.ston
 ```
 
 ## Coding conventions

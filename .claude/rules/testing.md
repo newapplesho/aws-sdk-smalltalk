@@ -96,7 +96,7 @@ CI has two jobs (`.github/workflows/ci.yml`):
 
 - **`build`** runs `.smalltalk.ston`, which includes only the offline
   unit-test classes listed in its `#include` and excludes the rest of
-  `AWS.*`. Offline, fast, runs on the Pharo 12/13 matrix. A new offline test
+  `AWS.*`. Offline, fast, runs on the Pharo 12/13/14 matrix. A new offline test
   class must be added to that `#include` list to run here.
 - **`integration`** starts the emulators (`docker compose up -d`), adds one
   `/etc/hosts` line for the S3 bucket host (Linux does not resolve

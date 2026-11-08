@@ -1,4 +1,5 @@
 SmalltalkCISpec {
+  #preLoading : 'metacello.lock.st',
   #loading : [
     SCIMetacelloLoadSpec {
       #baseline : 'AWS',

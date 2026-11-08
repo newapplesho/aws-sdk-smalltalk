@@ -12,16 +12,12 @@ BaselineOfAWS >> baseline: spec [
 		
 		spec
 			baseline: 'NeoJSON'
-			with: [ spec repository: 'github://svenvc/NeoJSON/repository' ].
+			with: [ spec repository: 'github://svenvc/NeoJSON:11e274dd96dc9636cab90929937b7cd09719de7c/repository' "master" ].
 
 		spec baseline: 'XMLParser' with: [
 			spec repository:
-				'github://pharo-contributions/XML-XMLParser:master/src' ].
+				'github://pharo-contributions/XML-XMLParser:26a888381174c154b02e908f27d9d5eead3d04ec/src' "master" ].
 
-		spec for: #'pharo3.x' do: [
-			spec package: 'Cryptography' with: [
-				spec repository:
-					'http://smalltalkhub.com/mc/Cryptography/Cryptography/main' ] ].
 		spec
 			package: 'AWS-Core' with: [ spec requires: #( 'NeoJSON' ) ];
 			package: 'AWS-DynamoDB' with: [ spec requires: #( 'AWS-Core' 'NeoJSON' ) ];

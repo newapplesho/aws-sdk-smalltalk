@@ -38,9 +38,9 @@ requires `AWS-Core`; `AWS-S3` and `AWS-SNS` additionally require `XMLParser`
 in the baseline (though `AWS-STS` and `AWS-CloudFront` also use XML parsing at
 runtime without declaring that dependency — see "Known gaps" below). External
 baselines: `NeoJSON` (JSON reading/writing, used by `AWS-Core` and
-`AWS-DynamoDB`), `XMLParser`, and the legacy `Cryptography` package (declared
-only `for: #'pharo3.x'`, but its `SHA256` is used unconditionally by
-`SignatureV4` and every service).
+`AWS-DynamoDB`) and `XMLParser`. `SHA256` and HMAC, used by `SignatureV4` and
+every service, come from the image's own `System-Hashing` package, so the
+baseline declares no hashing dependency.
 
 ## Class relationships
 
@@ -100,11 +100,6 @@ Documented here as facts, not fixed as part of adding this documentation:
   their package specs in `BaselineOfAWS` only `requires: #('AWS-Core')`,
   omitting `XMLParser` (unlike `AWS-S3`/`AWS-SNS`, which declare it
   correctly). Reason unknown.
-- The legacy `Cryptography` package (source of the `SHA256` class every
-  signing operation depends on) is declared `for: #'pharo3.x'` only, yet the
-  CI matrix (`.github/workflows/ci.yml`) targets Pharo 12 through 14. Reason
-  unknown — do not assume it is safe to remove or adjust without first
-  confirming how `SHA256` is actually being loaded on the newer images.
 
 ## See also
 

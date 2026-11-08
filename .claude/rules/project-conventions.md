@@ -149,12 +149,12 @@ automatically; the caller must do that manually via `sessionToken:`.
   `XMLParser` — unlike `AWS-S3`/`AWS-SNS`, which declare it correctly. Reason
   unknown; likely works today only because `XMLParser` gets loaded
   transitively by another package in the same image.
-- The legacy `Cryptography` package (source of `SHA256`, used by
-  `SignatureV4` and every service's `createRequest:...`) is declared in
-  `BaselineOfAWS` only `for: #'pharo3.x'`, yet is used unconditionally by code
-  that also targets Pharo 12–14 per the CI matrix. Reason unknown — do not
-  assume this is safe to remove; do not silently "fix" the `for:` guard
-  without confirming how `SHA256` actually gets loaded on modern Pharo images.
+- `SHA256` and `HMAC` (used by `SignatureV4` and every service's
+  `createRequest:...`) belong to the image's own `System-Hashing` package
+  (checked on Pharo 14 with `SHA256 package name`). `BaselineOfAWS` therefore
+  declares no hashing dependency. It used to declare the smalltalkhub
+  `Cryptography` package inside `spec for: #'pharo3.x'`, which never applied
+  to the supported Pharo 12–14 images.
 
 ## CI Test Scope
 

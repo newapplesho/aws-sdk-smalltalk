@@ -52,6 +52,62 @@ Metacello new
 For a working copy, replace the repository with your local checkout:
 `'tonel://', '<repository root>/src'`.
 
+## Pinned dependencies
+
+Dependencies are fixed at commit SHAs with
+[metacello-pin](https://github.com/newapplesho/pharo-metacello-pin), in two
+places:
+
+- `BaselineOfAWS>>baseline:` pins the direct dependencies (`NeoJSON`,
+  `XMLParser`). The original ref is kept as a comment, e.g.
+  `'github://svenvc/NeoJSON:11e274dd.../repository' "master"`. Everyone who
+  loads this project gets these SHAs.
+- `metacello.lock.st` (repository root, generated, do not edit by hand) locks
+  the whole tree, including the dependencies of `XMLParser`
+  (`BitmapCharacterSet`, `OrderPreservingDictionary`, `XMLWriter`), whose own
+  baselines name branches. It is evaluated before the project is loaded by
+  `scripts/load-project.st` (`make load`) and by both smalltalkCI specs
+  (`#preLoading` in `.smalltalk.ston` and `.smalltalk.ci-integration.ston`).
+  People who load this project from their own image do not evaluate it.
+
+Dependabot does not update these SHAs.
+
+### Updating the SHAs
+
+metacello-pin runs in its own Pharo image, not in `pharo-local/`. One-time
+setup:
+
+```bash
+git clone https://github.com/newapplesho/pharo-metacello-pin
+cd pharo-metacello-pin
+make setup PHARO_VERSION=140
+make load
+```
+
+Then, from `pharo-metacello-pin/pharo-local/`, with `REPO` set to the
+absolute path of this repository (set `GITHUB_TOKEN` to avoid the GitHub API
+rate limit):
+
+1. In `src/BaselineOfAWS/BaselineOfAWS.class.st`, put the ref you want back in
+   place of the SHA (e.g. `'github://svenvc/NeoJSON:master/repository'`, or a
+   tag) and drop the old comment. `pin` only rewrites references that are not
+   pinned yet. You can also edit the SHA by hand.
+2. Pin the baseline, then regenerate the lock file:
+
+   ```bash
+   ./pharo --headless Pharo.image metacello-pin pin "$REPO/src"
+   ./pharo --headless Pharo.image metacello-pin lock "$REPO/src" --output "$REPO/metacello.lock.st"
+   ./pharo --headless Pharo.image metacello-pin check "$REPO/src"   # exit 1 if anything is unpinned
+   ```
+
+3. Do a clean reload (delete `pharo-local/Pharo.image`, `make setup`,
+   `make load`) and run the tests.
+
+Always regenerate `metacello.lock.st` after changing a pin. A locked project
+is not replaced when the baseline asks for another version (metacello-pin
+README, "Lock file"), so a stale lock file silently overrides the new pin in
+`make load` and in CI.
+
 ## Project layout
 
 | Package | Role |

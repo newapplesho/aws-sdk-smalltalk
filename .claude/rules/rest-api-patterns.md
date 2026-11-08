@@ -112,7 +112,7 @@ AWS<Service>Config (extends AWSConfig)                              ← credenti
 
 `SignatureV4` (`src/AWS-Core/SignatureV4.class.st`) implements AWS Signature
 Version 4 from the [AWS SigV4 documentation](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html)'s
-3-task structure, on top of the legacy `Cryptography` package's `SHA256`:
+3-task structure, on top of `SHA256` from the image's `System-Hashing` package:
 
 1. **Task 1 — Canonical Request**: `createCanonicalRequest:andOption:`
    (method, `ZnUrl>>awsEncodeCanonicalUri`, sorted query string, canonical
